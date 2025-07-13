@@ -4,6 +4,7 @@ import { randomUUID } from 'crypto';
 import { validateUser, responseFromDB } from '../database.js';
 import { validateLogin } from '../Validator/validations.js';
 import { hashPassword } from '../utils/utils.js';
+import { ValidationError } from '../errorHandler.js';
 
 export default function login() {
     const router = Router();
@@ -14,7 +15,7 @@ export default function login() {
         const jti = randomUUID();
 
         if (errorMessage) {
-            return res.status(400).json({ error: errorMessage });
+            throw new ValidationError(errorMessage);
         }
     
         const queryResult = await validateUser(body.email, hashPassword(body.password));

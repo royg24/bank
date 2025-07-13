@@ -1,7 +1,8 @@
 import {Router} from 'express';
 import { getUserBalance, responseFromDB } from '../database.js';
 import jwt from 'jsonwebtoken';
-import { isTokenBlacklisted } from './logout.js'
+import { isTokenBlacklisted } from './logout.js';
+import { AuthenticationError } from '../errorHandler.js';
 
 export default function getBalance() {
     const router = Router();
@@ -11,12 +12,12 @@ export default function getBalance() {
         let id = undefined;
 
         if (!token || await isTokenBlacklisted(token)) {
-            return res.status(401).json({ error: 'Unauthorized' });
+            throw new AuthenticationError('Unauthorized');
         }
         try {
         id = jwt.verify(token, process.env.JWT_KEY).id;
         } catch (error) {
-            return res.status(401).json({ error: 'Please log in' });
+            throw new AuthenticationError('Please log in');
         }
 
         const queryResult = await getUserBalance(id);

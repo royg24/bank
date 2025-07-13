@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import { NotFoundError, DataError, ValidationError } from "./errorHandler.js";
+
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
@@ -19,11 +21,6 @@ const TransactionSchema = new Schema({
 const User = mongoose.model('User', UserSchema);
 const Transaction = mongoose.model('Transaction', TransactionSchema);
 
-const errorResponse = {
-    code: 500,
-    error: 'Internal server error'
-};
-
 export async function addTransaction(id, amount, participantEmail) {
     const session = await mongoose.startSession();
 
@@ -34,29 +31,17 @@ export async function addTransaction(id, amount, participantEmail) {
         const receiver = await User.findOne({email: participantEmail});
 
         if (!receiver) {
-            return {
-                code: 404,
-                error: 'Receiver not found'
-            }
+            return new NotFoundError('Receiver not found');
         } else if (!sender) {
-            return {
-                code: 404,
-                error: 'Sender not found'
-            }
+            return new NotFoundError('Sender not found');
         }
 
         if (sender.id === receiver.id) {
-            return {
-                code: 409,
-                error: 'Cannot make a self transaction'
-            }
+            throw new DataError('Cannot make a self transaction');
         }
 
         if (sender.balance < amount) {
-            return {
-                code: 409,
-                error: 'Insufficient amount for transaction'
-            }
+            throw new DataError('Insufficient amount for transaction')
         }
 
         await addUserTransaction(Transaction, sender.id, receiver.email, amount * -1);
@@ -75,7 +60,7 @@ export async function addTransaction(id, amount, participantEmail) {
         };
     } catch(error) {
         await session.abortTransaction();
-        return errorResponse;
+        throw error;
     } finally {
         session.endSession();
     }
@@ -85,10 +70,7 @@ export async function addUser(id, email, password, phoneNumber, balance, isVerif
     try {
         const isExists = await User.exists({ email });
         if (isExists) {
-            return {
-                code: 409,
-                error: `email ${email} is taken`
-            };
+            throw new DataError(`email ${email} is taken`);
         }
 
         await User.create({
@@ -105,7 +87,7 @@ export async function addUser(id, email, password, phoneNumber, balance, isVerif
             message: 'User signed up successfully'
         }
     } catch(error) {
-        return errorResponse;
+        throw error;
     }
 }
 
@@ -117,10 +99,7 @@ export async function getUserBalance(id) {
         );
 
         if (!user) {
-            return {
-                code: 404,
-                error: 'User not found'
-            };
+            throw NotFoundError('User not found');
         } else {
             return {
                 code: 200,
@@ -128,7 +107,7 @@ export async function getUserBalance(id) {
             };
         }
     } catch(error) {
-        return errorResponse;
+        throw error;
     }
 }
 
@@ -137,10 +116,7 @@ export async function getUserTransactions(id, index) {
         const user = await User.findOne({ id: id });
 
         if (!user) {
-            return {
-                code: 404,
-                error: 'User not found'
-            };
+            throw NotFoundError('User not found');
         } else {
             const limit = 5;
             const skip = (index - 1) * limit;
@@ -160,11 +136,7 @@ export async function getUserTransactions(id, index) {
             };
         }
     } catch (error) {
-        return {
-            code: 500,
-            error: 'Internal Server Error',
-            details: error.message
-        };
+        throw error;
     }
 }
 
@@ -176,10 +148,7 @@ export async function validateUser(email, password) {
         });
 
         if (!user) {
-            return {
-                code: 401,
-                error: 'Incorrect email or password'
-            };
+            throw new ValidationError('Incorrect email or password');
         } else {
             return {
                 code: 200,
@@ -188,7 +157,7 @@ export async function validateUser(email, password) {
             }
         }
     } catch(error) {
-        return errorResponse;
+        throw error;
     }
 }
 

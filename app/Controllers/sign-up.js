@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto';
 import { addUser, responseFromDB } from '../database.js';
 import { validateSignUp } from '../Validator/validations.js';
 import { hashPassword } from '../utils/utils.js';
+import { ValidationError } from '../errorHandler.js';
 
 export default function signUp() {
     const router = Router();
@@ -12,7 +13,7 @@ export default function signUp() {
 
         const erroerMessage = validateSignUp(body, res);
         if (erroerMessage) {
-            return res.status(400).json({ error : erroerMessage });
+            throw new ValidationError(erroerMessage)
         }
         
 
