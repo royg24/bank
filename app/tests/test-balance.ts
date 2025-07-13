@@ -5,8 +5,11 @@ import jwt from 'jsonwebtoken';
 describe('Login API Tests', () => {
     const email1 = 'test@gmail.com';
     const email2 = 'test@doe.net';
-    let token1 = null;
-    let token2 = null;
+    let token1 = '';
+    let token2 = '';
+    if (!process.env.JWT_KEY) {
+        throw new Error('JWT_KEY environment variable is not defined');
+    }
     const otherToken = jwt.sign({ email: 'james@doe.com' }, process.env.JWT_KEY, 
         { expiresIn: '24h' });
 

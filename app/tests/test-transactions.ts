@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken';
 import { app } from '../server.js';
 
 describe('Transaction API Tests', () => {
-    let token1 = null;
-    let token2 = null;
+    let token1 = '';
+    let token2 = '';
 
     const email1 = 'testtest@gmail.com';
     const email2 = 'testdoe@doe.net';
