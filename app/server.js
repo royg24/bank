@@ -12,11 +12,14 @@ import crypto from 'crypto';
 import mongoose from 'mongoose';
 import { connectDB } from './database.js';
 import addRoutes from './Routes/routes.js'
+import { handleError } from './errorHandler.js';
+
 const app = express();
 const port = process.env.BACKEND_PORT;
 
 app.use(bodyParser.json());
 addRoutes(app);
+app.use(handleError);
 
 process.env.JWT_KEY = crypto.randomBytes(64).toString('hex');
 

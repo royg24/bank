@@ -15,8 +15,8 @@ RUN npm install
 
 # Copy app source files and folders
 COPY database.js ./
-COPY jest-setup.js ./
 COPY server.js ./
+COPY errorHandler.js ./
 COPY Validator ./Validator
 COPY Controllers ./Controllers
 COPY Routes ./Routes

@@ -2,6 +2,7 @@
 import {Router} from 'express';
 import jwt from 'jsonwebtoken';
 import redis from 'redis';
+import { AuthenticationError } from '../errorHandler.js';
 
 const client = redis.createClient({
   socket: {
@@ -21,7 +22,7 @@ export function logout() {
         const ttl = decoded.exp - nowInSec;
 
         if (!decoded || !decoded.jti || !decoded.exp) {
-            return res.status(400).json({ error: 'Invalid token' });
+            throw new AuthenticationError('Invalid token');
         }
 
         await client.setEx(decoded.jti, ttl, 'blacklisted');

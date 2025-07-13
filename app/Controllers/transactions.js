@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import { getUserTransactions, addTransaction, responseFromDB } from '../database.js';
 import { isTokenBlacklisted } from './logout.js';
 import { validateTransfer } from '../Validator/validations.js';
+import { ValidationError, AuthenticationError } from '../errorHandler.js';
 
 export function makeTransaction() {
     const router = Router();
@@ -13,17 +14,17 @@ export function makeTransaction() {
 
         const errorMessage = validateTransfer(body);
         if (errorMessage) {
-            return res.status(400).json({ error: errorMessage });
+            throw new ValidationError(errorMessage);
         }
         if (!token || await isTokenBlacklisted(token)) {
-            return res.status(401).json({ error: 'Unauthorized' });
+            throw new AuthenticationError('Please log in');
         }
         
         let id = undefined;
         try {
             id = jwt.verify(token, process.env.JWT_KEY).id;
         } catch (error) {
-            return res.status(401).json({ error: 'Please log in' });
+            throw new AuthenticationError('Please log in');
         }
 
         const queryResult = await addTransaction(id, body.amount, body.receiverEmail);
@@ -44,12 +45,12 @@ export function getTransactions() {
         let id = undefined;
 
         if (!token || await isTokenBlacklisted(token)) {
-            return res.status(401).json({ error: 'Please log in' });
+            throw new AuthenticationError('Please log in');
         }
         try {
             id = jwt.verify(token, process.env.JWT_KEY).id;
         } catch (error) {
-            return res.status(401).json({ error: 'Please log in' });
+            throw new AuthenticationError('Please log in');
         }
 
         const index = Number(req.query.index)
