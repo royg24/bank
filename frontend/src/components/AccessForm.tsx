@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { fieldStructure, buttonStructure, formContainerStyle } from './Style.js';
 import Toggle from './Toggle.js';
+import PasswordIcon from './PasswordIcon.js';
 import '../css/style.css';
 import { useLocation } from 'react-router-dom';
 import { validateEmail, validatePassword, validatePhoneNumber, keepPhoneNumberFormat } from './Validatios.js';
@@ -19,6 +20,7 @@ type FormData = {
 function SignUpForm() {
     const navigate = useNavigate();
 
+    const [showPassword, setShowPassword] = useState(false);
     const initialMode = useLocation().state?.mode ?? true;
     const [mode, setMode] = useState(initialMode);
     const pageText = mode ? 'Sign Up' : 'Login';
@@ -34,6 +36,10 @@ function SignUpForm() {
     useEffect(() => {
         document.title = pageText;
     });
+
+    const handleShowPassword = () => {
+        setShowPassword((prev) => !prev);
+    }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -106,7 +112,16 @@ function SignUpForm() {
                     render={({ field }) => (
                         <TextField
                             label="Password"
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
+                            slotProps={{
+                                input: {
+                                endAdornment: (
+                                    <PasswordIcon 
+                                    showPassword={showPassword}
+                                    setShowPassword={setShowPassword}
+                                    />),
+                                },
+                            }}
                             {...fieldStructure}
                             error={!!errors.password}
                             helperText={errors.password?.message || ''}
