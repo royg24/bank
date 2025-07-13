@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import { NotFoundError, DataError, ValidationError } from "./errorHandler.js";
+import { Response } from "express";
+import { NotFoundError, DataError, AuthenticationError } from "./errorHandler.js";
 
 const { Schema } = mongoose;
 
@@ -21,7 +22,7 @@ const TransactionSchema = new Schema({
 const User = mongoose.model('User', UserSchema);
 const Transaction = mongoose.model('Transaction', TransactionSchema);
 
-export async function addTransaction(id, amount, participantEmail) {
+export async function addTransaction(id : string, amount : number, participantEmail : string) {
     const session = await mongoose.startSession();
 
     try {
@@ -31,9 +32,9 @@ export async function addTransaction(id, amount, participantEmail) {
         const receiver = await User.findOne({email: participantEmail});
 
         if (!receiver) {
-            return new NotFoundError('Receiver not found');
+            throw new NotFoundError('Receiver not found');
         } else if (!sender) {
-            return new NotFoundError('Sender not found');
+            throw new NotFoundError('Sender not found');
         }
 
         if (sender.id === receiver.id) {
@@ -56,7 +57,7 @@ export async function addTransaction(id, amount, participantEmail) {
         return {
             code: 200,
             message: 'Transaction completed successfully',
-            updatedBalance: updatedSender.balance
+            updatedBalance: updatedSender?.balance
         };
     } catch(error) {
         await session.abortTransaction();
@@ -66,7 +67,8 @@ export async function addTransaction(id, amount, participantEmail) {
     }
 }
 
-export async function addUser(id, email, password, phoneNumber, balance, isVerified) {
+export async function addUser(id : string, email : number, password : string, 
+    phoneNumber : string, balance : number, isVerified : boolean) {
     try {
         const isExists = await User.exists({ email });
         if (isExists) {
@@ -91,7 +93,7 @@ export async function addUser(id, email, password, phoneNumber, balance, isVerif
     }
 }
 
-export async function getUserBalance(id) {
+export async function getUserBalance(id : string) {
     try {
         const user = await User.findOne(
             {id: id},
@@ -99,7 +101,7 @@ export async function getUserBalance(id) {
         );
 
         if (!user) {
-            throw NotFoundError('User not found');
+            throw new NotFoundError('User not found');
         } else {
             return {
                 code: 200,
@@ -111,12 +113,12 @@ export async function getUserBalance(id) {
     }
 }
 
-export async function getUserTransactions(id, index) {
+export async function getUserTransactions(id : string, index : number) {
     try {
         const user = await User.findOne({ id: id });
 
         if (!user) {
-            throw NotFoundError('User not found');
+            throw new NotFoundError('User not found');
         } else {
             const limit = 5;
             const skip = (index - 1) * limit;
@@ -140,7 +142,7 @@ export async function getUserTransactions(id, index) {
     }
 }
 
-export async function validateUser(email, password) {
+export async function validateUser(email : string, password : string) {
     try {
         const user = await User.findOne({
             email: email,
@@ -148,7 +150,7 @@ export async function validateUser(email, password) {
         });
 
         if (!user) {
-            throw new ValidationError('Incorrect email or password');
+            throw new AuthenticationError('Incorrect email or password');
         } else {
             return {
                 code: 200,
@@ -161,19 +163,20 @@ export async function validateUser(email, password) {
     }
 }
 
-export function responseFromDB(res, correctCode, response, json) {
-    if (response.code === correctCode) {
-        return res.status(correctCode).json(json);
-    } else {
-        return res.status(response.code).json({error: response.error});
-    }
+export function responseFromDB(res : Response, code : number, json: unknown) {
+    return res.status(code).json(json);
 }
 
 export async function connectDB() {
     try {
-        await mongoose.connect(
-            process.env.CONNECTION_STRING + process.env.DATABASE_NAME
-        );
+        const connectionString = process.env.CONNECTION_STRING;
+        const databaseName = process.env.DATABASE_NAME;
+
+        if (!connectionString || !databaseName) {
+            throw new Error('Missing CONNECTION_STRING or DATABASE_NAME in environment variables');
+        }
+
+        await mongoose.connect(connectionString + databaseName);
         console.log('MongoDB connected successfully');
     } catch (error) {
         console.error('MongoDB connection error:', error);
@@ -188,7 +191,8 @@ export async function testCleanUp() {
     await mongoose.connection.close();
 }
 
-async function addUserTransaction(Transaction, userId, participantEmail, amount) {
+async function addUserTransaction(Transaction: typeof mongoose.Model, userId: string, 
+    participantEmail: string, amount: number) {
     const now = new Date();
 
     await Transaction.create({
@@ -199,7 +203,7 @@ async function addUserTransaction(Transaction, userId, participantEmail, amount)
     });
 }
 
-async function setBalance(User, id, amount) {
+async function setBalance(User : typeof mongoose.Model, id : string, amount : number) {
     await User.updateOne(
         {id: id},
         {$inc: {balance: amount}}

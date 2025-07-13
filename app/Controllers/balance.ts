@@ -15,13 +15,16 @@ export default function getBalance() {
             throw new AuthenticationError('Unauthorized');
         }
         try {
-        id = jwt.verify(token, process.env.JWT_KEY).id;
+        if (!process.env.JWT_KEY) {
+            throw new AuthenticationError('Server misconfiguration: JWT_KEY missing');
+        }
+        id = (jwt.verify(token, process.env.JWT_KEY) as { id: string }).id;
         } catch (error) {
             throw new AuthenticationError('Please log in');
         }
 
         const queryResult = await getUserBalance(id);
-        return responseFromDB(res, 200, queryResult, {balance: queryResult.balance});
+        return responseFromDB(res, 200, {balance: queryResult.balance});
     });
 
     return router;

@@ -7,6 +7,7 @@ const __dirname = dirname(__filename);
 dotenv.config({ path: resolve(__dirname, '.env') });
 
 import express from 'express';
+import { Server } from 'http'
 import bodyParser from 'body-parser';
 import crypto from 'crypto';
 import mongoose from 'mongoose';
@@ -33,7 +34,7 @@ const shutdown = async () => {
 };
 
 
-let server;
+let server : Server;
 if (process.env.NODE_ENV !== 'test') {
   connectDB();
   server = app.listen(port, () => {

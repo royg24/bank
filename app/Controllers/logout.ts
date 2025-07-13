@@ -17,13 +17,16 @@ export function logout() {
     const router = Router();
 
     router.post('/', async(req, res) => {
-        const decoded = jwt.decode(req.headers.authorization);
-        const nowInSec = Math.floor(Date.now() / 1000);
-        const ttl = decoded.exp - nowInSec;
-
-        if (!decoded || !decoded.jti || !decoded.exp) {
+        const token = req.headers.authorization;
+        if (!token) {
+            throw new AuthenticationError('No authorization token provided');
+        }
+        const decoded = jwt.decode(token);
+        if (!decoded || typeof decoded !== 'object' || !decoded.jti || !decoded.exp) {
             throw new AuthenticationError('Invalid token');
         }
+        const nowInSec = Math.floor(Date.now() / 1000);
+        const ttl = decoded.exp - nowInSec;
 
         await client.setEx(decoded.jti, ttl, 'blacklisted');
         console.log(`user with email ${decoded.email} has logged out`);
@@ -33,8 +36,13 @@ export function logout() {
     return router;
 }
 
-export async function isTokenBlacklisted(token) {
-    const jti = jwt.decode(token).jti;
+export async function isTokenBlacklisted(token : string) {
+    const decoded = jwt.decode(token);
+    if (!decoded || typeof decoded !== 'object' || !('jti' in decoded)) {
+        throw new AuthenticationError('Invalid token');
+    }
+    
+    const jti = (decoded as { jti: string }).jti;
     const result = await client.exists(jti);
     return result === 1;
 }

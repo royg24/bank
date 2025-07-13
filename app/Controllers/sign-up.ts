@@ -11,7 +11,7 @@ export default function signUp() {
     router.post('/', async (req, res) => {
         const body = req.body;
 
-        const erroerMessage = validateSignUp(body, res);
+        const erroerMessage = validateSignUp(body);
         if (erroerMessage) {
             throw new ValidationError(erroerMessage)
         }
@@ -24,7 +24,7 @@ export default function signUp() {
         , body.phoneNumber, 1000000, true);
 
         console.log(`user with email ${body.email} has signed up`)
-        return responseFromDB(res, 201, queryResult, {message: queryResult.message});
+        return responseFromDB(res, 201, {message: queryResult.message});
 
     });
 
