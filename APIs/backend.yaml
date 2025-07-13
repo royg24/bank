@@ -1,0 +1,352 @@
+openapi: 3.0.3
+info:
+  title: Bank API
+  version: 1.0.0
+paths:
+  /sign-up:
+    post:
+      summary: Creates new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: john_doe@gmail.com
+                password:
+                  type: string
+                  example: password
+                phoneNumber:
+                  type: string
+                  example: 054-1234567
+              required:
+                - email
+                - password
+                - phoneNumber
+        
+      responses:
+        '201':
+          description: Valid details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: User have signed up
+                  accessToken:
+                    type: string
+                    example: xxxxx.yyyyy.zzzzz
+        '400':
+          description: Invalid details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: All details are required
+        '401':
+          description: Invalid details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Cannot sign up user
+        '409':
+          description: Email is taken
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Email is taken
+
+
+  /sign-up/validate:
+    post:
+      summary: Validates user's 6 digits code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: number
+                  example: 111111
+              required:
+                - code
+      responses:
+        '200':
+          description: Correct code
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Correct code
+        '401':
+          description: Incorrect code
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Incorrect code
+
+
+  /login:
+      post:
+        summary: Logs in if there is an access token or email and password are correct
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    example: john_doe@gmail.com
+                  password:
+                    type: string
+                    example: my password
+                required:
+                  - email
+                  - password
+        responses:
+          '200':
+            description: Correct email and password
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Login successful
+          '400':
+            description: Invalid email or password
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+                      example: Invalid email or password
+          '401':
+            description: Incorrect email or password
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+                      example: Incorrect email or password
+
+ 
+  /balance:
+    get:
+      summary: Get logged in user's balance.
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+          description: Bearer token for authentication
+      responses:
+        '200':
+          description: Balance value
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  balance:
+                    type: number
+                    example: 134.45
+        '401':
+          description: Unauthorized because of wrong or expired access token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User not found
+  
+  
+  /transactions:
+    get:
+      summary: Get transactions history
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+          description: Bearer token for authentication
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: number
+            example: 10
+      responses:
+        '200':
+          description: Transaction history
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    amount:
+                      type: number
+                      example: 54
+                    participantEmail:
+                      type: string
+                      format: email
+                      example: jane_doe@gmail.com
+                    timestamp:
+                      type: string
+                      format: date
+                      example: YYYY-MM-DDTHH:mm:ss.SSSZ
+        '401':
+          description: Unauthorized because of wrong or expired access token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User not found
+  
+  /transaction:
+    post:
+      summary: Making a transaction
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+          description: Bearer token for authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recieverEmail:
+                  type: string
+                  format: email
+                  example: reciever@gmail.com
+                amount:
+                  type: number
+                  example: 34.67
+              required:
+                - recieverEmail
+                - amount
+      responses:
+        '200':
+          description: Transaction successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Transaction completed successfully
+                  updatedBalance:
+                    type: string
+                    example: 456.24
+        '400':
+          description: Invalid email
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid email
+        '404':
+          description: No user exists with this mail
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No user exists with this email
+        '409':
+          description: Insufficient amount
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Insufficient amount for transaction
+        '401':
+          description: Unauthorized because of wrong or expired access token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+
+
+
+
