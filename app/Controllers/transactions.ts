@@ -22,13 +22,16 @@ export function makeTransaction() {
         
         let id = undefined;
         try {
-            id = jwt.verify(token, process.env.JWT_KEY).id;
+            if (!process.env.JWT_KEY) {
+                throw new AuthenticationError('JWT key is not set');
+            }
+            id = (jwt.verify(token, process.env.JWT_KEY as string) as { id: string }).id;
         } catch (error) {
             throw new AuthenticationError('Please log in');
         }
 
         const queryResult = await addTransaction(id, body.amount, body.receiverEmail);
-        return responseFromDB(res, 200, queryResult, {
+        return responseFromDB(res, 200, {
             message: queryResult.message,
             updatedBalance: queryResult.updatedBalance
         });
@@ -48,7 +51,10 @@ export function getTransactions() {
             throw new AuthenticationError('Please log in');
         }
         try {
-            id = jwt.verify(token, process.env.JWT_KEY).id;
+            if (!process.env.JWT_KEY) {
+                throw new AuthenticationError('JWT key is not set');
+            }
+            id = (jwt.verify(token, process.env.JWT_KEY as string) as { id: string }).id;
         } catch (error) {
             throw new AuthenticationError('Please log in');
         }
@@ -56,7 +62,7 @@ export function getTransactions() {
         const index = Number(req.query.index)
 
         const queryResult = await getUserTransactions(id, index);
-        return responseFromDB(res, 200, queryResult, {
+        return responseFromDB(res, 200, {
             transactions: queryResult.transactions,
             totalPages: queryResult.totalPages
         });

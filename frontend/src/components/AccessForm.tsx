@@ -37,10 +37,6 @@ function SignUpForm() {
         document.title = pageText;
     });
 
-    const handleShowPassword = () => {
-        setShowPassword((prev) => !prev);
-    }
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
 

@@ -20,14 +20,17 @@ export default function login() {
     
         const queryResult = await validateUser(body.email, hashPassword(body.password));
 
+        if (!process.env.JWT_KEY) {
+            throw new Error('JWT_KEY environment variable is not defined');
+        }
         const token = jwt.sign({ 
             email: body.email,
             id: queryResult.id,
             jti: jti
-        }, process.env.JWT_KEY, { expiresIn: '24h' });
+        }, process.env.JWT_KEY as string, { expiresIn: '24h' });
 
         console.log(`user with email ${body.email} has logged in`);
-        return responseFromDB(res, 200, queryResult, {
+        return responseFromDB(res, 200, {
             message: queryResult.message,
             accessToken: token
         });
