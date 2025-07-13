@@ -17,8 +17,10 @@ RUN npm install
 COPY database.js ./
 COPY jest-setup.js ./
 COPY server.js ./
-COPY utils.js ./
-COPY routes ./routes
+COPY Validator ./Validator
+COPY Controllers ./Controllers
+COPY Routes ./Routes
+COPY utils ./utils
 COPY tests ./tests
 
 # Expose port
