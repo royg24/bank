@@ -1,0 +1,233 @@
+openapi: 3.0.3
+info:
+  title: Bank API
+  version: 1.0.0
+paths:
+  /add/user:
+    post:
+      summary: Adds new user to the database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  example: 9f9c0a34e7fc4f96b2d9236df7e02f3c
+                email:
+                  type: string
+                  format: email
+                  example: john_doe@gmail.com
+                password:
+                  type: string
+                  example: hashed password
+                phoneNumber:
+                  type: string
+                  example: 054-1234567
+                balance:
+                  type: number
+                  example: 1000000
+      responses:
+        '201':
+          description: New User added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: User added successfully
+        '409':
+          description: User already signed up
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User already signed up
+  
+  
+  /validate/user:
+    post:
+      summary: Checks if email and password belongs to a signed up user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: john_doe@gmail.com
+                password:
+                  type: string
+                  example: password
+      responses:
+        '200':
+          description: Logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Email and password are correct
+                
+        '401':
+          description: Cannot log in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Email or password are incorrect
+  
+  
+  /balance:
+    get:
+      summary: Gets the balance of a given user
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '200':
+            description: User found
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BalanceRequest'
+                  
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User not found
+  
+  
+  /transactions:
+    get:
+      summary: Gets recent transactions from a given user
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+        - name: limit
+          in: query
+          required: false
+          description: Number of recent transactions to retrieve
+          schema:
+            type: number
+            example: 10
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User not found
+  
+  
+  /add/transaction:
+    post:
+      summary: Adds a transaction to a given user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      example: 9f9c0a34e7fc4f96b2d9236df7e02f3c
+                - $ref: '#/components/schemas/Transaction'
+      responses:
+        '200':
+          description: Transaction added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Transaction added successfully
+  
+  
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User not found
+  
+        '409':
+          description: Insufficient amount
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Insufficient amount for transaction
+  
+components:
+  schemas:
+    Transaction:
+      type: object
+      properties:
+        amount:
+          type: number
+          example: 54
+        participantEmail:
+          type: string
+          format: email
+          example: jane_doe@gmail.com
+    BalanceRequest:
+      type: object
+      properties:
+        balance:
+          type: number
+          example: 1000000
+
+  parameters:
+    IdParam:
+      name: id
+      in: query
+      required: true
+      description: Id of requested user
+      schema:
+        type: string
+        format: uuid
+        example: 9f9c0a34e7fc4f96b2d9236df7e02f3c

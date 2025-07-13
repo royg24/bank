@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./app
+    ports:
+      - "3000:3000"
+    environment:
+      - CONNECTION_STRING=mongodb+srv://royg24:abcd8899%23%2A@cluster0.1oihvio.mongodb.net/
+      - DATABASE_NAME=bank
+      - JWT_KEY=key
+      - BACKEND_PORT=3000
+      - REDIS_HOST=redis
+    depends_on:
+      - mongo
+      - redis
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_BACKEND_URI=http://localhost:3000
+    volumes:
+      - ./frontend:/app   
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+    depends_on:
+      - backend
+
+  mongo:
+    image: mongo:6
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  redis:
+    image: redis:7
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  mongo-data:
