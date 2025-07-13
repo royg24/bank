@@ -1,6 +1,6 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import { testCleanUp } from './database.js';
+import { testCleanUp } from '../database.js';
 
 let mongoServer;
 
