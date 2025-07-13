@@ -16,5 +16,5 @@ export default function addRoutes(app) {
     app.use('/balances', getBalance());
     app.use('/transactions', getTransactions());
     app.use('/transactions', makeTransaction());
-    app.use('/logout', logout());
+    app.use('/logout', logout());   
 }
