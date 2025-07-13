@@ -1,5 +1,4 @@
 import {Router} from 'express';
-import * as utils from '../utils.js';
 
 //TODO
 export default function validateCode() {
