@@ -9,6 +9,9 @@ describe('Transaction API Tests', () => {
     const email1 = 'testtest@gmail.com';
     const email2 = 'testdoe@doe.net';
  
+    if (!process.env.JWT_KEY) {
+        throw new Error('JWT_KEY environment variable is not defined');
+    }
     const wrongToken = jwt.sign({ email: 'james@doe.net' }, process.env.JWT_KEY, 
         { expiresIn: '24h' });
 
