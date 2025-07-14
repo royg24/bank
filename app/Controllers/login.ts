@@ -10,6 +10,7 @@ export default function login() {
     const router = Router();
 
     router.post('/', async (req, res) => {
+        console.log('in login');
         const body = req.body;
         const errorMessage = validateLogin(body);
         const jti = randomUUID();

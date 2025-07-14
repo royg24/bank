@@ -5,7 +5,7 @@ FROM node:18-alpine
 WORKDIR /usr/src/app
 
 # Copy package files
-COPY package*.json ./
+COPY package*.json ./ tsconfig.json ./
 
 # Copy environment file if needed
 COPY .env ./
@@ -14,17 +14,19 @@ COPY .env ./
 RUN npm install
 
 # Copy app source files and folders
-COPY database.js ./
-COPY server.js ./
-COPY errorHandler.js ./
+COPY database.ts ./
+COPY server.ts ./
+COPY errorHandler.ts ./
 COPY Validator ./Validator
 COPY Controllers ./Controllers
 COPY Routes ./Routes
 COPY utils ./utils
-COPY tests ./tests
+
+# Compile TypeScript to JS in dist/
+RUN npm run build
 
 # Expose port
 EXPOSE 3000
 
 # Start the app
-CMD ["node", "server.js"]
+CMD ["node", "dist/server.js"]
