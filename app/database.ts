@@ -9,12 +9,13 @@ const UserSchema = new Schema({
     email: { type: String, required: true, unique: true },
     hashedPassword: { type: String, required: true },
     phoneNumber: { type: String, required: true },
-    balance: { type: Number, default: 1000000 }
+    balance: { type: String, default: '1000000' },
+    verified: {type: Boolean, default: false}
 });
 
 const TransactionSchema = new Schema({
     userId: {type: String, required: true}, 
-    amount : { type: Number, required: true },
+    amount : { type: String, required: true },
     participantEmail: { type: String, required: true },
     timestamp: { type: Date, default: Date.now }
 });
@@ -41,7 +42,7 @@ export async function addTransaction(id : string, amount : number, participantEm
             throw new DataError('Cannot make a self transaction');
         }
 
-        if (sender.balance < amount) {
+        if (Number(sender.balance) < amount) {
             throw new DataError('Insufficient amount for transaction')
         }
 
@@ -67,8 +68,8 @@ export async function addTransaction(id : string, amount : number, participantEm
     }
 }
 
-export async function addUser(id : string, email : number, password : string, 
-    phoneNumber : string, balance : number, isVerified : boolean) {
+export async function addUser(id : string, email : string, password : string, 
+    phoneNumber : string) {
     try {
         const isExists = await User.exists({ email });
         if (isExists) {
@@ -80,8 +81,6 @@ export async function addUser(id : string, email : number, password : string,
             email: email,
             hashedPassword: password,
             phoneNumber: phoneNumber,
-            isVerified: isVerified,
-            balance: balance || 1000000,
         });
 
         return {
@@ -149,7 +148,7 @@ export async function validateUser(email : string, password : string) {
             hashedPassword: password
         });
 
-        if (!user) {
+        if (!user || !user.verified) {
             throw new AuthenticationError('Incorrect email or password');
         } else {
             return {
@@ -157,6 +156,49 @@ export async function validateUser(email : string, password : string) {
                 message: 'Login successful',
                 id: user.id
             }
+        }
+    } catch(error) {
+        throw error;
+    }
+}
+
+export async function isUserVerified(id: string): Promise<boolean> {
+    try {
+        const user = await User.findOne({id: id});
+        if (user) {
+            return user.verified;
+        } else {
+            return false;
+        }
+    } catch(error) {
+        return false;
+    }
+}
+
+export async function getPhoneNumber(email: string): Promise<string> {
+    try {
+        const user = await User.findOne({email: email});
+        if (!user) {
+            throw new NotFoundError('User not found');
+        }
+
+        return user.phoneNumber;
+
+    } catch(error) {
+        throw error;
+    }
+}
+
+export async function approveUser(email: string) {
+    try {
+        const result = await User.findOneAndUpdate(
+            { email },
+            { verified: true },
+            { new: true }
+        );
+
+        if (!result) {
+            throw new NotFoundError('User not found');
         }
     } catch(error) {
         throw error;

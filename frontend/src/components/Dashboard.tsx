@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import Info from './Info';
 import PaginationBox, {type PaginationBoxRef} from './PaginationBox';
 import { fieldStructure, formContainerStyle, cardStructure, buttonStructure, dividerStyle } from './Style';
-import { validateEmail, validateAmount } from './Validatios';
+import { validateEmail, validateAmount } from './Validations';
 import { getBalance, transferMoney, logout } from './BackendCalls';
 
 type DashboardFormData = {

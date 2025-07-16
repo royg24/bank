@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import jwt from 'jsonwebtoken';
-import { getUserTransactions, addTransaction, responseFromDB } from '../database.js';
+import { getUserTransactions, addTransaction, responseFromDB, isUserVerified } from '../database.js';
 import { isTokenBlacklisted } from './logout.js';
 import { validateTransfer } from '../Validator/validations.js';
 import { ValidationError, AuthenticationError } from '../errorHandler.js';
@@ -26,6 +26,9 @@ export function makeTransaction() {
                 throw new AuthenticationError('JWT key is not set');
             }
             id = (jwt.verify(token, process.env.JWT_KEY as string) as { id: string }).id;
+            if (!isUserVerified(id)) {
+                throw new AuthenticationError('User not verified');
+            }
         } catch (error) {
             throw new AuthenticationError('Please log in');
         }

@@ -20,6 +20,46 @@ export const access = async (route: string, data: any) => {
     }
 };
 
+export const sendCode = async(body: {phoneNumber: string}) => {
+    const route = 'auth/sign-up/send';
+
+    try {
+        const response = await axios.post(`${backendUri}/${route}`, body);
+
+        if (response.status === 200) {
+            return { success: true, message: response.data.message};
+        } else {
+            return { success: false, error: response.data.error};
+        }
+    } catch(error: any) {
+        if (error.response && error.response.data) {
+            return { success: false, error: error.response.data.error };
+        } else {
+            return { success: false, error: 'Unknown error' };
+        }
+    }
+};
+
+export const validateCode = async (body: {email: string, code: number}) => {
+    const route = 'auth/sign-up/validate';
+
+    try {
+        const response = await axios.post(`${backendUri}/${route}`, body);
+
+        if (response.status === 200) {
+            return { success: true, message: response.data.message};
+        } else {
+            return { success: false, error: response.data.error};
+        }
+    } catch(error: any) {
+        if (error.response && error.response.data) {
+            return { success: false, error: error.response.data.error };
+        } else {
+            return { success: false, error: 'Unknown error' };
+        }
+    }
+}
+
 export const getBalance = async (token: string) => {
     const route = 'balances';
     try {
@@ -72,27 +112,27 @@ export const getTransactions = async (token: string, param: {index: number}) => 
 
 export const transferMoney = async (
     token: string,
-    body: { receiverEmail: string; amount: string }
-) => {
-    const route = 'transactions';
-    try {
-        const response = await axios.post(`${backendUri}/${route}`, body, {
-            headers: { Authorization: token }
-        });
+    body: { receiverEmail: string; amount: string } 
+    ) => {
+        const route = 'transactions';
+        try {
+            const response = await axios.post(`${backendUri}/${route}`, body, {
+                headers: { Authorization: token }
+            });
 
-        if (response.status === 200) {
-            return { success: true, message: response.data.message };
-        } else {
-            return { success: false, error: response.data.error };
+            if (response.status === 200) {
+                return { success: true, message: response.data.message };
+            } else {
+                return { success: false, error: response.data.error };
+            }
+        } catch (error: any) {
+            if (error.response && error.response.data) {
+                return { success: false, error: error.response.data.error };
+            } else {
+                return { success: false, error: 'Unknown error' };
+            }
         }
-    } catch (error: any) {
-        if (error.response && error.response.data) {
-            return { success: false, error: error.response.data.error };
-        } else {
-            return { success: false, error: 'Unknown error' };
-        }
-    }
-};
+    };
 
 export const logout = async(token: string | null) =>{
     const route = 'logout';
