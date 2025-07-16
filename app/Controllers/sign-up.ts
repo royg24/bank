@@ -15,15 +15,11 @@ export default function signUp() {
         if (erroerMessage) {
             throw new ValidationError(erroerMessage)
         }
-        
-
-        //TODO add SMS code verification
-        // if invalid returns error code 401
 
         const queryResult = await addUser(randomUUID(), body.email, hashPassword(body.password)
-        , body.phoneNumber, 1000000, true);
+        , body.phoneNumber);
 
-        console.log(`user with email ${body.email} has signed up`)
+        console.log(`user with email ${body.email} has signed up but not yet verified`)
         return responseFromDB(res, 201, {message: queryResult.message});
 
     });

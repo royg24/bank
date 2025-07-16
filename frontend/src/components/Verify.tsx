@@ -2,17 +2,33 @@ import { Box, Typography, Button } from '@mui/material';
 import { useRef, useState, useEffect } from 'react';
 import VerifyDigit from './VerifyDigit';
 import { textStructure, buttonStructure } from './Style';
+import { validateCode } from './BackendCalls';
+import { toast } from 'react-toastify';
 
 function Verify() {
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
   const [values, setValues] = useState(Array(6).fill(''));
   const [currentIndex, setCurrentIndex] = useState(0);
+  const isComplete = values.every((v) => v !== '');
+
 
   useEffect(() => {
     document.title = 'Verify';
     const input = inputsRef.current[currentIndex];
     if (input) input.focus();
   }, [currentIndex]);
+
+  const verifyCode = async() => {
+	const code = parseInt(values.join(''));
+	const email = localStorage.getItem('email');
+	
+	const result = await validateCode({email: email || '', code: code});
+	if (result.success) {
+		toast.success(result.message);
+	} else {
+		toast.error(result.error);
+	}
+  };
 
   const handleChange = (idx: number, val: string) => {
     if (!/^\d?$/.test(val)) {
@@ -71,12 +87,15 @@ function Verify() {
             onKeyDown={(e) => handleKeyDown(idx, e)}
             onFocus={(e) => handleFocus(idx, e)}
             value={val}
+
           />
         ))}
       </Box>
 
       <Box sx={{ marginRight: '5em', marginTop: '1em', minWidth: '16em' }}>
-        <Button {...buttonStructure}>Submit</Button>
+        <Button {...buttonStructure} onClick={verifyCode} disabled={!isComplete}>
+			Submit
+		</Button>
       </Box>
     </>
   );
