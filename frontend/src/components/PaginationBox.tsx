@@ -13,7 +13,7 @@ export type PaginationBoxRef = {
 };
 
 type Transaction = {
-  amount: number;
+  amount: string;
   participantEmail: string;
   timestamp: string;
 };
@@ -85,7 +85,7 @@ const PaginationBox = forwardRef<PaginationBoxRef>((props, ref) => {
               return (
                 <TransactionCard
                   key={key}
-                  amount={transaction.amount}
+                  amount={Number(transaction.amount)}
                   participantEmail={transaction.participantEmail}
                   timestamp={transaction.timestamp}
                 />

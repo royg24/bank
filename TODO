@@ -1,0 +1,2 @@
+-   Add web sockets with Socket.io to let server communicate with clients.
+-   Change Database design to transactions array for each user.
