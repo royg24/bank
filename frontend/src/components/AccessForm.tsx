@@ -6,8 +6,8 @@ import Toggle from './Toggle.js';
 import PasswordIcon from './PasswordIcon.js';
 import '../css/style.css';
 import { useLocation } from 'react-router-dom';
-import { validateEmail, validatePassword, validatePhoneNumber, keepPhoneNumberFormat } from './Validatios.js';
-import { access } from './BackendCalls.js'
+import { validateEmail, validatePassword, validatePhoneNumber, keepPhoneNumberFormat } from './Validations.js';
+import { access, sendCode } from './BackendCalls.js'
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
@@ -55,9 +55,11 @@ function SignUpForm() {
         if (result.success) {
             if (!mode) {
                 localStorage.setItem('accessToken', result.data.accessToken);
-                localStorage.setItem('email', data.email);
+                toast.success(result.data.message);
+            } else {
+                sendCode({phoneNumber: data.phoneNumber || ''});
             }
-            toast.success(result.data.message);
+            localStorage.setItem('email', data.email);
             navigate(navigateRoute);
         } else {
             toast.error(result.error);

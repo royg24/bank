@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { getUserBalance, responseFromDB } from '../database.js';
+import { getUserBalance, responseFromDB, isUserVerified } from '../database.js';
 import jwt from 'jsonwebtoken';
 import { isTokenBlacklisted } from './logout.js';
 import { AuthenticationError } from '../errorHandler.js';
@@ -19,6 +19,10 @@ export default function getBalance() {
             throw new AuthenticationError('Server misconfiguration: JWT_KEY missing');
         }
         id = (jwt.verify(token, process.env.JWT_KEY) as { id: string }).id;
+
+        if (!isUserVerified(id)) {
+            throw new AuthenticationError('User not verified');
+        }
         } catch (error) {
             throw new AuthenticationError('Please log in');
         }

@@ -65,10 +65,34 @@ export function validateTransfer(body: TransferBody): string | null {
 
   const amountError = validateAmount(body.amount);
   if (amountError) {
-    return amountError
+  	return amountError
   };
 
   return null;
+}
+
+interface validateBody {
+	email: string,
+	code: number
+}
+
+export function validateValidate(body: validateBody): string | null {
+	const emailError = validateEmail(body.email);
+	if (emailError) {
+		return emailError;
+	}
+
+	const codeError = validateCode(body.code);
+	if (codeError) {
+		return codeError;
+	}
+
+	return null;
+}
+
+export function validateSend(phoneNumber: string): string | null {
+	const phoneNumberError = validatePhoneNumber(phoneNumber);
+	return phoneNumberError || null;
 }
 
 interface CheckRequiredFieldsBody {
@@ -117,6 +141,14 @@ function validateAmount(amount : number) {
     }
 
     return null;
+}
+
+function validateCode(code: number) {
+  if (isNaN(code) || code < 100000 || code > 999999) {
+    return 'Code must be 6 digits number';
+  }
+
+  return null;
 }
 
 function checkRequiredField(fieldName: string, fieldValue: any): string | null {
