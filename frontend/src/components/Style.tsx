@@ -13,12 +13,12 @@ export function formContainerStyle(marginTop = '1em') {
     marginTop: marginTop,
     display: 'flex',
     flexDirection: 'column',
-    gap: '1em',
-    width: '40%',
-    maxWidth: '30em',
-    padding: '2em',
+    gap: '1.25em',
+    width: '50%',
+    maxWidth: '37.5em',
+    padding: '2.5em',
     backgroundColor: 'rgba(154, 136, 136, 0.195)',
-    borderRadius: '0.75em',
+    borderRadius: '0.9375em',
     boxShadow: '0 8px 24px rgb(0, 0, 0)'
   };
 }
@@ -28,20 +28,19 @@ export function paginationContainerStyle(marginTop = '1em') {
     marginTop: marginTop,
     display: 'flex',
     flexDirection: 'column',
-    gap: '1em',
-    marginBottom: '3em', 
+    gap: '1.25em',
+    marginBottom: '3.75em',
     alignItems: 'center',
     justifyContent: 'flex-top',
     width: '100%',
-    maxWidth: '55em',
-    minHeight: '25em',
-    padding: '2em',
+    maxWidth: '68.75em',
+    minHeight: '31.25em',
+    padding: '2.5em',
     backgroundColor: 'rgba(154, 136, 136, 0.195)',
-    borderRadius: '0.75em',
+    borderRadius: '0.9375em',
     boxShadow: '0 8px 24px rgb(0, 0, 0)',
   };
 }
-
 
 export const theme = createTheme({
   components: {
@@ -50,6 +49,7 @@ export const theme = createTheme({
         root: {
           fontFamily: font,
           color: color,
+          fontSize: '1.25rem',
         },
       },
     },
@@ -59,6 +59,7 @@ export const theme = createTheme({
           fontFamily: font,
           fontWeight: 700,
           color: color,
+          fontSize: '0.9375rem',
         },
       },
     },
@@ -67,6 +68,7 @@ export const theme = createTheme({
         root: {
           fontFamily: font,
           color: color,
+          fontSize: '0.9375rem',
         },
       },
     },
@@ -76,6 +78,7 @@ export const theme = createTheme({
           fontFamily: font,
           fontWeight: 700,
           color: color,
+          fontSize: '1rem',
         },
       },
     },
@@ -86,19 +89,20 @@ export const theme = createTheme({
           backgroundColor: 'rgba(255, 255, 255, 0.08)',
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: borderColor,
-            borderWidth: "0.1em",
+            borderWidth: "0.125em",
           },
           '&:hover .MuiOutlinedInput-notchedOutline': {
             borderColor: borderColor,
-            borderWidth: "0.1em"
+            borderWidth: "0.125em"
           },
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
             borderColor: borderColor,
-            borderWidth: "0.1em"
+            borderWidth: "0.125em"
           },
         },
         input: {
           color: color,
+          fontSize: '0.9375rem',
         },
       },
     },
@@ -108,17 +112,17 @@ export const theme = createTheme({
 export const fieldStructure: TextFieldProps = {
   variant: 'outlined',
   sx: { 
-    mb: 1,
-    ml: '4em',
+    mb: 1.25,
+    ml: '5em',
     width: "70%",
-    top: '10%',
+    top: '12.5%',
     '& .MuiInputBase-input': {
-      fontSize: '0.75rem',
+      fontSize: '0.9375rem',
       fontWeight: 10,
-      padding: '0.6em 1em',  
+      padding: '0.75em 1.25em',  
     },
     '& .MuiInputLabel-root': {
-      fontSize: '0.75rem',
+      fontSize: '0.9375rem',
     }
   },
   className: 'field',
@@ -130,10 +134,10 @@ import type { CSSProperties } from 'react';
 export const verifyFieldStructure = {
   sx: {
     backgroundColor: 'rgba(226, 207, 207, 0.32)',
-    width: '4.5em',
-    height: '4.5em',
+    width: '5.625em',
+    height: '5.625em',
     '& .MuiInputBase-input': {
-      fontSize: '3em',
+      fontSize: '3.75em',
       textAlign: 'center' as CSSProperties['textAlign'],
       padding: 0
     }
@@ -150,10 +154,10 @@ export const verifyFieldStructure = {
 export const buttonStructure: ButtonProps = {
   sx: {
     backgroundColor: buttonColor,
-    width: "40%",
-    height: '2.3em',
-    left: "8em",
-    marginTop: "1em",
+    width: "50%",
+    height: '2.875em',
+    left: "10em",
+    marginTop: "1.25em",
     '&:hover': {
       backgroundColor: buttonHoverColor,
       cursor: "pointer"
@@ -170,11 +174,11 @@ export function toggleGroupStructure(mode: boolean): ToggleButtonGroupProps {
     value: mode,
     exclusive: true,
     sx: {
-      height: '3em',
-      width: '25em',
+      height: '3.75em',
+      width: '31.25em',
       margin: '0 auto',            
       position: 'relative',       
-      top: '4%',                   
+      top: '5%',                   
       backgroundColor: 'rgba(225, 224, 224, 0.1)',
       display: 'flex',
       justifyContent: 'center',    
@@ -182,16 +186,15 @@ export function toggleGroupStructure(mode: boolean): ToggleButtonGroupProps {
   }
 }
 
-
 export function toggleButtonStructure(value: boolean): ToggleButtonProps {
   return {
     value: value,
     sx: {
       fontFamily: font,
-      width: '16em',
+      width: '20em',
       backgroundColor: buttonColor, 
       color: 'white',
-      fontSize: '0.8em',
+      fontSize: '1em',
       fontWeight: 700,
       textShadow: '2px 2px 8px rgba(0,0,0,0.3)',
       '&.Mui-selected': {
@@ -211,14 +214,14 @@ export function toggleButtonStructure(value: boolean): ToggleButtonProps {
 export const infoStructure = {
     whiteSpace: 'pre-line',
     fontFamily: 'Georgia, Arial',
-    fontSize: '1em',
+    fontSize: '1.25em',
     color: 'white',
     textShadow: '1px 1px 2px rgba(0,0,0,0.6)',
 }
 
 export const textStructure = {
   fontFamily: font,
-  fontSize: '0.8em',
+  fontSize: '1em',
   fontWeight: 700,
   color: '#f1e6ff',
   textShadow: '1px 1px 2px rgba(0,0,0,0.6)',
@@ -227,12 +230,12 @@ export const textStructure = {
 export const cardStructure = {
   sx: {
     gap: 3,
-    width: '19em',
-    maxHeight: '5em',
-    padding: '0.4em',
+    width: '23.75em',
+    maxHeight: '6.25em',
+    padding: '0.5em',
     background: 'linear-gradient(135deg, rgba(215, 184, 5, 0.6), rgba(255, 235, 100, 0.15))',
     border: '1px solid rgba(255, 255, 255, 0.15)',
-    borderRadius: '1em',
+    borderRadius: '1.25em',
     boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
     display: 'flex',
     flexDirection: 'row',
@@ -260,21 +263,16 @@ export const landingPageBackgroundStyle = {
   flexDirection: 'column' as const,
   alignItems: 'center',
   justifyContent: 'flex-start',
-  gap: '2em',
-  backgroundImage: 'url("/path/to/your/background.jpg")',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
-  color: color,
+  gap: '2.5em',
 };
 
 export const landingPageButtonSetStructure = {
   sx: {
     display: 'flex',
-    gap: '1em',
+    gap: '1.25em',
     position: 'absolute',
-    top: '0.2em',
-    right: '15%'
+    top: '0.25em',
+    right: '18.75%'
   }
 }
 
@@ -282,8 +280,8 @@ export const landingPageButtonStyle: ButtonProps = {
   ...buttonStructure,
   sx: {
     ...buttonStructure.sx,
-    width: '120px',
-    fontSize: '0.8em',
+    width: '150px',
+    fontSize: '1em',
     fontWeight: 800,
   }
 };
@@ -291,8 +289,8 @@ export const landingPageButtonStyle: ButtonProps = {
 export const pagingArrowsStructure = {
   sx: {
     backgroundColor: buttonColor,
-    width: '1.5em',
-    height: '1.5em',
+    width: '1.875em',
+    height: '1.875em',
     '&:hover': {
       backgroundColor: buttonHoverColor
     },
