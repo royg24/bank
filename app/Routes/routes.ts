@@ -12,7 +12,19 @@ import cors from 'cors';
 const prefix = '/api';
 
 export default function addRoutes(app: Application) {
-  app.use(cors({ origin: process.env.WEB_URL, credentials: true }));
+  const allowedOrigins = [process.env.WEB_URL, process.env.LOCAL_WEB_URL];
+
+  app.use(cors({
+    origin: (origin, callback) => {
+      
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS blocked: origin ${origin} is not allowed`));
+      }
+    },
+    credentials: true
+  }));
 
   const router: Router = express.Router();
 
