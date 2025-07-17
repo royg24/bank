@@ -18,7 +18,7 @@ type Transaction = {
   timestamp: string;
 };
 
-const PaginationBox = forwardRef<PaginationBoxRef>((props, ref) => {
+const PaginationBox = forwardRef<PaginationBoxRef>((_, ref) => {
   const token = localStorage.getItem('accessToken')!;
   const defaultText = (
     <Typography sx={{ ...textStructure, color: 'red' }}>
