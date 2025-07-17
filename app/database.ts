@@ -218,7 +218,7 @@ export async function connectDB() {
             throw new Error('Missing CONNECTION_STRING or DATABASE_NAME in environment variables');
         }
 
-        await mongoose.connect(connectionString + databaseName);
+        await mongoose.connect(connectionString + databaseName, {tls: true});
         console.log('MongoDB connected successfully');
     } catch (error) {
         console.error('MongoDB connection error:', error);
