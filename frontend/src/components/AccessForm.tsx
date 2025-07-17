@@ -79,7 +79,7 @@ function SignUpForm() {
             <Box
                 sx={{
                     display: 'flex',
-                    justifyContent: 'center',
+                    justifyContent: 'flex-start',
                     alignItems: 'center',
                     width: '100%',
                 }}
@@ -89,7 +89,7 @@ function SignUpForm() {
 
 
             <Box
-                sx={formContainerStyle('3em')}
+                sx={formContainerStyle('1em')}
                 component="form"
                 onSubmit={handleSubmit(onSubmit)}
             >
