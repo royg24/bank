@@ -46,11 +46,11 @@ export async function addTransaction(id : string, amount : number, participantEm
             throw new DataError('Insufficient amount for transaction')
         }
 
-        await addUserTransaction(Transaction, sender.id, receiver.email, amount * -1);
-        await addUserTransaction(Transaction, receiver.id, sender.email, amount);
+        await addUserTransaction(Transaction, sender.id, receiver.email, (amount * -1).toString());
+        await addUserTransaction(Transaction, receiver.id, sender.email, amount.toString());
         
-        await setBalance(User, sender.id, amount * -1);
-        await setBalance(User, receiver.id, amount);
+        await setBalance(User, sender.id, (amount * -1).toString());
+        await setBalance(User, receiver.id, amount.toString());
         await session.commitTransaction();
 
         const updatedSender = await User.findOne({id: id});
@@ -234,7 +234,7 @@ export async function testCleanUp() {
 }
 
 async function addUserTransaction(Transaction: typeof mongoose.Model, userId: string, 
-    participantEmail: string, amount: number) {
+    participantEmail: string, amount: string) {
     const now = new Date();
 
     await Transaction.create({
@@ -245,7 +245,7 @@ async function addUserTransaction(Transaction: typeof mongoose.Model, userId: st
     });
 }
 
-async function setBalance(User : typeof mongoose.Model, id : string, amount : number) {
+async function setBalance(User : typeof mongoose.Model, id : string, amount : string) {
     await User.updateOne(
         {id: id},
         {$inc: {balance: amount}}
