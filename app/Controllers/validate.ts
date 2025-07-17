@@ -1,14 +1,14 @@
 import {Router} from 'express';
-import twilio from 'twilio';
+//import twilio from 'twilio';
 import dotenv from 'dotenv';
-import { setNumberFormat } from '../utils/utils.js'
-import { validateValidate } from '../Validator/validations.js';
-import { ValidationError, AuthenticationError } from '../errorHandler.js';
-import { approveUser, getPhoneNumber } from '../database.js';
+//import { setNumberFormat } from '../utils/utils.js'
+//import { validateValidate } from '../Validator/validations.js';
+//import { ValidationError, AuthenticationError } from '../errorHandler.js';
+//import { approveUser, getPhoneNumber } from '../database.js';
 
 dotenv.config();
-const client = twilio(process.env.TWILIO_ID, process.env.TWILIO_TOKEN);
-const verifySID = process.env.TWILIO_VERIFY || '';
+//const client = twilio(process.env.TWILIO_ID, process.env.TWILIO_TOKEN);
+//const verifySID = process.env.TWILIO_VERIFY || '';
 
 export default function validateCode() {
     const router = Router();
