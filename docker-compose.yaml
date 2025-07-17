@@ -26,7 +26,7 @@ services:
     ports:
       - "5173:5173"
     environment:
-      - VITE_BACKEND_URI=http://localhost:3000/api
+      - VITE_BACKEND_URI=https://bank-fmud.onrender.com/api
     volumes:
       - ./frontend:/app   
     command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

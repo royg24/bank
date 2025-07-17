@@ -76,7 +76,17 @@ function SignUpForm() {
 
     return (
         <>
-            <Toggle mode={mode} setMode={setMode} leftText="Sign Up" rightText="Login" />
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: '100%',
+                }}
+                >
+                <Toggle mode={mode} setMode={setMode} leftText="Sign Up" rightText="Login" />
+            </Box>
+
 
             <Box
                 sx={formContainerStyle('3em')}
