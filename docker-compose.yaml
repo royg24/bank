@@ -14,6 +14,7 @@ services:
       - REDIS_PORT=16048
       - REDIS_USERNAME=default
       - REDIS_PASSWORD=ImRwIZY0MW5xk47q8dlfN46IfW066QRJ
+      - LOCAL_WEB_URL=https://localhost:5173
       - WEB_URL=https://goldbank-73f4e.web.app
     depends_on:
       - mongo
