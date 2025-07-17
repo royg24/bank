@@ -11,11 +11,7 @@ services:
       - JWT_KEY=key
       - BACKEND_PORT=3000
       - REDIS_HOST=redis
-      - WEB_URL=http://localhost:5173
-      - TWILIO_ID=AC9d2f5eb07ff42441f2920557b5402151
-      - TWILIO_TOKEN=c6991faa4c2b13eed3f4f3d021d781e8
-      - TWILIO_PHONE_NUMBER=+18123625947
-      - TWILIO_VERIFY=VA880d57ac8499728e28f919dedd8054b2
+      - WEB_URL=https://localhost:5173
     depends_on:
       - mongo
       - redis

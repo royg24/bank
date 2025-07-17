@@ -27,7 +27,7 @@ function SignUpForm() {
 
     const { control, handleSubmit, formState: { errors }, reset } = useForm<FormData>();
 
-    const [formData, setFormData] = useState({
+    const [_, setFormData] = useState({
         email: '',
         password: '',
         phoneNumber: ''
