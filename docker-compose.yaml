@@ -9,7 +9,7 @@ services:
       - CONNECTION_STRING=mongodb+srv://royg24:abcd8899%23%2A@cluster0.1oihvio.mongodb.net/
       - DATABASE_NAME=bank
       - JWT_KEY=key
-      - BACKEND_PORT=3000
+      - PORT=3000
       - REDIS_HOST=redis
       - WEB_URL=https://localhost:5173
     depends_on:

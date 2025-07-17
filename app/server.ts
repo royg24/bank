@@ -16,7 +16,7 @@ import addRoutes from './Routes/routes.js'
 import { handleError } from './errorHandler.js';
 
 const app = express();
-const port = process.env.BACKEND_PORT;
+const port = process.env.PORT;
 
 app.use(bodyParser.json());
 addRoutes(app);
