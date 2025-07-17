@@ -170,15 +170,18 @@ export function toggleGroupStructure(mode: boolean): ToggleButtonGroupProps {
     value: mode,
     exclusive: true,
     sx: {
-      position: 'absolute',
       height: '3em',
       width: '25em',
-      left: '20em',
-      top: '4%',
+      margin: '0 auto',            
+      position: 'relative',       
+      top: '4%',                   
       backgroundColor: 'rgba(225, 224, 224, 0.1)',
+      display: 'flex',
+      justifyContent: 'center',    
     }
   }
 }
+
 
 export function toggleButtonStructure(value: boolean): ToggleButtonProps {
   return {
