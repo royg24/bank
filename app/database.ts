@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, {HydratedDocument, Model} from "mongoose";
 import { Response } from "express";
 import { NotFoundError, DataError, AuthenticationError } from "./errorHandler.js";
 
@@ -8,9 +8,9 @@ const UserSchema = new Schema({
     id: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     hashedPassword: { type: String, required: true },
-    phoneNumber: { type: String, required: true },
+    phoneNumber: { type: String, required: false },
     balance: { type: String, default: '1000000' },
-    verified: {type: Boolean, default: false}
+    verified: {type: Boolean, default: true}
 });
 
 const TransactionSchema = new Schema({
@@ -20,7 +20,16 @@ const TransactionSchema = new Schema({
     timestamp: { type: Date, default: Date.now }
 });
 
-const User = mongoose.model('User', UserSchema);
+interface IUser {
+  id: string;
+  email: string;
+  hashedPassword: string;
+  phoneNumber?: string;
+  balance: string;
+  verified: boolean;
+}
+
+const User: Model<IUser> = mongoose.model<IUser>("User", UserSchema);
 const Transaction = mongoose.model('Transaction', TransactionSchema);
 
 export async function addTransaction(id : string, amount : number, participantEmail : string) {
@@ -49,8 +58,8 @@ export async function addTransaction(id : string, amount : number, participantEm
         await addUserTransaction(Transaction, sender.id, receiver.email, (amount * -1).toString());
         await addUserTransaction(Transaction, receiver.id, sender.email, amount.toString());
         
-        await setBalance(User, sender.id, (amount * -1).toString());
-        await setBalance(User, receiver.id, amount.toString());
+        await setBalance(sender, amount * -1);
+        await setBalance(receiver, amount);
         await session.commitTransaction();
 
         const updatedSender = await User.findOne({id: id});
@@ -175,7 +184,7 @@ export async function isUserVerified(id: string): Promise<boolean> {
     }
 }
 
-export async function getPhoneNumber(email: string): Promise<string> {
+/*export async function getPhoneNumber(email: string): Promise<string> {
     try {
         const user = await User.findOne({email: email});
         if (!user) {
@@ -187,7 +196,7 @@ export async function getPhoneNumber(email: string): Promise<string> {
     } catch(error) {
         throw error;
     }
-}
+}*/
 
 export async function approveUser(email: string) {
     try {
@@ -245,9 +254,9 @@ async function addUserTransaction(Transaction: typeof mongoose.Model, userId: st
     });
 }
 
-async function setBalance(User : typeof mongoose.Model, id : string, amount : string) {
-    await User.updateOne(
-        {id: id},
-        {$inc: {balance: amount}}
-    );
+async function setBalance(user: HydratedDocument<IUser>, amount : number) {
+    const current = parseFloat(user.balance || '0');
+    const updated = current + amount;
+
+    await user.updateOne({ $set: { balance: updated.toString() } });
 }
