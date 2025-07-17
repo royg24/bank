@@ -10,11 +10,15 @@ services:
       - DATABASE_NAME=bank
       - JWT_KEY=key
       - PORT=3000
-      - REDIS_HOST=redis
-      - WEB_URL=https://localhost:5173
+      - REDIS_HOST=redis-16048.c321.us-east-1-2.ec2.redns.redis-cloud.com
+      - REDIS_PORT=16048
+      - REDIS_USERNAME=default
+      - REDIS_PASSWORD=ImRwIZY0MW5xk47q8dlfN46IfW066QRJ
+      - REDIS_TLS=true
+
+      - WEB_URL=http://localhost:5173
     depends_on:
       - mongo
-      - redis
 
   frontend:
     build: 
