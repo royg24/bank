@@ -14,7 +14,6 @@ services:
       - REDIS_PORT=16048
       - REDIS_USERNAME=default
       - REDIS_PASSWORD=ImRwIZY0MW5xk47q8dlfN46IfW066QRJ
-      - REDIS_TLS=true
 
       - WEB_URL=http://localhost:5173
     depends_on:
