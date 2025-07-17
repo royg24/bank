@@ -14,7 +14,7 @@ export default function sendCode() {
     const router = Router();
 
     router.post('/', async (req, res, next) => {
-        const body = req.body;
+        /*const body = req.body;
         const errorMessage = validateSend(body.phoneNumber);
         console.log(setNumberFormat(body.phoneNumber));
         if(errorMessage) {
@@ -31,7 +31,7 @@ export default function sendCode() {
             return res.status(200).json({message: 'Code sent'});
         } catch(error) {
             return next(error);
-        }
+        }*/
     });
 
     return router;

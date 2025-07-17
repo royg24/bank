@@ -14,7 +14,7 @@ export default function validateCode() {
     const router = Router();
 
     router.post('/', async (req, res, next) => {
-        const body = req.body;
+        /*const body = req.body;
         const errorMessage = validateValidate(body);
 
         if(errorMessage) {
@@ -37,7 +37,7 @@ export default function validateCode() {
             }
         } catch(error) {
             return next(error);
-        }
+        }*/
     });
 
     return router;
