@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Info from './Info'
 import { landingPageBackgroundStyle, landingPageButtonStyle, textStructure,
      cardStructure, landingPageButtonSetStructure } from './Style';
+import img from '../assets/landing.png'
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -42,32 +43,53 @@ function LandingPage() {
 
         </Box>
 
-        <Box sx={{ display: 'flex', gap: '1.5em', alignItems: 'flex-start' }}>
+        <Box sx={{ position: 'relative', width: '100%' }}>
 
-            <Card sx={{ ...cardStructure.sx, marginTop: '0em' }}>
+          <Box sx={{ display: 'flex', gap: '1.5em', alignItems: 'flex-start' }}>
 
-                <Info labelContent='🔐⚡Fast & Secure'
-                infoContent={'Fast transactions with top-level\nsecurity to keep your data safe.'} >
-                </Info>
+              <Card sx={{ ...cardStructure.sx, marginTop: '0%' }}>
+
+                  <Info labelContent='🔐⚡Fast & Secure'
+                  infoContent={'Fast transactions with top-level\nsecurity to keep your data safe.'} >
+                  </Info>
 
 
-            </Card>
+              </Card>
 
-            <Card sx={{ ...cardStructure.sx, marginTop: '4em' }}>
+              <Card sx={{ ...cardStructure.sx, marginTop: '8%' }}>
 
-                <Info labelContent='🌐 Reliable Service'
-                infoContent={'Always here for you, providing\nseamless and consistent access anytime.'} >
-                </Info>
+                  <Info labelContent='🌐 Reliable Service'
+                  infoContent={'Always here for you, providing\nseamless and consistent access.'} >
+                  </Info>
 
-            </Card>
+              </Card>
 
-            <Card  sx={{ ...cardStructure.sx, marginTop: '8em' }}>
+              <Card  sx={{ ...cardStructure.sx, marginTop: '16%' }}>
 
-                <Info labelContent='💳 Easy Payments'
-                infoContent={'Make payments quickly and\neffortlessly anytime, anywhere.'} >
-                </Info>
+                  <Info labelContent='💳 Easy Payments'
+                  infoContent={'Make payments quickly and\neffortlessly anytime, anywhere.'} >
+                  </Info>
 
-            </Card>
+              </Card>
+
+          </Box>
+
+          <Box
+            component="img"
+            src={img}
+            alt="Decorative"
+            sx={{
+              position: 'absolute',
+              top: { xs: '1em', md: '7em' },
+              left: { xs: '0', md: '-4em' },
+              width: { xs: '60%', sm: '40%', md: '35%' },
+              height: 'auto',
+              borderRadius: '1em',
+              objectFit: 'cover',
+              userSelect: 'none',
+              boxShadow: '0 10px 30px rgba(8, 7, 2, 0.13)'
+            }}
+          />
 
         </Box>
 
