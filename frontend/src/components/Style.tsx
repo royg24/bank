@@ -156,7 +156,7 @@ export const buttonStructure: ButtonProps = {
     backgroundColor: buttonColor,
     width: "50%",
     height: '2.875em',
-    left: "10em",
+    left: "9.5em",
     marginTop: "1.25em",
     '&:hover': {
       backgroundColor: buttonHoverColor,

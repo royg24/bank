@@ -10,6 +10,7 @@ import { validateEmail, validatePassword, validatePhoneNumber, keepPhoneNumberFo
 import { access, sendCode } from './BackendCalls.js'
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import GoogleButton from './GoogleButton.js' 
 
 type FormData = {
     email: string;
@@ -21,8 +22,9 @@ function SignUpForm() {
     const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false);
-    const initialMode = useLocation().state?.mode ?? true;
-    const [mode, setMode] = useState(initialMode);
+    const location = useLocation();
+    const initialMode = typeof location.state?.mode === 'boolean' ? location.state.mode : true;
+    const [mode, setMode] = useState<boolean>(initialMode);
     const pageText = mode ? 'Sign Up' : 'Login';
 
     const { control, handleSubmit, formState: { errors }, reset } = useForm<FormData>();
@@ -165,10 +167,9 @@ function SignUpForm() {
                     />
                 )}
 
-                <Button {...buttonStructure} type="submit">
-                    {pageText}
-                </Button>
+                <Button {...buttonStructure} type="submit">{pageText}</Button>
 
+                <GoogleButton textContent={mode}></GoogleButton>
             </Box>
         </>
     );
