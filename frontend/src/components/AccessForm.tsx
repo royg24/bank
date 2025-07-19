@@ -1,7 +1,7 @@
 import { Box, TextField, Button } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { fieldStructure, buttonStructure, formContainerStyle } from './Style.js';
+import { fieldStructure, buttonStructure, formContainerStyle } from '../css/Style.js';
 import Toggle from './Toggle.js';
 import PasswordIcon from './PasswordIcon.js';
 import '../css/style.css';
@@ -14,7 +14,7 @@ import GoogleButton from './GoogleButton.js'
 
 type FormData = {
     email: string;
-    password: string;
+    password?: string;
     phoneNumber?: string;
 };
 
@@ -48,11 +48,9 @@ function SignUpForm() {
         }));
     }
 
-    const onSubmit = async (data: FormData) => {
+    const onSubmit = async (data: any, type: string) => {
         const route = mode ? 'sign-up' : 'login';
-        const navigateRoute = mode ? '/verify' : '/dashboard';
-
-        const result = await access(route, data);
+        const result = await access(route, data, type);
 
         if (result.success) {
             if (!mode) {
@@ -62,11 +60,20 @@ function SignUpForm() {
                 sendCode({phoneNumber: data.phoneNumber || ''});
             }
             localStorage.setItem('email', data.email);
-            navigate(navigateRoute);
+            navigate(getNavigationRoute(mode, type));
         } else {
             toast.error(result.error);
         }
     };
+
+    function getNavigationRoute(mode: boolean, type: string) : string {
+        if (mode) {
+            setMode(false);
+            return type === 'form' ? '/verify' : '/access';
+        } else {
+            return '/dashboard';
+        }
+    }
 
     useEffect(() => {
         reset({
@@ -89,11 +96,9 @@ function SignUpForm() {
                 <Toggle mode={mode} setMode={setMode} leftText="Sign Up" rightText="Login" />
             </Box>
 
-
             <Box
                 sx={formContainerStyle('1em')}
                 component="form"
-                onSubmit={handleSubmit(onSubmit)}
             >
                 <Controller
                     name="email"
@@ -167,9 +172,13 @@ function SignUpForm() {
                     />
                 )}
 
-                <Button {...buttonStructure} type="submit">{pageText}</Button>
+                <Button {...buttonStructure} 
+                    onClick={handleSubmit((data) => onSubmit(data, 'form'))}
+                >{pageText}</Button>
 
-                <GoogleButton textContent={mode}></GoogleButton>
+                <GoogleButton 
+                onGoogleSubmit={(data) => onSubmit(data, 'google')} 
+                textContent={mode}></GoogleButton>
             </Box>
         </>
     );

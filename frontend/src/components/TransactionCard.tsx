@@ -1,5 +1,5 @@
 import { Card, Divider } from '@mui/material'
-import { cardStructure, dividerStyle } from './Style';
+import { cardStructure, dividerStyle } from '../css/Style';
 import Info from './Info'
 
 type Transaction = {
