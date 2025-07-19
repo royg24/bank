@@ -11,20 +11,24 @@ export default function login() {
 
     router.post('/', async (req, res) => {
         const body = req.body;
-        const errorMessage = validateLogin(body);
+        const data = body.data;
         const jti = randomUUID();
 
-        if (errorMessage) {
-            throw new ValidationError(errorMessage);
+        if (body.type === 'form') {
+            const errorMessage = validateLogin(data);
+            if (errorMessage) {
+                throw new ValidationError(errorMessage);
+            }
         }
     
-        const queryResult = await validateUser(body.email, hashPassword(body.password));
+        const hashedPassword = data.password ? hashPassword(data.password) : undefined;
+        const queryResult = await validateUser(data.email, body.type, hashedPassword);
 
         if (!process.env.JWT_KEY) {
             throw new Error('JWT_KEY environment variable is not defined');
         }
         const token = jwt.sign({ 
-            email: body.email,
+            email: data.email,
             id: queryResult.id,
             jti: jti
         }, process.env.JWT_KEY as string, { expiresIn: '24h' });

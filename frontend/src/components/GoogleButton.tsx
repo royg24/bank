@@ -1,11 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
+import {toast} from 'react-toastify';
+import * as jwt_decode from 'jwt-decode';
 
 type GoogleButtonProps = {
   textContent: boolean;
+  onGoogleSubmit: (data: any, type: string) => void;
 };
 
-const GoogleButton = ({ textContent }: GoogleButtonProps) => {
+type GoogleJWT = {
+  sub: string;
+  email: string;
+  name?: string;
+}
+
+const GoogleButton = ({ textContent, onGoogleSubmit }: GoogleButtonProps) => {
   const [buttonWidth, setButtonWidth] = useState(280);
 
   useEffect(() => {
@@ -22,9 +31,7 @@ const GoogleButton = ({ textContent }: GoogleButtonProps) => {
   return (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        display: 'flex'
       }}
     >
       <GoogleLogin
@@ -32,10 +39,16 @@ const GoogleButton = ({ textContent }: GoogleButtonProps) => {
         theme="filled_black"
         text={textContent ? 'signup_with' : 'continue_with'}
         onSuccess={(credentialResponse) => {
-          console.log('Google token:', credentialResponse.credential);
+          const token = credentialResponse.credential;
+
+          if (token) {
+            const user = jwt_decode.jwtDecode<GoogleJWT>(token);
+            onGoogleSubmit(user, 'google');
+          }
         }}
         onError={() => {
-          console.log('Login Failed');
+          console.error('Login Failed');
+          toast.error('An error occurred while logging in with Google. Please try again.');
         }}
         useOneTap
       />

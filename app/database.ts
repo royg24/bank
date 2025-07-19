@@ -7,7 +7,7 @@ const { Schema } = mongoose;
 const UserSchema = new Schema({
     id: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
-    hashedPassword: { type: String, required: true },
+    hashedPassword: { type: String, required: false },
     phoneNumber: { type: String, required: false },
     balance: { type: String, default: '1000000' },
     verified: {type: Boolean, default: true}
@@ -77,20 +77,30 @@ export async function addTransaction(id : string, amount : number, participantEm
     }
 }
 
-export async function addUser(id : string, email : string, password : string, 
-    phoneNumber : string) {
+export async function addUser(id : string, email : string, type: string, password? : string, 
+    phoneNumber? : string) {
     try {
         const isExists = await User.exists({ email });
         if (isExists) {
             throw new DataError(`email ${email} is taken`);
         }
 
-        await User.create({
-            id : id,
-            email: email,
-            hashedPassword: password,
-            phoneNumber: phoneNumber,
-        });
+        if (type === 'form') {
+            await User.create({
+                id : id,
+                email: email,
+                hashedPassword: password,
+                phoneNumber: phoneNumber,
+            });
+        } else if (type === 'google') {
+            await User.create({
+                id: id,
+                email: email,
+                verified: true
+            });
+        } else {
+            throw new DataError('Invalid type');
+        }
 
         return {
             code: 201,
@@ -100,7 +110,7 @@ export async function addUser(id : string, email : string, password : string,
         throw error;
     }
 }
-
+ 
 export async function getUserBalance(id : string) {
     try {
         const user = await User.findOne(
@@ -150,12 +160,23 @@ export async function getUserTransactions(id : string, index : number) {
     }
 }
 
-export async function validateUser(email : string, password : string) {
+export async function validateUser(email : string, type: string, password? : string) {
     try {
-        const user = await User.findOne({
-            email: email,
-            hashedPassword: password
-        });
+
+        let user;
+
+        if (type === 'form') {
+            user = await User.findOne({
+                email: email,
+                hashedPassword: password
+            });
+        } else if (type === 'google') {
+            user = await User.findOne({
+                email: email
+            });
+        } else {
+            throw new DataError('Invalid type');
+        }
 
         if (!user || !user.verified) {
             throw new AuthenticationError('Incorrect email or password');

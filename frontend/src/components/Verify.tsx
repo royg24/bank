@@ -1,7 +1,7 @@
 import { Box, Typography, Button } from '@mui/material';
 import { useRef, useState, useEffect } from 'react';
 import VerifyDigit from './VerifyDigit';
-import { textStructure, buttonStructure } from './Style';
+import { textStructure, buttonStructure } from '../css/Style';
 import { validateCode } from './BackendCalls';
 import { toast } from 'react-toastify';
 
@@ -92,7 +92,12 @@ function Verify() {
         ))}
       </Box>
 
-      <Box sx={{ marginRight: '5em', marginTop: '1em', minWidth: '16em' }}>
+      <Box sx={{
+         marginTop: '1em',
+         minWidth: '16em',
+         display: 'flex',
+         justifyContent: 'center', 
+         }}>
         <Button {...buttonStructure} onClick={verifyCode} disabled={!isComplete}>
 			Submit
 		</Button>
