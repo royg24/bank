@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Info from './Info'
 import { landingPageBackgroundStyle, landingPageButtonStyle, textStructure,
-     cardStructure, landingPageButtonSetStructure } from './Style';
+     cardStructure, landingPageButtonSetStructure } from '../css/Style';
 import img from '../assets/landing.png'
 
 function LandingPage() {
@@ -32,7 +32,7 @@ function LandingPage() {
 
         <Box sx={{ width: '100%', textAlign: 'center', mb: 2, marginTop: '3em', maxHeight: '1em' }}>
 
-            <Typography variant="h2" sx={{ ...textStructure, fontSize: '3em' }}>
+            <Typography variant="h2" sx={{ ...textStructure, fontSize: '3.5em' }}>
                 Welcome to{' '}
 
                 <Box component="span" sx={{ ...textStructure, color: 'gold' }}>

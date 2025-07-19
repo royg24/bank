@@ -7,7 +7,7 @@ import LandingPage from './components/LandingPage';
 import AccessForm from './components/AccessForm.tsx';
 import Dashboard from './components/Dashboard';
 import Verify from './components/Verify';
-import { theme } from './components/Style';
+import { theme } from './css/Style.tsx';
 import './css/style.css';
 
 function App() {

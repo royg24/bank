@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Info from './Info';
 import PaginationBox, {type PaginationBoxRef} from './PaginationBox';
-import { fieldStructure, formContainerStyle, cardStructure, buttonStructure, dividerStyle } from './Style';
+import { fieldStructure, formContainerStyle, cardStructure, buttonStructure, dividerStyle } from '../css/Style';
 import { validateEmail, validateAmount } from './Validations';
 import { getBalance, transferMoney, logout } from './BackendCalls';
 
