@@ -13,6 +13,7 @@ export function formContainerStyle(marginTop = '1em') {
     marginTop: marginTop,
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     gap: '1.25em',
     width: '50%',
     maxWidth: '37.5em',
@@ -113,7 +114,6 @@ export const fieldStructure: TextFieldProps = {
   variant: 'outlined',
   sx: { 
     mb: 1.25,
-    ml: '5em',
     width: "70%",
     top: '12.5%',
     '& .MuiInputBase-input': {
@@ -122,7 +122,7 @@ export const fieldStructure: TextFieldProps = {
       padding: '0.75em 1.25em',  
     },
     '& .MuiInputLabel-root': {
-      fontSize: '0.9375rem',
+      fontSize: '1.1rem',
     }
   },
   className: 'field',
@@ -156,7 +156,6 @@ export const buttonStructure: ButtonProps = {
     backgroundColor: buttonColor,
     width: "50%",
     height: '2.875em',
-    left: "9.5em",
     marginTop: "1.25em",
     '&:hover': {
       backgroundColor: buttonHoverColor,
@@ -272,7 +271,7 @@ export const landingPageButtonSetStructure = {
     gap: '1.25em',
     position: 'absolute',
     top: '0.25em',
-    right: '18.75%'
+    right: '8%'
   }
 }
 

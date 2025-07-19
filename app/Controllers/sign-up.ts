@@ -10,14 +10,20 @@ export default function signUp() {
 
     router.post('/', async (req, res) => {
         const body = req.body;
+        const data = body.data;
 
-        const erroerMessage = validateSignUp(body);
-        if (erroerMessage) {
-            throw new ValidationError(erroerMessage)
+        if (body.type === 'form') {
+            const erroerMessage = validateSignUp(data);
+            if (erroerMessage) {
+                throw new ValidationError(erroerMessage)
+            }
         }
 
-        const queryResult = await addUser(randomUUID(), body.email, hashPassword(body.password)
-        , body.phoneNumber);
+        const hashedPassword = data.password ? hashPassword(data.password) : undefined;
+        const phoneNumber = data.phoneNumber ?? undefined;
+
+        const queryResult = await addUser(randomUUID(), data.email, body.type, 
+        hashedPassword, phoneNumber);
 
         console.log(`user with email ${body.email} has signed up but not yet verified`)
         return responseFromDB(res, 201, {message: queryResult.message});

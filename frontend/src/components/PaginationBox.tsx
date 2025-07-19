@@ -1,7 +1,7 @@
 import { Box, IconButton, Typography } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { paginationContainerStyle, pagingArrowsStructure, textStructure } from './Style';
+import { paginationContainerStyle, pagingArrowsStructure, textStructure } from '../css/Style';
 import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { getTransactions } from './BackendCalls';
 import { toast } from 'react-toastify';
@@ -51,7 +51,7 @@ const PaginationBox = forwardRef<PaginationBoxRef>((_, ref) => {
 
     if (result.success) {
       setTransactions(result.transactions);
-      setTotalPages(result.totalPages);
+      setTotalPages(result.totalPages || 1);
     } else {
       toast.error(result.error);
     }
