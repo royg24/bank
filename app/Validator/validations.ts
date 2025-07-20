@@ -90,9 +90,9 @@ export function validateValidate(body: validateBody): string | null {
 	return null;
 }
 
-export function validateSend(phoneNumber: string): string | null {
-	const phoneNumberError = validatePhoneNumber(phoneNumber);
-	return phoneNumberError || null;
+export function validateSend(email: string): string | null {
+	const emailError = validateEmail(email);
+	return emailError || null;
 }
 
 interface CheckRequiredFieldsBody {

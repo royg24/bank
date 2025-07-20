@@ -1,6 +1,6 @@
 import React from 'react';
 import { ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
-import { toggleButtonStructure, toggleGroupStructure } from '../css/Style.js';
+import { toggleButtonStructure, toggleGroupStructure } from '../../css/Style.js';
 
 type ToggleProps = {
   mode: boolean;

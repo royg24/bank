@@ -1,5 +1,5 @@
 import { Card, TextField } from '@mui/material';
-import { verifyFieldStructure } from '../css/Style';
+import { verifyFieldStructure } from '../../css/Style';
 import React from 'react';
 
 function VerifyDigit({ inputRef, onChange, onKeyDown, onFocus, value }: {
