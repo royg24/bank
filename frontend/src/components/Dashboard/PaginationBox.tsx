@@ -1,9 +1,9 @@
 import { Box, IconButton, Typography } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { paginationContainerStyle, pagingArrowsStructure, textStructure } from '../css/Style';
+import { paginationContainerStyle, pagingArrowsStructure, textStructure } from '../../css/Style';
 import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
-import { getTransactions } from './BackendCalls';
+import { getTransactions } from '../BackendCalls';
 import { toast } from 'react-toastify';
 import TransactionCard from './TransactionCard';
 
@@ -21,7 +21,7 @@ type Transaction = {
 const PaginationBox = forwardRef<PaginationBoxRef>((_, ref) => {
   const token = localStorage.getItem('accessToken')!;
   const defaultText = (
-    <Typography sx={{ ...textStructure, color: 'red' }}>
+    <Typography sx={{ ...textStructure, color: 'red', fontSize: '1.5em' }}>
       No Transactions for you
     </Typography>
   );
@@ -64,7 +64,7 @@ const PaginationBox = forwardRef<PaginationBoxRef>((_, ref) => {
 
   return (
     <Box sx={{ ...paginationContainerStyle('2em') }}>
-      <Typography sx={{ ...textStructure, fontSize: '2em', marginRight: '60%' }}>
+      <Typography sx={{ ...textStructure, fontSize: '2.5em', marginRight: '60%' }}>
         All Transactions:
       </Typography>
 

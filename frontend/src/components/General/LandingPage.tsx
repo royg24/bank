@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Info from './Info'
 import { landingPageBackgroundStyle, landingPageButtonStyle, textStructure,
-     cardStructure, landingPageButtonSetStructure } from '../css/Style';
-import img from '../assets/landing.png'
+     cardStructure, landingPageButtonSetStructure } from '../../css/Style';
+import img from '../../assets/landing.png';
 
 function LandingPage() {
   const navigate = useNavigate();

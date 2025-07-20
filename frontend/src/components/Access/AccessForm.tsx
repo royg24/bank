@@ -1,13 +1,13 @@
 import { Box, TextField, Button } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { fieldStructure, buttonStructure, formContainerStyle } from '../css/Style.js';
+import { fieldStructure, buttonStructure, formContainerStyle } from '../../css/Style.js';
 import Toggle from './Toggle.js';
 import PasswordIcon from './PasswordIcon.js';
-import '../css/style.css';
+import '../../css/style.css';
 import { useLocation } from 'react-router-dom';
-import { validateEmail, validatePassword, validatePhoneNumber, keepPhoneNumberFormat } from './Validations.js';
-import { access, sendCode } from './BackendCalls.js'
+import { validateEmail, validatePassword, validatePhoneNumber, keepPhoneNumberFormat } from '../Validations.js';
+import { access, sendCode } from '../BackendCalls.js'
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import GoogleButton from './GoogleButton.js' 
@@ -18,7 +18,7 @@ type FormData = {
     phoneNumber?: string;
 };
 
-function SignUpForm() {
+function AccessForm() {
     const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false);
@@ -57,8 +57,13 @@ function SignUpForm() {
                 localStorage.setItem('accessToken', result.data.accessToken);
                 toast.success(result.data.message);
             } else {
-                sendCode({phoneNumber: data.phoneNumber || ''});
+                const sendResult = await sendCode({email: data.email || ''});
+                if (!sendResult.success) {
+                    toast.error(sendResult.error);
+                    return;
+                }
             }
+
             localStorage.setItem('email', data.email);
             navigate(getNavigationRoute(mode, type));
         } else {
@@ -184,4 +189,4 @@ function SignUpForm() {
     );
 }
 
-export default SignUpForm;
+export default AccessForm;

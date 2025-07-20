@@ -1,16 +1,19 @@
 import { Box, Typography, Button } from '@mui/material';
 import { useRef, useState, useEffect } from 'react';
 import VerifyDigit from './VerifyDigit';
-import { textStructure, buttonStructure } from '../css/Style';
-import { validateCode } from './BackendCalls';
+import { textStructure, buttonStructure } from '../../css/Style';
+import { validateCode } from '../BackendCalls';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import Timer from './Timer';
 
 function Verify() {
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
   const [values, setValues] = useState(Array(6).fill(''));
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [expiryTimestamp] = useState(() => Date.now() + 3 * 60 * 1000);
   const isComplete = values.every((v) => v !== '');
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = 'Verify';
@@ -19,15 +22,16 @@ function Verify() {
   }, [currentIndex]);
 
   const verifyCode = async() => {
-	const code = parseInt(values.join(''));
-	const email = localStorage.getItem('email');
-	
-	const result = await validateCode({email: email || '', code: code});
-	if (result.success) {
-		toast.success(result.message);
-	} else {
-		toast.error(result.error);
-	}
+    const code = parseInt(values.join(''));
+    const email = localStorage.getItem('email');
+    
+    const result = await validateCode({email: email || '', code: code});
+    if (result.success) {
+      toast.success(result.message);
+      navigate('/access', {state: {mode: false}});
+    } else {
+      toast.error(result.error);
+    }
   };
 
   const handleChange = (idx: number, val: string) => {
@@ -74,7 +78,7 @@ function Verify() {
   return (
     <>
       <Typography variant='h1' sx={{ ...textStructure, fontSize: '3em', fontFamily: 'monospace' }}>
-        Enter the 6-digit code sent to your device
+        Enter the 6-digit code sent to your email
       </Typography>
       <Box sx={{ display: 'flex', gap: '2em', marginTop: '1em' }}>
         {values.map((val, idx) => (
@@ -92,15 +96,19 @@ function Verify() {
         ))}
       </Box>
 
+      <Box>
+        <Timer expiryTimestamp={expiryTimestamp}/>
+      </Box>
+
       <Box sx={{
-         marginTop: '1em',
          minWidth: '16em',
          display: 'flex',
          justifyContent: 'center', 
-         }}>
+      }}>
+        
         <Button {...buttonStructure} onClick={verifyCode} disabled={!isComplete}>
-			Submit
-		</Button>
+          Submit
+        </Button>
       </Box>
     </>
   );

@@ -3,11 +3,11 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import Info from './Info';
+import Info from '../General/Info';
 import PaginationBox, {type PaginationBoxRef} from './PaginationBox';
-import { fieldStructure, formContainerStyle, cardStructure, buttonStructure, dividerStyle } from '../css/Style';
-import { validateEmail, validateAmount } from './Validations';
-import { getBalance, transferMoney, logout } from './BackendCalls';
+import { fieldStructure, formContainerStyle, cardStructure, buttonStructure, dividerStyle } from '../../css/Style';
+import { validateEmail, validateAmount } from '../Validations';
+import { getBalance, transferMoney, logout } from '../BackendCalls';
 
 type DashboardFormData = {
     email: string;
@@ -100,7 +100,7 @@ function Dashboard() {
 
             </Box>
 
-            <Box sx={formContainerStyle('6em')} component="form" onSubmit={handleSubmit(onSubmit)}>
+            <Box sx={formContainerStyle('7em')} component="form" onSubmit={handleSubmit(onSubmit)}>
 
                 <Controller
                     name="email"
