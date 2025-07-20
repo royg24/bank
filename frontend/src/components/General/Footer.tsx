@@ -1,7 +1,7 @@
 
 import { Box, Typography } from '@mui/material';
-import { textStructure } from '../css/Style';
-import '../css/style.css'
+import { textStructure } from '../../css/Style';
+import '../../css/style.css'
 
 function Footer() {
   return (

@@ -1,12 +1,12 @@
 import {Routes, Route} from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
-import Logo from './components/Logo';
-import Footer from './components/Footer.tsx';
-import Toast from './components/Toast.tsx';
-import LandingPage from './components/LandingPage';
-import AccessForm from './components/AccessForm.tsx';
-import Dashboard from './components/Dashboard';
-import Verify from './components/Verify';
+import Logo from './components/General/Logo.tsx';
+import Footer from './components/General/Footer.tsx';
+import Toast from './components/General/Toast.tsx';
+import LandingPage from './components/General/LandingPage.tsx';
+import AccessForm from './components/Access/AccessForm.tsx';
+import Dashboard from './components/Dashboard/Dashboard.tsx';
+import Verify from './components/Verify/Verify';
 import { theme } from './css/Style.tsx';
 import './css/style.css';
 

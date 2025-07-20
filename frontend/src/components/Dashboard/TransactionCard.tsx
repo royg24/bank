@@ -1,6 +1,6 @@
 import { Card, Divider } from '@mui/material'
-import { cardStructure, dividerStyle } from '../css/Style';
-import Info from './Info'
+import { cardStructure, dividerStyle } from '../../css/Style';
+import Info from '../General/Info';
 
 type Transaction = {
     amount: number,

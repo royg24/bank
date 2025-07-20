@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import { randomUUID } from 'crypto';
-import { addUser, responseFromDB } from '../database.js';
+import { addUser, responseFromDB, deleteUser } from '../database.js';
 import { validateSignUp } from '../Validator/validations.js';
 import { hashPassword } from '../utils/utils.js';
 import { ValidationError } from '../errorHandler.js';
@@ -25,7 +25,11 @@ export default function signUp() {
         const queryResult = await addUser(randomUUID(), data.email, body.type, 
         hashedPassword, phoneNumber);
 
-        console.log(`user with email ${body.email} has signed up but not yet verified`)
+        setTimeout(async () => {
+            await deleteUser(data.email);
+        }, 180000);
+
+        console.log(`user with email ${data.email} has signed up but not yet verified`)
         return responseFromDB(res, 201, {message: queryResult.message});
 
     });

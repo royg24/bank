@@ -1,20 +1,18 @@
 import {Router} from 'express';
-//import twilio from 'twilio';
 import dotenv from 'dotenv';
-//import { setNumberFormat } from '../utils/utils.js'
-//import { validateValidate } from '../Validator/validations.js';
-//import { ValidationError, AuthenticationError } from '../errorHandler.js';
-//import { approveUser, getPhoneNumber } from '../database.js';
+import { client} from '../redis.js';
+import { validateValidate } from '../Validator/validations.js';
+import { ValidationError, AuthenticationError } from '../errorHandler.js';
+import { approveUser } from '../database.js';
 
 dotenv.config();
-//const client = twilio(process.env.TWILIO_ID, process.env.TWILIO_TOKEN);
-//const verifySID = process.env.TWILIO_VERIFY || '';
+
 
 export default function validateCode() {
     const router = Router();
 
     router.post('/', async (req, res, next) => {
-        /*const body = req.body;
+        const body = req.body;
         const errorMessage = validateValidate(body);
 
         if(errorMessage) {
@@ -22,22 +20,20 @@ export default function validateCode() {
         }
 
         try {
-            const phoneNumber = await getPhoneNumber(body.email);
-            const check = await client.verify.v2.services(verifySID).verificationChecks
-            .create({
-                to: setNumberFormat(phoneNumber),
-                code: String(body.code)
-            });
-
-            if (check.status === 'approved') {
-                await approveUser(body.email);
-                return res.status(200).json({message: 'Correct code'});
+            const actuallCode = await client.get(body.email);
+            if (actuallCode === body.code.toString()) {
+                console.log(`User with email ${body.email} has been approved`);
+                approveUser(body.email);
+                return res.status(200).json({message: 'Sign up was successful'});
             } else {
-                throw new AuthenticationError('Incorrect code');
+                throw new AuthenticationError('Incorrect code, You can try sign up' + 
+                    ' again with the same email after 3 minutes'
+                );
             }
+
         } catch(error) {
             return next(error);
-        }*/
+        }
     });
 
     return router;

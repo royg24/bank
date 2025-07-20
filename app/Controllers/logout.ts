@@ -1,19 +1,8 @@
 
 import {Router} from 'express';
 import jwt from 'jsonwebtoken';
-import redis from 'redis';
+import { client } from '../redis.js'
 import { AuthenticationError } from '../errorHandler.js';
-
-const client = redis.createClient({
-  socket: {
-    host: process.env.REDIS_HOST || '127.0.0.1',
-    port: process.env.REDIS_PORT ? Number(process.env.REDIS_PORT) : 6379,
-    tls: false,
-  },
-  username: process.env.REDIS_USERNAME,
-  password: process.env.REDIS_PASSWORD,
-});
-await client.connect();
 
 
 export function logout() {

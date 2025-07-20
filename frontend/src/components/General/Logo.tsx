@@ -1,4 +1,4 @@
-import logoImg from '../assets/Logo.png'
+import logoImg from '../../assets/Logo.png'
 import { Box } from '@mui/material';
 
 function Logo() {

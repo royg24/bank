@@ -1,5 +1,5 @@
 import { Typography, Box } from '@mui/material';
-import { textStructure, infoStructure } from '../css/Style';
+import { textStructure, infoStructure } from '../../css/Style';
 
 type InfoProps = {
   labelContent: string;
