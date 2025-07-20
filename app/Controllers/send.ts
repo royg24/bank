@@ -1,37 +1,44 @@
 import {Router} from 'express';
-//import twilio from 'twilio';
 import dotenv from 'dotenv';
-//import { setNumberFormat } from '../utils/utils.js';
-//import { validateSend } from '../Validator/validations.js';
-//import { ValidationError } from '../errorHandler.js';
-//import { getPhoneNumber } from '../database.js';
+import { Resend } from 'resend';
+import { client } from '../redis.js';
+import { NotFoundError } from '../errorHandler.js';
+import { validateSend } from '../Validator/validations.js'
 
 dotenv.config();
-//const client = twilio(process.env.TWILIO_ID, process.env.TWILIO_TOKEN);
-//const verifySID = process.env.TWILIO_VERIFY || '';
+const resend = new Resend(process.env.RESEND_APP_KEY);
 
 export default function sendCode() {
     const router = Router();
 
     router.post('/', async (req, res, next) => {
-        /*const body = req.body;
-        const errorMessage = validateSend(body.phoneNumber);
-        console.log(setNumberFormat(body.phoneNumber));
-        if(errorMessage) {
-            throw new ValidationError(errorMessage);
-        }
-
         try {
-            await client.verify.v2.services(verifySID).verifications
-            .create({
-                to: setNumberFormat(body.phoneNumber),
-                channel: 'sms'
+            const email = req.body.email;
+            const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+            const errorMessage = validateSend(email);
+            if (errorMessage) {
+                throw new NotFoundError(errorMessage);
+            }
+            
+            resend.emails.send({
+                from: process.env.RESEND_SENDER_MAIL,
+                to: email,
+                subject: 'GoldBank verification code',
+                html: `<p>Welcome to GoldBank!<br> Your verification code is ${code}</p>`
             });
 
-            return res.status(200).json({message: 'Code sent'});
+            if (resend) {
+                await client.setEx(email, 185, code);
+
+                console.log(`Verification code sent to ${email}`);
+                res.status(200).json({ message: 'Code sent successfully' });;
+            } else {
+                throw new Error('Failed to send verification code');
+            }
         } catch(error) {
             return next(error);
-        }*/
+        }
     });
 
     return router;

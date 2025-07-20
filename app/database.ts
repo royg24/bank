@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     hashedPassword: { type: String, required: false },
     phoneNumber: { type: String, required: false },
     balance: { type: String, default: '1000000' },
-    verified: {type: Boolean, default: true}
+    verified: {type: Boolean, default: false}
 });
 
 const TransactionSchema = new Schema({
@@ -77,8 +77,8 @@ export async function addTransaction(id : string, amount : number, participantEm
     }
 }
 
-export async function addUser(id : string, email : string, type: string, password? : string, 
-    phoneNumber? : string) {
+export async function addUser(id : string, email : string, type: string,
+    password? : string, phoneNumber? : string) {
     try {
         const isExists = await User.exists({ email });
         if (isExists) {
@@ -104,10 +104,19 @@ export async function addUser(id : string, email : string, type: string, passwor
 
         return {
             code: 201,
-            message: 'User signed up successfully'
+            message: 'Sign up was successful'
         }
     } catch(error) {
         throw error;
+    }
+}
+
+export async function deleteUser(email: string) {
+    const isVerified = await isUserVerified(email);
+
+    if (!isVerified) {
+        console.log(`User with email ${email} is not verified, was deleted`);
+        await User.deleteOne({email: email});
     }
 }
  
@@ -183,7 +192,7 @@ export async function validateUser(email : string, type: string, password? : str
         } else {
             return {
                 code: 200,
-                message: 'Login successful',
+                message: 'Login was successful',
                 id: user.id
             }
         }
@@ -204,20 +213,6 @@ export async function isUserVerified(id: string): Promise<boolean> {
         return false;
     }
 }
-
-/*export async function getPhoneNumber(email: string): Promise<string> {
-    try {
-        const user = await User.findOne({email: email});
-        if (!user) {
-            throw new NotFoundError('User not found');
-        }
-
-        return user.phoneNumber;
-
-    } catch(error) {
-        throw error;
-    }
-}*/
 
 export async function approveUser(email: string) {
     try {
