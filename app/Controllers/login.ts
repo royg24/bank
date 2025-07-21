@@ -33,7 +33,7 @@ export default function login() {
             jti: jti
         }, process.env.JWT_KEY as string, { expiresIn: '24h' });
 
-        console.log(`user with email ${body.email} has logged in`);
+        console.log(`user with email ${data.email} has logged in`);
         return responseFromDB(res, 200, {
             message: queryResult.message,
             accessToken: token
