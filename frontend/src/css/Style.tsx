@@ -15,7 +15,7 @@ export function formContainerStyle(marginTop = '1em') {
     flexDirection: 'column',
     alignItems: 'center',
     gap: '1.25em',
-    width: '50%',
+    width: '50em',
     maxWidth: '37.5em',
     padding: '2.5em',
     backgroundColor: 'rgba(154, 136, 136, 0.195)',
@@ -33,7 +33,7 @@ export function paginationContainerStyle(marginTop = '1em') {
     marginBottom: '3.75em',
     alignItems: 'center',
     justifyContent: 'flex-top',
-    width: '100%',
+    width: '50em',
     maxWidth: '68.75em',
     minHeight: '31.25em',
     padding: '2.5em',
@@ -134,8 +134,8 @@ import type { CSSProperties } from 'react';
 export const verifyFieldStructure = {
   sx: {
     backgroundColor: 'rgba(226, 207, 207, 0.32)',
-    width: '5.625em',
-    height: '5.625em',
+    width: '4.5em',
+    height: '4.5em',
     '& .MuiInputBase-input': {
       fontSize: '3.75em',
       textAlign: 'center' as CSSProperties['textAlign'],
@@ -154,9 +154,8 @@ export const verifyFieldStructure = {
 export const buttonStructure: ButtonProps = {
   sx: {
     backgroundColor: buttonColor,
-    width: "50%",
+    width: '50%',
     height: '2.875em',
-    marginTop: "1.25em",
     '&:hover': {
       backgroundColor: buttonHoverColor,
       cursor: "pointer"
@@ -229,7 +228,7 @@ export const textStructure = {
 export const cardStructure = {
   sx: {
     gap: 3,
-    width: '23.75em',
+    width: '30em',
     maxHeight: '6.25em',
     padding: '0.5em',
     background: 'linear-gradient(135deg, rgba(215, 184, 5, 0.6), rgba(255, 235, 100, 0.15))',
@@ -239,7 +238,7 @@ export const cardStructure = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'left-start',
+    justifyContent: 'flex-left',
     backdropFilter: 'blur(8px)',
     WebkitBackdropFilter: 'blur(8px)',
     transition: 'all 0.3s ease',
@@ -268,10 +267,7 @@ export const landingPageBackgroundStyle = {
 export const landingPageButtonSetStructure = {
   sx: {
     display: 'flex',
-    gap: '1.25em',
-    position: 'absolute',
-    top: '0.25em',
-    right: '8%'
+    gap: '4em',
   }
 }
 
@@ -279,9 +275,9 @@ export const landingPageButtonStyle: ButtonProps = {
   ...buttonStructure,
   sx: {
     ...buttonStructure.sx,
-    width: '150px',
+    width: '15em',
     fontSize: '1em',
-    fontWeight: 800,
+    fontWeight: 800
   }
 };
 

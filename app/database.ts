@@ -271,7 +271,7 @@ async function addUserTransaction(Transaction: typeof mongoose.Model, userId: st
 }
 
 async function setBalance(user: HydratedDocument<IUser>, amount : number) {
-    const current = parseFloat(user.balance || '0');
+    const current = Number(user.balance || '0');
     const updated = current + amount;
 
     await user.updateOne({ $set: { balance: updated.toString() } });
