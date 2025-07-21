@@ -20,7 +20,7 @@ function TransactionCard({amount, participantEmail, timestamp}: Transaction) {
                 ...cardStructure.sx, 
                 width: '60em',
                 height: '1.8em',
-                gap: 'em',
+                gap: '1em',
                 fontSize: '0.8em',
                 padding: '0.7em'
             }}>

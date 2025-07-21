@@ -69,8 +69,8 @@ function Dashboard() {
     const logoutStyle = {
         sx: {
             position: 'absolute',
-            top: 0,
-            left: '77%',
+            top: '1em',
+            right: '4em',
             width: '18em'
         }
     }
@@ -86,7 +86,7 @@ function Dashboard() {
 
             </Box>
 
-            <Box sx={{ top: '0.8em', position: 'absolute' }}>
+            <Box sx={{ marginTop: '2em' }}>
 
                 <Card {...cardStructure}>
 
@@ -100,7 +100,7 @@ function Dashboard() {
 
             </Box>
 
-            <Box sx={formContainerStyle('7em')} component="form" onSubmit={handleSubmit(onSubmit)}>
+            <Box sx={formContainerStyle('2em')} component="form" onSubmit={handleSubmit(onSubmit)}>
 
                 <Controller
                     name="email"

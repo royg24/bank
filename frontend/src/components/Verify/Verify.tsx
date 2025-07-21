@@ -76,11 +76,24 @@ function Verify() {
   };
 
   return (
-    <>
-      <Typography variant='h1' sx={{ ...textStructure, fontSize: '3em', fontFamily: 'monospace' }}>
+    <Box sx={{
+      gap: '3em',
+      width: '90%',
+      height: '30em',
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+      marginTop: '7rem'
+    }}>
+
+      <Typography variant='h1' sx={{
+        ...textStructure,
+        fontSize: '3em',
+        fontFamily: 'monospace'
+      }}>
         Enter the 6-digit code sent to your email
       </Typography>
-      <Box sx={{ display: 'flex', gap: '2em', marginTop: '1em' }}>
+      <Box sx={{ display: 'flex', gap: '4em' }}>
         {values.map((val, idx) => (
           <VerifyDigit
             key={idx}
@@ -103,14 +116,14 @@ function Verify() {
       <Box sx={{
          minWidth: '16em',
          display: 'flex',
-         justifyContent: 'center', 
+         justifyContent: 'center'
       }}>
         
         <Button {...buttonStructure} onClick={verifyCode} disabled={!isComplete}>
           Submit
         </Button>
       </Box>
-    </>
+    </ Box>
   );
 }
 

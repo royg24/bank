@@ -64,7 +64,7 @@ const PaginationBox = forwardRef<PaginationBoxRef>((_, ref) => {
 
   return (
     <Box sx={{ ...paginationContainerStyle('2em') }}>
-      <Typography sx={{ ...textStructure, fontSize: '2.5em', marginRight: '60%' }}>
+      <Typography sx={{ ...textStructure, fontSize: '2.5em'}}>
         All Transactions:
       </Typography>
 
