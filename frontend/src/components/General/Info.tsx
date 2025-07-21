@@ -10,7 +10,7 @@ type InfoProps = {
 
 function Info({ labelContent, infoContent, color='white' }: InfoProps) {
   return (
-    <Box sx={{padding: '0.2em', width: '20em'}}>
+    <Box sx={{padding: '0.2em', width: '30em'}}>
       <Typography variant="body1" {...textStructure} sx={{color: color}}>
         {labelContent}:
       </Typography>
