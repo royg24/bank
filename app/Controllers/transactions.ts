@@ -33,7 +33,7 @@ export function makeTransaction() {
             throw new AuthenticationError('Please log in');
         }
 
-        const queryResult = await addTransaction(id, body.amount, body.receiverEmail);
+        const queryResult = await addTransaction(id, Number(body.amount), body.receiverEmail);
         return responseFromDB(res, 200, {
             message: queryResult.message,
             updatedBalance: queryResult.updatedBalance

@@ -38,8 +38,8 @@ export async function addTransaction(id : string, amount : number, participantEm
     try {
         session.startTransaction();
 
-        const sender = await User.findOne({id: id})
-        const receiver = await User.findOne({email: participantEmail});
+        const sender = await User.findOne({id: id}).session(session);
+        const receiver = await User.findOne({email: participantEmail}).session(session);;
 
         if (!receiver) {
             throw new NotFoundError('Receiver not found');
@@ -55,11 +55,11 @@ export async function addTransaction(id : string, amount : number, participantEm
             throw new DataError('Insufficient amount for transaction')
         }
 
-        await addUserTransaction(Transaction, sender.id, receiver.email, (amount * -1).toString());
-        await addUserTransaction(Transaction, receiver.id, sender.email, amount.toString());
+        await addUserTransaction(Transaction, sender.id, receiver.email, (amount * -1).toString(), session);
+        await addUserTransaction(Transaction, receiver.id, sender.email, amount.toString(), session);
         
-        await setBalance(sender, amount * -1);
-        await setBalance(receiver, amount);
+        await setBalance(sender, amount * -1, session);
+        await setBalance(receiver, amount, session);
         await session.commitTransaction();
 
         const updatedSender = await User.findOne({id: id});
@@ -259,20 +259,20 @@ export async function testCleanUp() {
 }
 
 async function addUserTransaction(Transaction: typeof mongoose.Model, userId: string, 
-    participantEmail: string, amount: string) {
+    participantEmail: string, amount: string, session: mongoose.ClientSession) {
     const now = new Date();
 
-    await Transaction.create({
+    await Transaction.create([{
         userId: userId,
         amount: amount,
         participantEmail: participantEmail,
         timestamp: now
-    });
+    }], { session });
 }
 
-async function setBalance(user: HydratedDocument<IUser>, amount : number) {
-    const current = Number(user.balance || '0');
+async function setBalance(user: HydratedDocument<IUser>, amount : number, session: mongoose.ClientSession) {
+    const current = Number(user.balance);
     const updated = current + amount;
 
-    await user.updateOne({ $set: { balance: updated.toString() } });
+    await user.updateOne({ $set: { balance: updated.toString() } }, { session });
 }
