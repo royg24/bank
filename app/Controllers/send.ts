@@ -4,6 +4,7 @@ import { Resend } from 'resend';
 import { client } from '../redis.js';
 import { NotFoundError } from '../errorHandler.js';
 import { validateSend } from '../Validator/validations.js'
+import { normalizeEmail } from '../utils/utils.js';
 
 dotenv.config();
 const resend = new Resend(process.env.RESEND_APP_KEY);
@@ -13,7 +14,7 @@ export default function sendCode() {
 
     router.post('/', async (req, res, next) => {
         try {
-            const email = req.body.email;
+            const email = normalizeEmail(req.body.email);
             const code = Math.floor(100000 + Math.random() * 900000).toString();
 
             const errorMessage = validateSend(email);

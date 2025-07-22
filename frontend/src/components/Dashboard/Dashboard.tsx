@@ -70,7 +70,7 @@ function Dashboard() {
         sx: {
             position: 'absolute',
             top: '1em',
-            right: '4em',
+            right: '-4em',
             width: '18em'
         }
     }

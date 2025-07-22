@@ -17,7 +17,7 @@ function Footer() {
         alignItems: 'center',
         position: 'absolute',
         bottom: 0,
-        gap: '0.8em'
+        gap: '1.5em'
       }}
     >
       <Typography sx={{
