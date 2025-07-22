@@ -1,3 +1,4 @@
+import { normalizeEmail } from "../utils/utils.js";
 
 interface LoginBody {
   email: string;
@@ -110,8 +111,11 @@ function checkRequiredFields(body: CheckRequiredFieldsBody, fields: FieldsArray)
 }
 
 function validateEmail(email : string) {
+    const normalizedEmail = normalizeEmail(email);
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.(com|net|edu|org|co\.il|gov|uk)$/;
-    if (!emailRegex.test(email) || email.length > 20 || email.length < 8) {
+    if (!emailRegex.test(normalizedEmail) || normalizedEmail.length > 20 
+      || normalizedEmail.length < 8) {
         return 'Invalid email format';
     }
 
