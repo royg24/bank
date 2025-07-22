@@ -31,7 +31,7 @@ export default function signUp() {
         }, 180000);
 
         console.log(`user with email ${data.email} has signed up but not yet verified`)
-        return responseFromDB(res, 201, {message: queryResult.message});
+        return res.status(201).json({message: queryResult.message});
 
     });
 

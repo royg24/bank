@@ -1,9 +1,9 @@
 import {Router} from 'express';
-import jwt from 'jsonwebtoken';
 import { getUserTransactions, addTransaction, responseFromDB, isUserVerified } from '../database.js';
 import { isTokenBlacklisted } from './logout.js';
 import { validateTransfer } from '../Validator/validations.js';
 import { ValidationError, AuthenticationError } from '../errorHandler.js';
+import { verifyToken } from '../utils/utils.js';
 
 export function makeTransaction() {
     const router = Router();
@@ -20,21 +20,10 @@ export function makeTransaction() {
             throw new AuthenticationError('Please log in');
         }
         
-        let id = undefined;
-        try {
-            if (!process.env.JWT_KEY) {
-                throw new AuthenticationError('JWT key is not set');
-            }
-            id = (jwt.verify(token, process.env.JWT_KEY as string) as { id: string }).id;
-            if (!isUserVerified(id)) {
-                throw new AuthenticationError('User not verified');
-            }
-        } catch (error) {
-            throw new AuthenticationError('Please log in');
-        }
+        const id = await verifyToken(token);
 
         const queryResult = await addTransaction(id, Number(body.amount), body.receiverEmail);
-        return responseFromDB(res, 200, {
+        return res.status(200).json({
             message: queryResult.message,
             updatedBalance: queryResult.updatedBalance
         });
@@ -48,24 +37,11 @@ export function getTransactions() {
 
     router.get('/', async (req, res) => {
         const token = req.headers.authorization;
-        let id = undefined;
-
-        if (!token || await isTokenBlacklisted(token)) {
-            throw new AuthenticationError('Please log in');
-        }
-        try {
-            if (!process.env.JWT_KEY) {
-                throw new AuthenticationError('JWT key is not set');
-            }
-            id = (jwt.verify(token, process.env.JWT_KEY as string) as { id: string }).id;
-        } catch (error) {
-            throw new AuthenticationError('Please log in');
-        }
-
+        const id = await verifyToken(token);
         const index = Number(req.query.index)
 
         const queryResult = await getUserTransactions(id, index);
-        return responseFromDB(res, 200, {
+        return res.status(200).json({
             transactions: queryResult.transactions,
             totalPages: queryResult.totalPages
         });
