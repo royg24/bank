@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { randomUUID } from 'crypto';
 import { validateUser, responseFromDB } from '../database.js';
 import { validateLogin } from '../Validator/validations.js';
-import { hashPassword } from '../utils/utils.js';
+import { hashPassword, normalizeEmail } from '../utils/utils.js';
 import { ValidationError } from '../errorHandler.js';
 
 export default function login() {
@@ -21,8 +21,9 @@ export default function login() {
             }
         }
     
+        const email = normalizeEmail(data.email);
         const hashedPassword = data.password ? hashPassword(data.password) : undefined;
-        const queryResult = await validateUser(data.email, body.type, hashedPassword);
+        const queryResult = await validateUser(email, body.type, hashedPassword);
 
         if (!process.env.JWT_KEY) {
             throw new Error('JWT_KEY environment variable is not defined');

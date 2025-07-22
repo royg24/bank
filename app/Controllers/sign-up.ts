@@ -2,7 +2,7 @@ import {Router} from 'express';
 import { randomUUID } from 'crypto';
 import { addUser, responseFromDB, deleteUser } from '../database.js';
 import { validateSignUp } from '../Validator/validations.js';
-import { hashPassword } from '../utils/utils.js';
+import { hashPassword, normalizeEmail } from '../utils/utils.js';
 import { ValidationError } from '../errorHandler.js';
 
 export default function signUp() {
@@ -19,10 +19,11 @@ export default function signUp() {
             }
         }
 
+        const email = normalizeEmail(data.email);
         const hashedPassword = data.password ? hashPassword(data.password) : undefined;
         const phoneNumber = data.phoneNumber ?? undefined;
 
-        const queryResult = await addUser(randomUUID(), data.email, body.type, 
+        const queryResult = await addUser(randomUUID(), email, body.type, 
         hashedPassword, phoneNumber);
 
         setTimeout(async () => {
