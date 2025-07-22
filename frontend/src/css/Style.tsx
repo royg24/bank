@@ -115,6 +115,7 @@ export const fieldStructure: TextFieldProps = {
   sx: { 
     mb: 1.25,
     width: "70%",
+    maxHeight: '2.5em',
     top: '12.5%',
     '& .MuiInputBase-input': {
       fontSize: '0.9375rem',

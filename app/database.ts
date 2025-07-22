@@ -1,6 +1,7 @@
 import mongoose, {HydratedDocument, Model} from "mongoose";
 import { Response } from "express";
 import { NotFoundError, DataError, AuthenticationError } from "./errorHandler.js";
+import { normalizeEmail } from "./utils/utils.js";
 
 const { Schema } = mongoose;
 
@@ -39,7 +40,9 @@ export async function addTransaction(id : string, amount : number, participantEm
         session.startTransaction();
 
         const sender = await User.findOne({id: id}).session(session);
-        const receiver = await User.findOne({email: participantEmail}).session(session);;
+        const receiver = await User.findOne({
+            email: normalizeEmail(participantEmail)
+        }).session(session);;
 
         if (!receiver) {
             throw new NotFoundError('Receiver not found');
@@ -265,7 +268,7 @@ async function addUserTransaction(Transaction: typeof mongoose.Model, userId: st
     await Transaction.create([{
         userId: userId,
         amount: amount,
-        participantEmail: participantEmail,
+        participantEmail: normalizeEmail(participantEmail),
         timestamp: now
     }], { session });
 }
