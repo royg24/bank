@@ -9,6 +9,7 @@ import Dashboard from './components/Dashboard/Dashboard.tsx';
 import Verify from './components/Verify/Verify';
 import { theme } from './css/Style.tsx';
 import './css/style.css';
+import PrivateRoute from './components/General/PrivateRoute.tsx';
 
 function App() {
   return (
@@ -25,7 +26,9 @@ function App() {
           <Route path='/' element={<LandingPage />} />
           <Route path='/access' element={<AccessForm />} />
           <Route path='/verify' element={<Verify />} />
-          <Route path='/dashboard' element={<Dashboard />} />
+          <Route element={<PrivateRoute />}>
+            <Route path='/dashboard' element={<Dashboard />} />
+          </Route>
         </Routes>
       </ThemeProvider>
 
