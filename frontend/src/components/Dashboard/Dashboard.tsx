@@ -51,7 +51,6 @@ function Dashboard() {
         };
 
         const result = await transferMoney(token, body);
-
         if (result.success) {
             const balanceResult = await getBalance(token);
             if (balanceResult.success) {

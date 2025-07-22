@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const backendUri = import.meta.env.VITE_BACKEND_URI;
+//const backendUri = import.meta.env.VITE_BACKEND_URI;
+const backendUri = 'http://localhost:3000/api';
 
 export const access = async (route: string, data: any, type: string) => {
     try {
@@ -119,7 +120,7 @@ export const transferMoney = async (
             const response = await axios.post(`${backendUri}/${route}`, body, {
                 headers: { Authorization: token }
             });
-
+    
             if (response.status === 200) {
                 return { success: true, message: response.data.message };
             } else {
@@ -154,3 +155,24 @@ export const logout = async(token: string | null) =>{
         }
     }
 };
+
+export const verifyToken = async (token: string | null) => {
+    const route = 'verify-token';
+    try {
+        const response = await axios.get(`${backendUri}/${route}`, {
+            headers: { Authorization: token }
+        });
+
+        if (response.status === 200) {
+            return { success: true, id: response.data.id };
+        } else {
+            return { success: false, error: response.data.error };
+        }
+    } catch (error: any) {
+        if (error.response && error.response.data) {
+            return { success: false, error: error.response.data.error };
+        } else {
+            return { success: false, error: 'Unknown error' };
+        }
+    }
+}
