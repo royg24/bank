@@ -2,46 +2,11 @@ import type { TextFieldProps, ButtonProps, ToggleButtonGroupProps, ToggleButtonP
 import { createTheme } from '@mui/material/styles';
 
 const color = 'white';
-const buttonColor = "	rgb(187, 159, 3)";
+const buttonColor = "rgb(187, 159, 3)";
 const buttonHoverColor = "rgb(113, 102, 40)";
 const inactiveButtonColor = 'rgb(105, 101, 104)';
 const borderColor = 'white';
 const font = "monospace, Arial, sans-serif";
-
-export function formContainerStyle(marginTop = '1em') {
-  return {
-    marginTop: marginTop,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '1.25em',
-    width: '50em',
-    maxWidth: '37.5em',
-    padding: '2.5em',
-    backgroundColor: 'rgba(154, 136, 136, 0.195)',
-    borderRadius: '0.9375em',
-    boxShadow: '0 8px 24px rgb(0, 0, 0)'
-  };
-}
-
-export function paginationContainerStyle(marginTop = '1em') {
-  return {
-    marginTop: marginTop,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1.25em',
-    marginBottom: '3.75em',
-    alignItems: 'center',
-    justifyContent: 'flex-top',
-    width: '50em',
-    maxWidth: '68.75em',
-    minHeight: '31.25em',
-    padding: '2.5em',
-    backgroundColor: 'rgba(154, 136, 136, 0.195)',
-    borderRadius: '0.9375em',
-    boxShadow: '0 8px 24px rgb(0, 0, 0)',
-  };
-}
 
 export const theme = createTheme({
   components: {
@@ -51,6 +16,13 @@ export const theme = createTheme({
           fontFamily: font,
           color: color,
           fontSize: '1.25rem',
+
+          '@media (max-width:1400px)': {
+            fontSize: '1.1rem',
+          },
+          '@media (max-width:600px)': {
+            fontSize: '1rem',
+          },
         },
       },
     },
@@ -61,6 +33,12 @@ export const theme = createTheme({
           fontWeight: 700,
           color: color,
           fontSize: '0.9375rem',
+          '@media (max-width:1400px)': {
+            fontSize: '0.85rem',
+          },
+          '@media (max-width:600px)': {
+            fontSize: '0.75rem',
+          },
         },
       },
     },
@@ -70,6 +48,12 @@ export const theme = createTheme({
           fontFamily: font,
           color: color,
           fontSize: '0.9375rem',
+          '@media (max-width:1400px)': {
+            fontSize: '0.85rem',
+          },
+          '@media (max-width:600px)': {
+            fontSize: '0.75rem',
+          },
         },
       },
     },
@@ -80,10 +64,15 @@ export const theme = createTheme({
           fontWeight: 700,
           color: color,
           fontSize: '1rem',
+          '@media (max-width:1400px)': {
+            fontSize: '0.9rem',
+          },
+          '@media (max-width:600px)': {
+            fontSize: '0.8rem',
+          },
         },
       },
     },
-    
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
@@ -104,15 +93,78 @@ export const theme = createTheme({
         input: {
           color: color,
           fontSize: '0.9375rem',
+          '@media (max-width:1400px)': {
+            fontSize: '0.85rem',
+          },
+          '@media (max-width:600px)': {
+            fontSize: '0.75rem',
+          },
         },
       },
     },
   },
 });
 
+export function formContainerStyle(marginTop = '1em') {
+  return {
+    marginTop,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '1.25em',
+    width: '50em',
+    maxWidth: '37.5em',
+    padding: '2.5em',
+    backgroundColor: 'rgba(154, 136, 136, 0.195)',
+    borderRadius: '0.9375em',
+    boxShadow: '0 8px 24px rgb(0, 0, 0)',
+
+    '@media (max-width:1400px)': {
+      width: '90%',
+      maxWidth: 'none',
+      padding: '2em',
+    },
+    '@media (max-width:600px)': {
+      width: '100%',
+      padding: '1.25em',
+      gap: '1em',
+    },
+  };
+}
+
+export function paginationContainerStyle(marginTop = '1em') {
+  return {
+    marginTop,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1.25em',
+    marginBottom: '3.75em',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    width: '50em',
+    maxWidth: '68.75em',
+    minHeight: '31.25em',
+    padding: '2.5em',
+    backgroundColor: 'rgba(154, 136, 136, 0.195)',
+    borderRadius: '0.9375em',
+    boxShadow: '0 8px 24px rgb(0, 0, 0)',
+
+    '@media (max-width:1400px)': {
+      width: '90%',
+      maxWidth: 'none',
+      padding: '2em',
+    },
+    '@media (max-width:600px)': {
+      width: '100%',
+      padding: '1.25em',
+      gap: '1em',
+    },
+  };
+}
+
 export const fieldStructure: TextFieldProps = {
   variant: 'outlined',
-  sx: { 
+  sx: {
     mb: 1.25,
     width: "70%",
     maxHeight: '2.5em',
@@ -120,15 +172,29 @@ export const fieldStructure: TextFieldProps = {
     '& .MuiInputBase-input': {
       fontSize: '0.9375rem',
       fontWeight: 10,
-      padding: '0.75em 1.25em',  
+      padding: '0.75em 1.25em',
+      '@media (max-width:1400px)': {
+        fontSize: '0.85rem',
+        padding: '0.6em 1em',
+      },
+      '@media (max-width:600px)': {
+        fontSize: '0.75rem',
+        padding: '0.5em 0.75em',
+      },
     },
     '& .MuiInputLabel-root': {
       fontSize: '1.1rem',
-    }
+      '@media (max-width:1400px)': {
+        fontSize: '1rem',
+      },
+      '@media (max-width:600px)': {
+        fontSize: '0.9rem',
+      },
+    },
   },
   className: 'field',
   size: 'small',
-}
+};
 
 import type { CSSProperties } from 'react';
 
@@ -140,7 +206,13 @@ export const verifyFieldStructure = {
     '& .MuiInputBase-input': {
       fontSize: '3.75em',
       textAlign: 'center' as CSSProperties['textAlign'],
-      padding: 0
+      padding: 0,
+      '@media (max-width:1400px)': {
+        fontSize: '3em',
+      },
+      '@media (max-width:600px)': {
+        fontSize: '2.2em',
+      },
     }
   },
   inputProps: {
@@ -164,9 +236,17 @@ export const buttonStructure: ButtonProps = {
     '&:focus': {
       outline: 'none',
       border: 'none'
-    }
+    },
+    '@media (max-width:1400px)': {
+      width: '70%',
+      height: '2.5em',
+    },
+    '@media (max-width:600px)': {
+      width: '100%',
+      height: '2.25em',
+    },
   },
-}
+};
 
 export function toggleGroupStructure(mode: boolean): ToggleButtonGroupProps {
   return {
@@ -175,23 +255,33 @@ export function toggleGroupStructure(mode: boolean): ToggleButtonGroupProps {
     sx: {
       height: '3.75em',
       width: '31.25em',
-      margin: '0 auto',            
-      position: 'relative',       
-      top: '5%',                   
+      margin: '0 auto',
+      position: 'relative',
+      top: '5%',
       backgroundColor: 'rgba(225, 224, 224, 0.1)',
       display: 'flex',
-      justifyContent: 'center',    
+      justifyContent: 'center',
+      '@media (max-width:1400px)': {
+        width: '90%',
+        height: '3.25em',
+        top: '3%',
+      },
+      '@media (max-width:600px)': {
+        width: '100%',
+        height: '3em',
+        top: '2%',
+      },
     }
   }
 }
 
 export function toggleButtonStructure(value: boolean): ToggleButtonProps {
   return {
-    value: value,
+    value,
     sx: {
       fontFamily: font,
       width: '20em',
-      backgroundColor: buttonColor, 
+      backgroundColor: buttonColor,
       color: 'white',
       fontSize: '1em',
       fontWeight: 700,
@@ -203,20 +293,34 @@ export function toggleButtonStructure(value: boolean): ToggleButtonProps {
         border: 'none'
       },
       '&:hover': {
-        backgroundColor: buttonHoverColor, 
+        backgroundColor: buttonHoverColor,
         cursor: 'pointer'
-      }
+      },
+      '@media (max-width:1400px)': {
+        width: '14em',
+        fontSize: '0.9rem',
+      },
+      '@media (max-width:600px)': {
+        width: '100%',
+        fontSize: '0.85rem',
+      },
     },
   }
 }
 
 export const infoStructure = {
-    whiteSpace: 'pre-line',
-    fontFamily: 'Georgia, Arial',
-    fontSize: '1.25em',
-    color: 'white',
-    textShadow: '1px 1px 2px rgba(0,0,0,0.6)',
-}
+  whiteSpace: 'pre-line',
+  fontFamily: 'Georgia, Arial',
+  fontSize: '1.25em',
+  color: 'white',
+  textShadow: '1px 1px 2px rgba(0,0,0,0.6)',
+  '@media (max-width:1400px)': {
+    fontSize: '1.1em',
+  },
+  '@media (max-width:600px)': {
+    fontSize: '1em',
+  },
+};
 
 export const textStructure = {
   fontFamily: font,
@@ -224,13 +328,30 @@ export const textStructure = {
   fontWeight: 700,
   color: '#f1e6ff',
   textShadow: '1px 1px 2px rgba(0,0,0,0.6)',
+  '@media (max-width:1400px)': {
+    fontSize: '0.9rem',
+  },
+  '@media (max-width:600px)': {
+    fontSize: '0.85rem',
+  },
+};
+
+export const headLineStructure = {
+  fontSize: '4.5em',
+  lineHeight: 1.1,
+  '@media (max-width: 1400px)': {
+    fontSize: '3.5em',
+  },
+  '@media (max-width: 600px)': {
+    fontSize: '3em',
+  },
 }
 
 export const cardStructure = {
   sx: {
     gap: 3,
-    width: '30em',
-    maxHeight: '6.25em',
+    width: '30%',
+    height: '20%',
     padding: '0.5em',
     background: 'linear-gradient(135deg, rgba(215, 184, 5, 0.6), rgba(255, 235, 100, 0.15))',
     border: '1px solid rgba(255, 255, 255, 0.15)',
@@ -239,7 +360,7 @@ export const cardStructure = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-left',
+    justifyContent: 'flex-start',
     backdropFilter: 'blur(8px)',
     WebkitBackdropFilter: 'blur(8px)',
     transition: 'all 0.3s ease',
@@ -247,28 +368,56 @@ export const cardStructure = {
       background: 'linear-gradient(135deg, rgba(235, 200, 20, 0.8), rgba(255, 245, 160, 0.25))',
       transform: 'translateY(-3px)',
       boxShadow: '0 14px 35px rgba(0, 0, 0, 0.45)',
-    }
+    },
+    '@media (max-width:1400px)': {
+      flexDirection: 'column',
+      height: '12%',
+      width: '90%',
+      padding: '1em',
+      gap: 2,
+    },
+    '@media (max-width:600px)': {
+      width: '100%',
+      height: '15%',
+      padding: '0.75em',
+      gap: 1,
+    },
   }
 }
 
 export const dividerStyle = {
-  backgroundColor: 'rgba(255, 255, 255, 0.7)', 
-  mx: 1                  
+  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  mx: 1,
 }
 
 export const landingPageBackgroundStyle = {
-  minHeight: '100vh',
+  height: '85vh',
   display: 'flex',
   flexDirection: 'column' as const,
   alignItems: 'center',
   justifyContent: 'flex-start',
-  gap: '2.5em',
-};
+  gap: '1em',
+  px: 2,
+  boxSizing: 'border-box'
+}
 
 export const landingPageButtonSetStructure = {
   sx: {
     display: 'flex',
     gap: '4em',
+    mt: 1,
+    justifyContent: 'center',
+    flexShrink: 0,
+
+    '@media (max-width:1400px)': {
+      flexDirection: 'column',
+      gap: '2em',
+    },
+    '@media (max-width:600px)': {
+      gap: '1.25em',
+      width: 'auto',
+      marginBottom: '2rem'
+    },
   }
 }
 
@@ -278,8 +427,15 @@ export const landingPageButtonStyle: ButtonProps = {
     ...buttonStructure.sx,
     width: '15em',
     fontSize: '1em',
-    fontWeight: 800
-  }
+    fontWeight: 800,
+    '@media (max-width:1400px)': {
+      width: '12rem',
+      fontSize: '0.9rem',
+    },
+    '@media (max-width:600px)': {
+      fontSize: '0.85rem'
+    },
+  },
 };
 
 export const pagingArrowsStructure = {
@@ -292,6 +448,14 @@ export const pagingArrowsStructure = {
     },
     '&:disabled': {
       backgroundColor: 'gray'
-    }
+    },
+    '@media (max-width:1400px)': {
+      width: '1.5em',
+      height: '1.5em',
+    },
+    '@media (max-width:600px)': {
+      width: '1.25em',
+      height: '1.25em',
+    },
   }
 }
