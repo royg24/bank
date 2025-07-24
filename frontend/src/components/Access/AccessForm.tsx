@@ -90,12 +90,23 @@ function AccessForm() {
 
     return (
         <>
+            <Box sx={{
+                '@media (max-width:800px)': {
+                    marginTop: '5rem',
+                }
+            }}>
+
+            </Box>
             <Box
                 sx={{
                     display: 'flex',
                     justifyContent: 'flex-start',
                     alignItems: 'center',
                     width: '100%',
+
+                     '@media (max-width:1400px)': {
+                        width: 'auto',
+                     },
                 }}
                 >
                 <Toggle mode={mode} setMode={setMode} leftText="Sign Up" rightText="Login" />
