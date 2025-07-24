@@ -126,7 +126,7 @@ export function formContainerStyle(marginTop = '1em') {
     flexDirection: 'column',
     alignItems: 'center',
     gap: '1.25em',
-    width: '50em',
+    width: '30%',
     maxWidth: '37.5em',
     padding: '2.5em',
     backgroundColor: 'rgba(154, 136, 136, 0.195)',
@@ -134,16 +134,17 @@ export function formContainerStyle(marginTop = '1em') {
     boxShadow: '0 8px 24px rgb(0, 0, 0)',
 
     '@media (max-width:1400px)': {
-      width: '90%',
+      width: '40%',
       maxWidth: 'none',
       padding: '2em',
     },
     '@media (max-width:800px)': {
-      width: '100%',
+      width: '70%',
       padding: '1.25em',
       gap: '1em',
     },
     '@media (max-width:400px)': {
+      width: '80%',
       padding: '1em',
       gap: '0.75em',
     },
@@ -184,45 +185,23 @@ export function paginationContainerStyle(marginTop = '1em') {
   };
 }
 
-export const fieldStructure: TextFieldProps = {
+export const fieldStructure : TextFieldProps = {
   variant: 'outlined',
+  margin: 'normal',
+  fullWidth: true,
+  size: 'small',
   sx: {
-    mb: 1.25,
-    width: "70%",
-    maxHeight: '2.5em',
-    top: '12.5%',
-    '& .MuiInputBase-input': {
-      fontSize: '0.9375rem',
-      fontWeight: 10,
-      padding: '0.75em 1.25em',
-      '@media (max-width:1400px)': {
-        fontSize: '0.85rem',
-        padding: '0.6em 1em',
-      },
-      '@media (max-width:800px)': {
-        fontSize: '0.75rem',
-        padding: '0.5em 0.75em',
-      },
-      '@media (max-width:400px)': {
-        fontSize: '0.6rem',
-        padding: '0.4em 0.5em',
-      },
+    fontSize: '1.1rem',
+    '@media (max-width: 1400px)': {
+      fontSize: '1rem',
     },
-    '& .MuiInputLabel-root': {
-      fontSize: '1.1rem',
-      '@media (max-width:1400px)': {
-        fontSize: '1rem',
-      },
-      '@media (max-width:800px)': {
-        fontSize: '0.9rem',
-      },
-      '@media (max-width:400px)': {
-        fontSize: '0.75rem',
-      },
+    '@media (max-width: 800px)': {
+      fontSize: '0.9rem',
+    },
+    '@media (max-width: 400px)': {
+      fontSize: '0.8rem',
     },
   },
-  className: 'field',
-  size: 'small',
 };
 
 import type { CSSProperties } from 'react';
@@ -256,29 +235,32 @@ export const verifyFieldStructure = {
   }
 }
 
-export const buttonStructure: ButtonProps = {
+export const buttonStructure : ButtonProps = {
+  variant: 'contained',
   sx: {
-    backgroundColor: buttonColor,
+    backgroundColor: 'rgb(187, 159, 3)',
+    color: 'white',
     width: '50%',
-    height: '2.875em',
+    fontSize: '1rem',
+    padding: '0.75em 1.5em',
+    marginTop: '1em',
     '&:hover': {
-      backgroundColor: buttonHoverColor,
-      cursor: "pointer"
+      backgroundColor: 'rgb(113, 102, 40)',
     },
-    '&:focus': {
-      outline: 'none',
-      border: 'none'
+    '@media (max-width: 1400px)': {
+      width: 'inherit',
+      fontSize: '0.9rem',
+      padding: '0.65em 1.25em',
     },
-    '@media (max-width:1400px)': {
-      width: '70%',
-      height: '2.5em',
+    '@media (max-width: 800px)': {
+      width: 'inherit',
+      fontSize: '0.85rem',
+      padding: '0.5em 1em',
     },
-    '@media (max-width:800px)': {
-      width: '100%',
-      height: '2.25em',
-    },
-    '@media (max-width:400px)': {
-      height: '2em',
+    '@media (max-width: 400px)': {
+      width: '50%',
+      fontSize: '0.75rem',
+      padding: '0.4em 0.75em',
     },
   },
 };
@@ -302,11 +284,12 @@ export function toggleGroupStructure(mode: boolean): ToggleButtonGroupProps {
         top: '3%',
       },
       '@media (max-width:800px)': {
-        width: '100%',
+        width: '20rem',
         height: '3em',
         top: '2%',
       },
       '@media (max-width:400px)': {
+        width: '20rem',
         height: '2.5em',
         top: '1%',
       },
@@ -473,13 +456,14 @@ export const landingPageCardsBoxStyle = {
     },
 
     '@media (max-width: 400px)' : {
-      width: '100%'
+      width: '100%',
+      gap: 3,
     },
   }
 }
 
 export const landingPageBackgroundStyle = {
-  height: '85vh',
+  height: '85%',
   display: 'flex',
   flexDirection: 'column' as const,
   alignItems: 'center',
