@@ -1,8 +1,16 @@
+html, body {
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.578);
+  z-index: -100;
+}
+
 .app-container {
-  position: relative; 
-  height: auto;
+  position: relative;
   width: 100vw;
   min-height: 100vh;
+  height: auto;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -13,27 +21,19 @@
   overflow-x: hidden;
 }
 
-html, body {
-  margin: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background-color: rgba(0, 0, 0, 0.578);
-  z-index: -100;
-}
-
 .background-spheres {
-  position: fixed; 
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  pointer-events: none; 
-  z-index: -10; 
+  pointer-events: none;
+  z-index: -10;
 }
 
 .sphere {
   position: absolute;
-  top: 0; 
+  top: 0;
   left: 18.75vw;
   width: 15em;
   height: 15em;
@@ -55,6 +55,20 @@ html, body {
   box-shadow:
     inset 10px 10px 20px #5a5a5a,
     0 10px 40px rgba(0, 0, 0, 0.9);
+}
+
+.footer {
+  width: 100%;
+  padding: 0.3em 0;
+  background-color: rgba(49, 48, 14, 0.43);
+  border-top: 0em solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  gap: 1.5em;
+  flex-wrap: nowrap;
 }
 
 .footer-icons {
@@ -80,22 +94,22 @@ html, body {
 }
 
 .footer-icon i {
-  pointer-events: none; 
+  pointer-events: none;
 }
 
 .toast-style {
   scale: 1.25;
-  right: 10%; 
+  right: 10%;
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-textarea:-webkit-autofill, 
-textarea:-webkit-autofill:hover, 
-textarea:-webkit-autofill:focus, 
-select:-webkit-autofill, 
-select:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.08) inset !important;
   -webkit-text-fill-color: white !important;
@@ -103,7 +117,12 @@ select:-webkit-autofill:focus {
   border: none;
 }
 
+/* Tablet (≤ 1400px) */
 @media (max-width: 1400px) {
+  .app-container {
+    min-height: 97vh;
+  }
+
   .sphere {
     width: 10em;
     height: 10em;
@@ -116,43 +135,6 @@ select:-webkit-autofill:focus {
     height: 6em;
     left: 60vw;
     top: 8vh;
-  }
-}
-
-@media (max-width: 600px) {
-  .sphere {
-    width: 7.5em;
-    height: 7.5em;
-    left: 8vw;
-    top: 6vh;
-  }
-
-  .black-sphere {
-    width: 5em;
-    height: 5em;
-    left: 55vw;
-    top: 10vh;
-  }
-}
-
-.footer {
-  width: 100%;
-  padding: 0.3em 0;
-  background-color: rgba(49, 48, 14, 0.43);
-  border-top: 0em solid rgba(255, 255, 255, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  bottom: 0;
-  gap: 1.5em;
-  flex-wrap: nowrap;
-}
-
-/* Tablet */
-@media (max-width: 1400px) {
-  .app-container {
-    min-height: 97vh;
   }
 
   .footer {
@@ -169,8 +151,22 @@ select:-webkit-autofill:focus {
   }
 }
 
-/* Mobile */
-@media (max-width: 600px) {
+/* Mobile (≤ 800px) */
+@media (max-width: 800px) {
+  .sphere {
+    width: 7.5em;
+    height: 7.5em;
+    left: 8vw;
+    top: 6vh;
+  }
+
+  .black-sphere {
+    width: 5em;
+    height: 5em;
+    left: 55vw;
+    top: 10vh;
+  }
+
   .footer {
     flex-direction: column;
     text-align: center;
@@ -187,5 +183,50 @@ select:-webkit-autofill:focus {
 
   .footer-icons {
     margin-top: 0;
+  }
+}
+
+/* Small mobiles (≤ 400px) */
+@media (max-width: 400px) {
+  .app-container {
+    padding: 1em 0.5em;
+    justify-content: flex-start;
+    gap: 1.5em;
+  }
+
+  .sphere {
+    width: 5em;
+    height: 5em;
+    left: 10vw;
+    top: 4vh;
+  }
+
+  .black-sphere {
+    width: 4em;
+    height: 4em;
+    left: 60vw;
+    top: 6vh;
+  }
+
+  .footer {
+    padding: 0.6em 0.5em;
+    gap: 0.6em;
+  }
+
+  .footer-icon {
+    font-size: 1.2em;
+  }
+
+  .footer-icons {
+    gap: 1em;
+  }
+
+  .footer span {
+    font-size: 0.7em;
+  }
+
+  .toast-style {
+    right: 5%;
+    scale: 1.1;
   }
 }

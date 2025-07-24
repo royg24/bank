@@ -16,12 +16,14 @@ export const theme = createTheme({
           fontFamily: font,
           color: color,
           fontSize: '1.25rem',
-
           '@media (max-width:1400px)': {
             fontSize: '1.1rem',
           },
-          '@media (max-width:600px)': {
+          '@media (max-width:800px)': {
             fontSize: '1rem',
+          },
+          '@media (max-width:400px)': {
+            fontSize: '0.9rem',
           },
         },
       },
@@ -36,8 +38,11 @@ export const theme = createTheme({
           '@media (max-width:1400px)': {
             fontSize: '0.85rem',
           },
-          '@media (max-width:600px)': {
+          '@media (max-width:800px)': {
             fontSize: '0.75rem',
+          },
+          '@media (max-width:400px)': {
+            fontSize: '0.65rem',
           },
         },
       },
@@ -51,8 +56,11 @@ export const theme = createTheme({
           '@media (max-width:1400px)': {
             fontSize: '0.85rem',
           },
-          '@media (max-width:600px)': {
+          '@media (max-width:800px)': {
             fontSize: '0.75rem',
+          },
+          '@media (max-width:400px)': {
+            fontSize: '0.6rem',
           },
         },
       },
@@ -67,8 +75,11 @@ export const theme = createTheme({
           '@media (max-width:1400px)': {
             fontSize: '0.9rem',
           },
-          '@media (max-width:600px)': {
+          '@media (max-width:800px)': {
             fontSize: '0.8rem',
+          },
+          '@media (max-width:400px)': {
+            fontSize: '0.7rem',
           },
         },
       },
@@ -96,8 +107,11 @@ export const theme = createTheme({
           '@media (max-width:1400px)': {
             fontSize: '0.85rem',
           },
-          '@media (max-width:600px)': {
+          '@media (max-width:800px)': {
             fontSize: '0.75rem',
+          },
+          '@media (max-width:400px)': {
+            fontSize: '0.65rem',
           },
         },
       },
@@ -124,10 +138,14 @@ export function formContainerStyle(marginTop = '1em') {
       maxWidth: 'none',
       padding: '2em',
     },
-    '@media (max-width:600px)': {
+    '@media (max-width:800px)': {
       width: '100%',
       padding: '1.25em',
       gap: '1em',
+    },
+    '@media (max-width:400px)': {
+      padding: '1em',
+      gap: '0.75em',
     },
   };
 }
@@ -154,10 +172,14 @@ export function paginationContainerStyle(marginTop = '1em') {
       maxWidth: 'none',
       padding: '2em',
     },
-    '@media (max-width:600px)': {
+    '@media (max-width:800px)': {
       width: '100%',
       padding: '1.25em',
       gap: '1em',
+    },
+    '@media (max-width:400px)': {
+      padding: '1em',
+      gap: '0.75em',
     },
   };
 }
@@ -177,9 +199,13 @@ export const fieldStructure: TextFieldProps = {
         fontSize: '0.85rem',
         padding: '0.6em 1em',
       },
-      '@media (max-width:600px)': {
+      '@media (max-width:800px)': {
         fontSize: '0.75rem',
         padding: '0.5em 0.75em',
+      },
+      '@media (max-width:400px)': {
+        fontSize: '0.6rem',
+        padding: '0.4em 0.5em',
       },
     },
     '& .MuiInputLabel-root': {
@@ -187,8 +213,11 @@ export const fieldStructure: TextFieldProps = {
       '@media (max-width:1400px)': {
         fontSize: '1rem',
       },
-      '@media (max-width:600px)': {
+      '@media (max-width:800px)': {
         fontSize: '0.9rem',
+      },
+      '@media (max-width:400px)': {
+        fontSize: '0.75rem',
       },
     },
   },
@@ -210,8 +239,11 @@ export const verifyFieldStructure = {
       '@media (max-width:1400px)': {
         fontSize: '3em',
       },
-      '@media (max-width:600px)': {
+      '@media (max-width:800px)': {
         fontSize: '2.2em',
+      },
+      '@media (max-width:400px)': {
+        fontSize: '1.8em',
       },
     }
   },
@@ -241,9 +273,12 @@ export const buttonStructure: ButtonProps = {
       width: '70%',
       height: '2.5em',
     },
-    '@media (max-width:600px)': {
+    '@media (max-width:800px)': {
       width: '100%',
       height: '2.25em',
+    },
+    '@media (max-width:400px)': {
+      height: '2em',
     },
   },
 };
@@ -266,10 +301,14 @@ export function toggleGroupStructure(mode: boolean): ToggleButtonGroupProps {
         height: '3.25em',
         top: '3%',
       },
-      '@media (max-width:600px)': {
+      '@media (max-width:800px)': {
         width: '100%',
         height: '3em',
         top: '2%',
+      },
+      '@media (max-width:400px)': {
+        height: '2.5em',
+        top: '1%',
       },
     }
   }
@@ -300,9 +339,12 @@ export function toggleButtonStructure(value: boolean): ToggleButtonProps {
         width: '14em',
         fontSize: '0.9rem',
       },
-      '@media (max-width:600px)': {
+      '@media (max-width:800px)': {
         width: '100%',
         fontSize: '0.85rem',
+      },
+      '@media (max-width:400px)': {
+        fontSize: '0.75rem',
       },
     },
   }
@@ -315,10 +357,13 @@ export const infoStructure = {
   color: 'white',
   textShadow: '1px 1px 2px rgba(0,0,0,0.6)',
   '@media (max-width:1400px)': {
-    fontSize: '1.1em',
+    fontSize: '1.25em',
   },
-  '@media (max-width:600px)': {
+  '@media (max-width:800px)': {
     fontSize: '1em',
+  },
+  '@media (max-width:400px)': {
+    fontSize: '0.85em'
   },
 };
 
@@ -331,8 +376,11 @@ export const textStructure = {
   '@media (max-width:1400px)': {
     fontSize: '0.9rem',
   },
-  '@media (max-width:600px)': {
+  '@media (max-width:800px)': {
     fontSize: '0.85rem',
+  },
+  '@media (max-width:400px)': {
+    fontSize: '0.7rem'
   },
 };
 
@@ -342,8 +390,11 @@ export const headLineStructure = {
   '@media (max-width: 1400px)': {
     fontSize: '3.5em',
   },
-  '@media (max-width: 600px)': {
+  '@media (max-width: 800px)': {
     fontSize: '3em',
+  },
+  '@media (max-width: 400px)': {
+    fontSize: '2.5em',
   },
 }
 
@@ -376,11 +427,17 @@ export const cardStructure = {
       padding: '1em',
       gap: 2,
     },
-    '@media (max-width:600px)': {
+    '@media (max-width:800px)': {
       width: '100%',
       height: '15%',
       padding: '0.75em',
       gap: 1,
+    },
+    '@media (max-width:400px)': {
+      padding: '0.3em',
+      gap: 0.5,
+      height: '20%',
+      width: '90%',
     },
   }
 }
@@ -388,6 +445,37 @@ export const cardStructure = {
 export const dividerStyle = {
   backgroundColor: 'rgba(255, 255, 255, 0.7)',
   mx: 1,
+}
+
+export const landingPageCardsBoxStyle = {
+  sx: {
+    display: 'flex',
+    flexGrow: 1,
+    justifyContent: 'flex-start',
+    flexWrap: 'nowrap',
+    flexDirection: 'column',
+    gap: 2,
+    alignItems: 'flex-start',
+    width: '150%',
+
+    '@media (max-width: 1400px)': {
+      flexDirection: 'column',
+      alignItems: 'center',
+      width: '120%',
+      gap: 9,
+    },
+
+    '@media (max-width: 800px)' : {
+      flexDirection: 'column',
+      alignItems: 'center',
+      width: '70%',
+      gap: 5,
+    },
+
+    '@media (max-width: 400px)' : {
+      width: '100%'
+    },
+  }
 }
 
 export const landingPageBackgroundStyle = {
@@ -413,10 +501,14 @@ export const landingPageButtonSetStructure = {
       flexDirection: 'column',
       gap: '2em',
     },
-    '@media (max-width:600px)': {
+    '@media (max-width:800px)': {
       gap: '1.25em',
       width: 'auto',
       marginBottom: '2rem'
+    },
+    '@media (max-width:400px)': {
+      gap: '1em',
+      marginBottom: '1.5rem',
     },
   }
 }
@@ -432,8 +524,13 @@ export const landingPageButtonStyle: ButtonProps = {
       width: '12rem',
       fontSize: '0.9rem',
     },
-    '@media (max-width:600px)': {
+    '@media (max-width:800px)': {
       fontSize: '0.85rem'
+    },
+    '@media (max-width:400px)': {
+      fontSize: '0.75rem',
+      width: '10rem',
+      height: '2em',
     },
   },
 };
@@ -453,9 +550,13 @@ export const pagingArrowsStructure = {
       width: '1.5em',
       height: '1.5em',
     },
-    '@media (max-width:600px)': {
+    '@media (max-width:800px)': {
       width: '1.25em',
       height: '1.25em',
+    },
+    '@media (max-width:400px)': {
+      width: '1em',
+      height: '1em',
     },
   }
 }
