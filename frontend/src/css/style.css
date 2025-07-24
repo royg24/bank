@@ -153,6 +153,10 @@ select:-webkit-autofill:focus {
 
 /* Mobile (≤ 800px) */
 @media (max-width: 800px) {
+  .app-container {
+    min-height: 97vh;
+  }
+  
   .sphere {
     width: 7.5em;
     height: 7.5em;
@@ -192,6 +196,7 @@ select:-webkit-autofill:focus {
     padding: 1em 0.5em;
     justify-content: flex-start;
     gap: 1.5em;
+    min-height: 85vh;
   }
 
   .sphere {
@@ -209,8 +214,8 @@ select:-webkit-autofill:focus {
   }
 
   .footer {
-    padding: 0.6em 0.5em;
-    gap: 0.6em;
+    padding: 0.1em 0.5em;
+    gap: 0.1em;
   }
 
   .footer-icon {
