@@ -8,6 +8,7 @@ import {
   textStructure,
   cardStructure,
   landingPageButtonSetStructure,
+  landingPageCardsBoxStyle
 } from '../../css/Style';
 
 function LandingPage() {
@@ -23,7 +24,7 @@ function LandingPage() {
     >
 
       <Box sx={{ width: '100%', textAlign: 'center', flexShrink: 0, 
-        '@media (max-width: 600px)': {
+        '@media (max-width: 800px)': {
           marginTop: '5rem'
         }
        }}>
@@ -35,7 +36,7 @@ function LandingPage() {
             '@media (max-width: 1400px)': {
               fontSize: '3.5em',
             },
-            '@media (max-width: 600px)': {
+            '@media (max-width: 800px)': {
               fontSize: '3em'
             },
           }}
@@ -45,7 +46,7 @@ function LandingPage() {
             component="br"
             sx={{
               display: 'none',
-              '@media (max-width: 600px)': {
+              '@media (max-width: 800px)': {
                 display: 'inline',
               },
             }}
@@ -59,7 +60,7 @@ function LandingPage() {
               '@media (max-width: 1400px)': {
                 fontSize: 'inherit',
               },
-              '@media (max-width: 600px)': {
+              '@media (max-width: 800px)': {
                 fontSize: 'inherit',
               },
             }}
@@ -69,32 +70,7 @@ function LandingPage() {
         </Typography>
       </Box>
 
-      <Box
-        sx={{
-          display: 'flex',
-          flexGrow: 1,
-          justifyContent: 'center',
-          flexWrap: 'nowrap',
-          flexDirection: 'column',
-          gap: 2,
-          alignItems: 'flex-start',
-          width: '150%',
-
-          '@media (max-width: 1400px)': {
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '120%',
-            gap: 5
-          },
-
-          '@media (max-width: 600px)' : {
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '70%',
-            gap: 5,
-          }
-        }}
-      >
+      <Box {...landingPageCardsBoxStyle}>
         <Card sx={{ ...cardStructure.sx, marginLeft: 0 }}>
           <Info
             labelContent="🔐⚡Fast & Secure"
