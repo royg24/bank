@@ -1,5 +1,6 @@
 import type { TextFieldProps, ButtonProps, ToggleButtonGroupProps, ToggleButtonProps } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
+import type { CSSProperties } from 'react';
 
 const color = 'white';
 const buttonColor = "rgb(187, 159, 3)";
@@ -204,8 +205,6 @@ export const fieldStructure : TextFieldProps = {
   },
 };
 
-import type { CSSProperties } from 'react';
-
 export const verifyFieldStructure = {
   sx: {
     backgroundColor: 'rgba(226, 207, 207, 0.32)',
@@ -214,26 +213,38 @@ export const verifyFieldStructure = {
     '& .MuiInputBase-input': {
       fontSize: '3.75em',
       textAlign: 'center' as CSSProperties['textAlign'],
+      color: 'rgb(3, 27, 45)',
       padding: 0,
-      '@media (max-width:1400px)': {
+      '@media (max-width: 1400px)': {
         fontSize: '3em',
       },
-      '@media (max-width:800px)': {
+      '@media (max-width: 800px)': {
         fontSize: '2.2em',
       },
-      '@media (max-width:400px)': {
+      '@media (max-width: 400px)': {
         fontSize: '1.8em',
       },
-    }
+    },
+    '@media (max-width: 1400px)': {
+      width: '4em',
+      height: '4em',
+    },
+    '@media (max-width: 800px)': {
+      width: '3em',
+      height: '3em',
+    },
+    '@media (max-width: 400px)': {
+      width: '2.5em',
+      height: '2.5em',
+    },
   },
   inputProps: {
     maxLength: 1,
-    style: {
-      textAlign: 'center' as CSSProperties['textAlign'],
-      color: 'rgb(3, 27, 45)'
-    }
-  }
-}
+    inputMode: 'numeric' as const,
+    pattern: '[0-9]*',
+    'aria-label': 'Verification digit',
+  },
+};
 
 export const buttonStructure : ButtonProps = {
   variant: 'contained',
@@ -242,7 +253,6 @@ export const buttonStructure : ButtonProps = {
     color: 'white',
     width: '50%',
     fontSize: '1rem',
-    padding: '0.75em 1.5em',
     marginTop: '1em',
     '&:hover': {
       backgroundColor: 'rgb(113, 102, 40)',
@@ -250,18 +260,40 @@ export const buttonStructure : ButtonProps = {
     '@media (max-width: 1400px)': {
       width: 'inherit',
       fontSize: '0.9rem',
-      padding: '0.65em 1.25em',
     },
     '@media (max-width: 800px)': {
       width: 'inherit',
       fontSize: '0.85rem',
-      padding: '0.5em 1em',
     },
     '@media (max-width: 400px)': {
       width: '50%',
       fontSize: '0.75rem',
-      padding: '0.4em 0.75em',
     },
+  },
+};
+
+export const googleButtonStructure: ButtonProps['sx'] = {
+  backgroundColor: 'rgb(32, 33, 36)',
+  color: 'white',
+  fontWeight: 700,
+  fontSize: '0.9rem',
+  fontFamily: 'Arial',
+  width: '50%',
+  textTransform: 'none',
+  '&:hover': {
+    backgroundColor: '#357ae8',
+  },
+  '@media (max-width: 1400px)': {
+    width: 'inherit',
+    fontSize: '0.5rem',
+  },
+  '@media (max-width: 800px)': {
+    width: 'inherit',
+    fontSize: '0.75rem',
+  },
+  '@media (max-width: 400px)': {
+    width: '50%',
+    fontSize: '0.4rem',
   },
 };
 
