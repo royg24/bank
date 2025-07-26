@@ -5,11 +5,20 @@ import { useNavigate } from 'react-router-dom';
 
 const renderer = ({ minutes, seconds, completed }: any) => {
   if (completed) {
-    return <Typography sx={{
-      fontSize: '3rem',
-      fontFamily: 'monospace'
-    }}>Time's up!</Typography>;
-
+    return (
+      <Typography
+        sx={{
+          fontFamily: 'monospace',
+          fontWeight: 'bold',
+          fontSize: '3rem',
+          '@media (max-width: 1400px)': { fontSize: '2.5rem' },
+          '@media (max-width: 800px)': { fontSize: '2rem' },
+          '@media (max-width: 400px)': { fontSize: '1.5rem' },
+        }}
+      >
+        Time's up!
+      </Typography>
+    );
   } else {
     return (
       <Typography
@@ -18,7 +27,10 @@ const renderer = ({ minutes, seconds, completed }: any) => {
           fontFamily: 'monospace',
           fontWeight: 'bold',
           fontSize: '2.5rem',
-          color: 'white'
+          color: 'white',
+          '@media (max-width: 1400px)': { fontSize: '3rem' },
+          '@media (max-width: 800px)': { fontSize: '2rem' },
+          '@media (max-width: 400px)': { fontSize: '2rem' },
         }}
       >
         {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
@@ -38,7 +50,7 @@ export default function Timer({ expiryTimestamp }: { expiryTimestamp: number }) 
         onComplete={() => {
           toast.info('Please sign up again');
           setTimeout(() => {
-            navigate('/access', {state: {mode: true}})
+            navigate('/access', { state: { mode: true } });
           }, 1000);
         }}
       />
