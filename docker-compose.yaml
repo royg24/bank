@@ -27,11 +27,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5173:5173"
+    volumes:
+      - ./frontend:/app
     environment:
       - VITE_BACKEND_URI=https://bank-fmud.onrender.com/api
-      - VITE_GOOGLE_CLIENT_ID=813898046760-1mcg71n6b19l0tnd8u5gd1h3fqnn4nck.apps.googleusercontent.com
-    volumes:
-      - ./frontend:/app   
+      - VITE_GOOGLE_CLIENT_ID=813898046760-1mcg71n6b19l0tnd8u5gd1h3fqnn4nck.apps.googleusercontent.com  
     command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
     depends_on:
       - backend

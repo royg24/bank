@@ -11,7 +11,7 @@ const renderer = ({ minutes, seconds, completed }: any) => {
           fontFamily: 'monospace',
           fontWeight: 'bold',
           fontSize: '3rem',
-          '@media (max-width: 1400px)': { fontSize: '2.5rem' },
+          '@media (max-width: 1200px)': { fontSize: '2.5rem' },
           '@media (max-width: 800px)': { fontSize: '2rem' },
           '@media (max-width: 400px)': { fontSize: '1.5rem' },
         }}
@@ -28,7 +28,7 @@ const renderer = ({ minutes, seconds, completed }: any) => {
           fontWeight: 'bold',
           fontSize: '2.5rem',
           color: 'white',
-          '@media (max-width: 1400px)': { fontSize: '3rem' },
+          '@media (max-width: 1200px)': { fontSize: '3rem' },
           '@media (max-width: 800px)': { fontSize: '2rem' },
           '@media (max-width: 400px)': { fontSize: '2rem' },
         }}
