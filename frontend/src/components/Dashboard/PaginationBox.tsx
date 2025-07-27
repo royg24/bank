@@ -1,7 +1,7 @@
 import { Box, IconButton, Typography } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { paginationContainerStyle, pagingArrowsStructure, textStructure } from '../../css/Style';
+import { paginationContainerStyle, pagingArrowsStructure, textStructure, cardsContainerStructure } from '../../css/Style';
 import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { getTransactions } from '../BackendCalls';
 import { toast } from 'react-toastify';
@@ -68,17 +68,7 @@ const PaginationBox = forwardRef<PaginationBoxRef>((_, ref) => {
         All Transactions:
       </Typography>
 
-      <Box
-        sx={{
-          flexGrow: 1,
-          overflowY: 'auto',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1em',
-          paddingTop: '0.3em',
-          backgroundColor: 'transparent',
-        }}
-      >
+      <Box {...cardsContainerStructure}>
         {transactions.length > 0 ? transactions.map((transaction) => {
               const key = `${transaction.timestamp}-${transaction.amount}`;
 

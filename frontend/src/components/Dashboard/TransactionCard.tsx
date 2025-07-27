@@ -1,5 +1,5 @@
-import { Card, Divider } from '@mui/material'
-import { cardStructure, dividerStyle } from '../../css/Style';
+import { Card, Divider, useMediaQuery } from '@mui/material'
+import { transactionCardStructure, dividerStyle } from '../../css/Style';
 import Info from '../General/Info';
 
 type Transaction = {
@@ -13,25 +13,21 @@ function TransactionCard({amount, participantEmail, timestamp}: Transaction) {
     const participantLabel = amount >= 0 ? 'From' : 'To';
     const date = new Date(timestamp).toLocaleDateString('en-GB');
     const color = amount >= 0 ? 'rgb(0, 88, 18)' : 'darkRed';
+    const isSmallScreen = useMediaQuery('(max-width:800px)');
 
     return (
         <>
-            <Card sx={{
-                ...cardStructure.sx, 
-                width: '60em',
-                height: '1.8em',
-                gap: '1em',
-                fontSize: '0.8em',
-                padding: '0.7em'
-            }}>
-                <Info labelContent={participantLabel} infoContent={participantEmail}></Info>
+            <Card {...transactionCardStructure}>
+                <Info labelContent={participantLabel} infoContent={participantEmail}
+                isRow={isSmallScreen}></Info>
                 {divider}
                 <Info labelContent='Amount' infoContent={Math.abs(amount).
-                    toString() + '$' } color={color}></Info>
+                    toString() + '$' } color={color} isRow={isSmallScreen}></Info>
                 {divider}
-                <Info labelContent='Date' infoContent={date}></Info>
+                <Info labelContent='Date' infoContent={date} isRow={isSmallScreen}></Info>
                 {divider}
-                <Info labelContent='Time' infoContent={timestamp.slice(11, 19)}></Info>
+                <Info labelContent='Time' infoContent={timestamp.slice(11, 19)}
+                isRow={isSmallScreen}></Info>
             </Card>
         </>
     );
