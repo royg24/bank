@@ -1,7 +1,5 @@
 import type { TextFieldProps, ButtonProps, ToggleButtonGroupProps, ToggleButtonProps } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import { alignContent, alignItems, flex, flexDirection, justifyContent } from '@mui/system';
-import { backgroundClip } from 'html2canvas/dist/types/css/property-descriptors/background-clip';
 import type { CSSProperties } from 'react';
 
 const color = 'white';
