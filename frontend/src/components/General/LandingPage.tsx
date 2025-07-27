@@ -33,7 +33,7 @@ function LandingPage() {
           sx={{
             ...textStructure,
             fontSize: '4.5em',
-            '@media (max-width: 1400px)': {
+            '@media (max-width: 1200px)': {
               fontSize: '3.5em',
             },
             '@media (max-width: 800px)': {
@@ -57,7 +57,7 @@ function LandingPage() {
               ...textStructure,
               color: 'gold',
               fontSize: 'inherit',
-              '@media (max-width: 1400px)': {
+              '@media (max-width: 1200px)': {
                 fontSize: 'inherit',
               },
               '@media (max-width: 800px)': {
@@ -81,7 +81,7 @@ function LandingPage() {
         <Card sx={{
           ...cardStructure.sx,
           marginLeft: '30%',
-          '@media (max-width: 1400px)': {
+          '@media (max-width: 1200px)': {
             marginLeft: 0
           }
         }}>
@@ -94,7 +94,7 @@ function LandingPage() {
         <Card sx={{
           ...cardStructure.sx,
           marginLeft: '60%',
-          '@media (max-width: 1400px)': {
+          '@media (max-width: 1200px)': {
             marginLeft: 0
           } 
         }}>

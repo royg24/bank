@@ -117,8 +117,8 @@ select:-webkit-autofill:focus {
   border: none;
 }
 
-/* Tablet (≤ 1400px) */
-@media (max-width: 1400px) {
+/* Tablet (≤ 1200px) */
+@media (max-width: 1200px) {
   .app-container {
     min-height: 97vh;
   }

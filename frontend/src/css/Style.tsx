@@ -1,5 +1,7 @@
 import type { TextFieldProps, ButtonProps, ToggleButtonGroupProps, ToggleButtonProps } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
+import { alignContent, alignItems, flex, flexDirection, justifyContent } from '@mui/system';
+import { backgroundClip } from 'html2canvas/dist/types/css/property-descriptors/background-clip';
 import type { CSSProperties } from 'react';
 
 const color = 'white';
@@ -17,7 +19,7 @@ export const theme = createTheme({
           fontFamily: font,
           color: color,
           fontSize: '1.25rem',
-          '@media (max-width:1400px)': {
+          '@media (max-width:1200px)': {
             fontSize: '1.1rem',
           },
           '@media (max-width:800px)': {
@@ -36,7 +38,7 @@ export const theme = createTheme({
           fontWeight: 700,
           color: color,
           fontSize: '0.9375rem',
-          '@media (max-width:1400px)': {
+          '@media (max-width:1200px)': {
             fontSize: '0.85rem',
           },
           '@media (max-width:800px)': {
@@ -54,7 +56,7 @@ export const theme = createTheme({
           fontFamily: font,
           color: color,
           fontSize: '0.9375rem',
-          '@media (max-width:1400px)': {
+          '@media (max-width:1200px)': {
             fontSize: '0.85rem',
           },
           '@media (max-width:800px)': {
@@ -73,7 +75,7 @@ export const theme = createTheme({
           fontWeight: 700,
           color: color,
           fontSize: '1rem',
-          '@media (max-width:1400px)': {
+          '@media (max-width:1200px)': {
             fontSize: '0.9rem',
           },
           '@media (max-width:800px)': {
@@ -105,7 +107,7 @@ export const theme = createTheme({
         input: {
           color: color,
           fontSize: '0.9375rem',
-          '@media (max-width:1400px)': {
+          '@media (max-width:1200px)': {
             fontSize: '0.85rem',
           },
           '@media (max-width:800px)': {
@@ -134,7 +136,7 @@ export function formContainerStyle(marginTop = '1em') {
     borderRadius: '0.9375em',
     boxShadow: '0 8px 24px rgb(0, 0, 0)',
 
-    '@media (max-width:1400px)': {
+    '@media (max-width:1200px)': {
       width: '40%',
       maxWidth: 'none',
       padding: '2em',
@@ -169,13 +171,13 @@ export function paginationContainerStyle(marginTop = '1em') {
     borderRadius: '0.9375em',
     boxShadow: '0 8px 24px rgb(0, 0, 0)',
 
-    '@media (max-width:1400px)': {
-      width: '90%',
+    '@media (max-width:1200px)': {
+      width: '80%',
       maxWidth: 'none',
       padding: '2em',
     },
     '@media (max-width:800px)': {
-      width: '100%',
+      width: '50%',
       padding: '1.25em',
       gap: '1em',
     },
@@ -193,7 +195,7 @@ export const fieldStructure : TextFieldProps = {
   size: 'small',
   sx: {
     fontSize: '1.1rem',
-    '@media (max-width: 1400px)': {
+    '@media (max-width: 1200px)': {
       fontSize: '1rem',
     },
     '@media (max-width: 800px)': {
@@ -215,7 +217,7 @@ export const verifyFieldStructure = {
       textAlign: 'center' as CSSProperties['textAlign'],
       color: 'rgb(3, 27, 45)',
       padding: 0,
-      '@media (max-width: 1400px)': {
+      '@media (max-width: 1200px)': {
         fontSize: '3em',
       },
       '@media (max-width: 800px)': {
@@ -225,7 +227,7 @@ export const verifyFieldStructure = {
         fontSize: '1.8em',
       },
     },
-    '@media (max-width: 1400px)': {
+    '@media (max-width: 1200px)': {
       width: '4em',
       height: '4em',
     },
@@ -257,7 +259,7 @@ export const buttonStructure : ButtonProps = {
     '&:hover': {
       backgroundColor: 'rgb(113, 102, 40)',
     },
-    '@media (max-width: 1400px)': {
+    '@media (max-width: 1200px)': {
       width: 'inherit',
       fontSize: '0.9rem',
     },
@@ -276,14 +278,14 @@ export const googleButtonStructure: ButtonProps['sx'] = {
   backgroundColor: 'rgb(32, 33, 36)',
   color: 'white',
   fontWeight: 700,
-  fontSize: '0.9rem',
+  fontSize: '0.7rem',
   fontFamily: 'Arial',
   width: '50%',
   textTransform: 'none',
   '&:hover': {
     backgroundColor: '#357ae8',
   },
-  '@media (max-width: 1400px)': {
+  '@media (max-width: 1200px)': {
     width: 'inherit',
     fontSize: '0.5rem',
   },
@@ -302,7 +304,7 @@ export function toggleGroupStructure(mode: boolean): ToggleButtonGroupProps {
     value: mode,
     exclusive: true,
     sx: {
-      height: '3.75em',
+      height: '3em',
       width: '31.25em',
       margin: '0 auto',
       position: 'relative',
@@ -310,7 +312,7 @@ export function toggleGroupStructure(mode: boolean): ToggleButtonGroupProps {
       backgroundColor: 'rgba(225, 224, 224, 0.1)',
       display: 'flex',
       justifyContent: 'center',
-      '@media (max-width:1400px)': {
+      '@media (max-width:1200px)': {
         width: '90%',
         height: '3.25em',
         top: '3%',
@@ -350,7 +352,7 @@ export function toggleButtonStructure(value: boolean): ToggleButtonProps {
         backgroundColor: buttonHoverColor,
         cursor: 'pointer'
       },
-      '@media (max-width:1400px)': {
+      '@media (max-width:1200px)': {
         width: '14em',
         fontSize: '0.9rem',
       },
@@ -368,11 +370,11 @@ export function toggleButtonStructure(value: boolean): ToggleButtonProps {
 export const infoStructure = {
   whiteSpace: 'pre-line',
   fontFamily: 'Georgia, Arial',
-  fontSize: '1.25em',
+  fontSize: '1.1em',
   color: 'white',
-  textShadow: '1px 1px 2px rgba(0,0,0,0.6)',
-  '@media (max-width:1400px)': {
-    fontSize: '1.25em',
+
+  '@media (max-width:1200px)': {
+    fontSize: '0.9em',
   },
   '@media (max-width:800px)': {
     fontSize: '1em',
@@ -384,11 +386,10 @@ export const infoStructure = {
 
 export const textStructure = {
   fontFamily: font,
-  fontSize: '1em',
+  fontSize: '0.95em',
   fontWeight: 700,
   color: '#f1e6ff',
-  textShadow: '1px 1px 2px rgba(0,0,0,0.6)',
-  '@media (max-width:1400px)': {
+  '@media (max-width:1200px)': {
     fontSize: '0.9rem',
   },
   '@media (max-width:800px)': {
@@ -402,7 +403,7 @@ export const textStructure = {
 export const headLineStructure = {
   fontSize: '4.5em',
   lineHeight: 1.1,
-  '@media (max-width: 1400px)': {
+  '@media (max-width: 1200px)': {
     fontSize: '3.5em',
   },
   '@media (max-width: 800px)': {
@@ -418,7 +419,7 @@ export const cardStructure = {
     gap: 3,
     width: '30%',
     height: '20%',
-    padding: '0.5em',
+    padding: '0.1em',
     background: 'linear-gradient(135deg, rgba(215, 184, 5, 0.6), rgba(255, 235, 100, 0.15))',
     border: '1px solid rgba(255, 255, 255, 0.15)',
     borderRadius: '1.25em',
@@ -435,7 +436,7 @@ export const cardStructure = {
       transform: 'translateY(-3px)',
       boxShadow: '0 14px 35px rgba(0, 0, 0, 0.45)',
     },
-    '@media (max-width:1400px)': {
+    '@media (max-width:1200px)': {
       flexDirection: 'column',
       height: '12%',
       width: '90%',
@@ -457,10 +458,69 @@ export const cardStructure = {
   }
 }
 
-export const dividerStyle = {
-  backgroundColor: 'rgba(255, 255, 255, 0.7)',
-  mx: 1,
-}
+export const transactionCardStructure = {
+  sx: {
+    ...cardStructure.sx,
+    width: '60em',
+    height: 'auto',
+    gap: '1em',
+    fontSize: '0.8em',
+    padding: '0.7em',
+
+    '@media (max-width:1200px)': {
+      width: '90%',
+      height: 'auto',
+      gap: '0.8em',
+      padding: '1em',
+      fontSize: '0.75em',
+    },
+    '@media (max-width:800px)': {
+      width: '50%',
+      padding: '0.8em',
+      gap: '0.6em',
+      fontSize: '0.7em',
+      flexDirection: 'column',
+    },
+    '@media (max-width:400px)': {
+      padding: '0.5em',
+      gap: '0.4em',
+      fontSize: '0.65em',
+    },
+  },
+};
+
+
+export const cardsContainerStructure = {
+  sx: {
+    flexGrow: 1,
+    overflowY: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1em',
+    paddingTop: '0.3em',
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+
+    '@media (max-width:1200px)': {
+      gap: '0.8em',
+      paddingTop: '0.4em',
+      width: '90%',
+      backgroundColor: 'transparent',
+    },
+    '@media (max-width:800px)': {
+      gap: '0.6em',
+      paddingTop: '0.5em',
+      width: '100%',
+      backgroundColor: 'transparent',
+      alignItems: 'center',
+    },
+    '@media (max-width:400px)': {
+      gap: '0.4em',
+      paddingTop: '0.6em',
+      backgroundColor: 'transparent',
+    },
+  },
+};
 
 export const landingPageCardsBoxStyle = {
   sx: {
@@ -473,7 +533,7 @@ export const landingPageCardsBoxStyle = {
     alignItems: 'flex-start',
     width: '150%',
 
-    '@media (max-width: 1400px)': {
+    '@media (max-width: 1200px)': {
       flexDirection: 'column',
       alignItems: 'center',
       width: '120%',
@@ -494,6 +554,22 @@ export const landingPageCardsBoxStyle = {
   }
 }
 
+export const dividerStyle = {
+  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  mx: 1,
+  '@media (max-width:800px)': {
+    mx: 0,
+    my: 1,
+    height: '1px',
+    width: '100%',
+  },
+  '@media (min-width:801px)': {
+    my: 0,
+    height: 'auto',
+    width: '1px',
+  },
+};
+
 export const landingPageBackgroundStyle = {
   height: '85%',
   display: 'flex',
@@ -513,7 +589,7 @@ export const landingPageButtonSetStructure = {
     justifyContent: 'center',
     flexShrink: 0,
 
-    '@media (max-width:1400px)': {
+    '@media (max-width:1200px)': {
       flexDirection: 'column',
       gap: '2em',
     },
@@ -536,7 +612,7 @@ export const landingPageButtonStyle: ButtonProps = {
     width: '15em',
     fontSize: '1em',
     fontWeight: 800,
-    '@media (max-width:1400px)': {
+    '@media (max-width:1200px)': {
       width: '12rem',
       fontSize: '0.9rem',
     },
@@ -562,7 +638,7 @@ export const pagingArrowsStructure = {
     '&:disabled': {
       backgroundColor: 'gray'
     },
-    '@media (max-width:1400px)': {
+    '@media (max-width:1200px)': {
       width: '1.5em',
       height: '1.5em',
     },
