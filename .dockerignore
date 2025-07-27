@@ -1,5 +1,20 @@
+# Prevent host node_modules from breaking container builds
 node_modules
-.git
+
+# Ignore IDE/editor settings
 .vscode
-*.md
+.idea
+
+# Ignore Git & logs
+.git
+.gitignore
 *.log
+
+# Ignore markdown and docs
+*.md
+docs/
+
+# Optional: Vite/React/Next build outputs (if used)
+dist/
+build/
+.out/
