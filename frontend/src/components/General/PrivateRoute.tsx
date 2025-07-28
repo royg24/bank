@@ -28,7 +28,9 @@ function PrivateRoute() {
   if (loading) {
     return <Typography sx={{
         ...textStructure,
-        fontSize: '5em'
+        fontSize: '5em',
+        alignSelf: 'center',
+        justifySelf: 'center',
     }}>Loading...</Typography>;
   }
 

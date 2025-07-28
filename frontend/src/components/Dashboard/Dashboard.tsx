@@ -5,7 +5,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Info from '../General/Info';
 import PaginationBox, {type PaginationBoxRef} from './PaginationBox';
-import { fieldStructure, formContainerStyle, cardStructure, buttonStructure, dividerStyle } from '../../css/Style';
+import { fieldStructure, formContainerStyle, dashboardCardStrucutre, buttonStructure, 
+    dividerStyle, logoutStyle } from '../../css/Style';
 import { validateEmail, validateAmount } from '../Validations';
 import { getBalance, transferMoney, logout } from '../BackendCalls';
 
@@ -18,7 +19,7 @@ function Dashboard() {
     const navigate = useNavigate();
     const token = localStorage.getItem('accessToken')!;
     const [balance, setBalance] = useState(0);
-    const [email, setEmail] = useState('john_doe@gmail.com');
+    const [email, setEmail] = useState('');
     const paginationRef = useRef<PaginationBoxRef>(null);
 
     const { control, handleSubmit, formState: { errors }, reset } = useForm<DashboardFormData>({
@@ -65,13 +66,8 @@ function Dashboard() {
         }
     };
 
-    const logoutStyle = {
-        sx: {
-            position: 'absolute',
-            top: '1em',
-            right: '-4em',
-            width: '18em'
-        }
+    function startVideo() {
+        navigate('/video');
     }
 
     return (
@@ -87,9 +83,9 @@ function Dashboard() {
 
             <Box sx={{ marginTop: '2em' }}>
 
-                <Card {...cardStructure}>
+                <Card {...dashboardCardStrucutre}>
 
-                    <Info labelContent="Email" infoContent={email} />
+                    <Info labelContent="User" infoContent={email} />
 
                     <Divider orientation="vertical" flexItem sx={dividerStyle} />
 
@@ -132,6 +128,8 @@ function Dashboard() {
                 />
 
                 <Button type='submit' {...buttonStructure}>Transfer Money</Button>
+                
+                <Button onClick={startVideo} {...buttonStructure}>Video with banker</Button>
 
             </Box>
 
