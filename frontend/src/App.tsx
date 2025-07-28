@@ -1,42 +1,37 @@
-import {Routes, Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
-import Logo from './components/General/Logo';
-import Footer from './components/General/Footer';
-import Toast from './components/General/Toast';
 import LandingPage from './components/General/LandingPage';
 import AccessForm from './components/Access/AccessForm';
 import Dashboard from './components/Dashboard/Dashboard';
 import Verify from './components/Verify/Verify';
-import { theme } from './css/Style.tsx';
-import './css/style.css';
-import PrivateRoute from './components/General/PrivateRoute.tsx';
+import VideoScreen from './components/Dashboard/VideoScreen';
+import PrivateRoute from './components/General/PrivateRoute';
+import { theme } from './css/Style';
+import MainLayout from './Layouts/MainLayout';
+import BareLayout from './Layouts/BareLayout';
 
 function App() {
   return (
-    <div className="app-container">
-      {/* Background spheres */}
-      <div className="background-spheres">
-        <div className="sphere" />
-        <div className="black-sphere" />
-      </div>
+    <ThemeProvider theme={theme}>
+      <Routes>
 
-      <ThemeProvider theme={theme}>
-        <Logo />
-        <Routes>
-          <Route path='/' element={<LandingPage />} />
-          <Route path='/access' element={<AccessForm />} />
-          <Route path='/verify' element={<Verify />} />
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/access" element={<AccessForm />} />
+          <Route path="/verify" element={<Verify />} />
           <Route element={<PrivateRoute />}>
-            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Route>
-        </Routes>
-      </ThemeProvider>
+        </Route>
 
-      <Footer />
-      <Toast />
-    </div>
+        <Route element={<BareLayout />}>
+          <Route element={<PrivateRoute />}>
+            <Route path="/video" element={<VideoScreen />} />
+          </Route>
+        </Route>
+      </Routes>
+    </ThemeProvider>
   );
 }
-
 
 export default App;
