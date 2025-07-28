@@ -149,6 +149,11 @@ select:-webkit-autofill:focus {
   .footer span {
     font-size: 0.8em;
   }
+
+  .toast-style {
+    right: 3%;
+    scale: 0.9;
+  }
 }
 
 /* Mobile (≤ 800px) */
@@ -187,6 +192,11 @@ select:-webkit-autofill:focus {
 
   .footer-icons {
     margin-top: 0;
+  }
+
+  .toast-style {
+    left: 15%;
+    scale: 0.7;
   }
 }
 
@@ -231,7 +241,7 @@ select:-webkit-autofill:focus {
   }
 
   .toast-style {
-    right: 5%;
-    scale: 1.1;
+    left: 15%;
+    scale: 0.7;
   }
 }

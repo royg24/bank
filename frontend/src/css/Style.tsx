@@ -3,8 +3,8 @@ import { createTheme } from '@mui/material/styles';
 import type { CSSProperties } from 'react';
 
 const color = 'white';
-const buttonColor = "rgb(187, 159, 3)";
-const buttonHoverColor = "rgb(113, 102, 40)";
+const buttonColor = "rgba(156, 133, 3, 1)";
+const buttonHoverColor = "rgba(93, 84, 33, 1)";
 const inactiveButtonColor = 'rgb(105, 101, 104)';
 const borderColor = 'white';
 const font = "monospace, Arial, sans-serif";
@@ -126,7 +126,8 @@ export function formContainerStyle(marginTop = '1em') {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: '1.25em',
+    justifySelf: 'center',
+    gap: '0.8em',
     width: '30%',
     maxWidth: '37.5em',
     padding: '2.5em',
@@ -249,16 +250,16 @@ export const verifyFieldStructure = {
 export const buttonStructure : ButtonProps = {
   variant: 'contained',
   sx: {
-    backgroundColor: 'rgb(187, 159, 3)',
+    backgroundColor: buttonColor,
     color: 'white',
     width: '50%',
     fontSize: '1rem',
     marginTop: '1em',
     '&:hover': {
-      backgroundColor: 'rgb(113, 102, 40)',
+      backgroundColor: buttonHoverColor,
     },
     '@media (max-width: 1200px)': {
-      width: 'inherit',
+      width: '60%',
       fontSize: '0.9rem',
     },
     '@media (max-width: 800px)': {
@@ -281,7 +282,7 @@ export const googleButtonStructure: ButtonProps['sx'] = {
   width: '50%',
   textTransform: 'none',
   '&:hover': {
-    backgroundColor: '#357ae8',
+    backgroundColor: 'rgba(64, 65, 68, 1)',
   },
   '@media (max-width: 1200px)': {
     width: 'inherit',
@@ -414,10 +415,6 @@ export const headLineStructure = {
 
 export const cardStructure = {
   sx: {
-    gap: 3,
-    width: '30%',
-    height: '20%',
-    padding: '0.1em',
     background: 'linear-gradient(135deg, rgba(215, 184, 5, 0.6), rgba(255, 235, 100, 0.15))',
     border: '1px solid rgba(255, 255, 255, 0.15)',
     borderRadius: '1.25em',
@@ -434,7 +431,51 @@ export const cardStructure = {
       transform: 'translateY(-3px)',
       boxShadow: '0 14px 35px rgba(0, 0, 0, 0.45)',
     },
-    '@media (max-width:1200px)': {
+  }
+}
+
+export const dashboardCardStrucutre = {
+  sx: {
+    ... cardStructure.sx,
+    gap: 3,
+    width: '150%',
+    height: '20%',
+    padding: '0.2em',
+    justifySelf: 'center',
+
+      '@media (max-width:1200px)': {
+      flexDirection: 'row',
+      height: '12%',
+      width: '100%',
+      padding: '1em',
+      gap: 2,
+    },
+    '@media (max-width:800px)': {
+      flexDirection: 'column',
+      marginTop: '4em',
+      width: '100%',
+      height: '15%',
+      padding: '0.75em',
+      gap: 1,
+    },
+    '@media (max-width:400px)': {
+      padding: '0.3em',
+      gap: 0.5,
+      height: '20%',
+      width: '90%',
+    },
+  }, 
+}
+
+export const landingCardStructure = {
+  sx: {
+    ... cardStructure.sx,
+    gap: 3,
+    width: '30%',
+    height: '20%',
+    padding: '0.3em',
+
+      '@media (max-width:1200px)': {
       flexDirection: 'column',
       height: '12%',
       width: '90%',
@@ -453,7 +494,7 @@ export const cardStructure = {
       height: '20%',
       width: '90%',
     },
-  }
+  }, 
 }
 
 export const transactionCardStructure = {
@@ -473,7 +514,7 @@ export const transactionCardStructure = {
       fontSize: '0.75em',
     },
     '@media (max-width:800px)': {
-      width: '50%',
+      width: '70%',
       padding: '0.8em',
       gap: '0.6em',
       fontSize: '0.7em',
@@ -486,7 +527,6 @@ export const transactionCardStructure = {
     },
   },
 };
-
 
 export const cardsContainerStructure = {
   sx: {
@@ -519,6 +559,29 @@ export const cardsContainerStructure = {
     },
   },
 };
+
+export const logoutStyle = {
+  sx: {
+    position: 'absolute',
+    top: '1em',
+    right: '-4em',
+    width: '18em',
+
+    '@media (max-width:1200px)': {
+      right: '3em',
+      width: '8em',
+    },
+    '@media (max-width:800px)': {
+      right: '1em',
+      width: '6em',
+    },
+    '@media (max-width:400px)': {
+      right: '3em',
+      width: '4em',
+    },
+  },
+};
+
 
 export const landingPageCardsBoxStyle = {
   sx: {
@@ -583,7 +646,6 @@ export const landingPageButtonSetStructure = {
   sx: {
     display: 'flex',
     gap: '4em',
-    mt: 1,
     justifyContent: 'center',
     flexShrink: 0,
 
