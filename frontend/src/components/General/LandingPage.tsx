@@ -6,7 +6,7 @@ import {
   landingPageBackgroundStyle,
   landingPageButtonStyle,
   textStructure,
-  cardStructure,
+  landingCardStructure,
   landingPageButtonSetStructure,
   landingPageCardsBoxStyle
 } from '../../css/Style';
@@ -71,7 +71,7 @@ function LandingPage() {
       </Box>
 
       <Box {...landingPageCardsBoxStyle}>
-        <Card sx={{ ...cardStructure.sx, marginLeft: 0 }}>
+        <Card sx={{ ...landingCardStructure.sx, marginLeft: 0 }}>
           <Info
             labelContent="🔐⚡Fast & Secure"
             infoContent="Fast transactions with top-level security to keep your data safe."
@@ -79,8 +79,8 @@ function LandingPage() {
         </Card>
 
         <Card sx={{
-          ...cardStructure.sx,
-          marginLeft: '30%',
+          ...landingCardStructure.sx,
+          marginLeft: '35%',
           '@media (max-width: 1200px)': {
             marginLeft: 0
           }
@@ -92,8 +92,8 @@ function LandingPage() {
         </Card>
 
         <Card sx={{
-          ...cardStructure.sx,
-          marginLeft: '60%',
+          ...landingCardStructure.sx,
+          marginLeft: '70%',
           '@media (max-width: 1200px)': {
             marginLeft: 0
           } 
