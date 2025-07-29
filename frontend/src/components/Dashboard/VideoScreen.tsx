@@ -1,87 +1,66 @@
 import { useEffect, useRef } from 'react';
-import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
+const SCRIPT_ID = 'jitsi-script';
+let scriptPromise: Promise<void> | null = null;
+
+const loadJitsi = (): Promise<void> => {
+  if (document.getElementById(SCRIPT_ID)) {
+    return Promise.resolve()
+  };
+
+  if (!scriptPromise) {
+    scriptPromise = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://8x8.vc/vpaas-magic-cookie-e40425a2cbf64723ad178eb4aad8c75e/external_api.js';
+      script.async = true;
+      script.id = SCRIPT_ID;
+      script.onload = () => resolve();
+      script.onerror = () => reject();
+      document.body.appendChild(script);
+    });
+  }
+
+  return scriptPromise;
+};
+
 function VideoScreen() {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const apiRef = useRef<any>(null);
-  const email = localStorage.getItem('email');
   const navigate = useNavigate();
+  const email = localStorage.getItem('email') || 'Guest';
 
   useEffect(() => {
-    const loadJitsiScript = () => {
-      const existingScript = document.getElementById('jitsi-script');
-      if (existingScript) return Promise.resolve();
+    loadJitsi().then(() => {
+      if (!containerRef.current || apiRef.current) {
+        return
+      };
 
-      return new Promise<void>((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = 'http://localhost:8000/external_api.js';
-        script.async = true;
-        script.id = 'jitsi-script';
-        script.onload = () => resolve();
-        script.onerror = () => reject('Failed to load Jitsi script');
-        document.body.appendChild(script);
+      const api = new (window as any).JitsiMeetExternalAPI('8x8.vc', {
+        roomName: 'vpaas-magic-cookie-e40425a2cbf64723ad178eb4aad8c75e/banker-call',
+        parentNode: containerRef.current,
+        userInfo: { displayName: email },
+        configOverwrite: {
+          startWithAudioMuted: true,
+          startWithVideoMuted: true,
+        },
       });
-    };
 
-    loadJitsiScript()
-      .then(() => {
-        if (containerRef.current && (window as any).JitsiMeetExternalAPI) {
-          const domain = 'meet.jit.si';
-          const options = {
-            roomName: 'banker-call',
-            parentNode: containerRef.current,
-            width: '100%',
-            height: '100%',
-            userInfo: {
-              displayName: email,
-            },
-          };
+      api.addEventListener('readyToClose', () => {
+        api.dispose();
+        navigate('/dashboard');
+      });
 
-          apiRef.current = new (window as any).JitsiMeetExternalAPI(domain, options);
-
-          apiRef.current.addEventListener('readyToClose', () => {
-            navigate('/dashboard');
-          });
-        }
-      })
-      .catch(console.error);
+      apiRef.current = api;
+    });
 
     return () => {
-      if (apiRef.current) {
-        apiRef.current.dispose();
-      }
+      apiRef.current?.dispose();
+      apiRef.current = null;
     };
   }, [email, navigate]);
 
-  const handleEndCall = () => {
-    if (apiRef.current) {
-      apiRef.current.dispose();
-      navigate('/dashboard');
-    }
-  };
-
-  return (
-    <div style={{ position: 'relative', height: '100vh' }}>
-      <div
-        ref={containerRef}
-        style={{ width: '100%', height: '100%', border: 'none' }}
-      />
-      <Button
-        onClick={handleEndCall}
-        variant="contained"
-        color="error"
-        style={{
-          position: 'absolute',
-          top: 20,
-          right: 20,
-          zIndex: 9999,
-        }}
-      >
-        End Call
-      </Button>
-    </div>
-  );
+  return <div ref={containerRef} style={{ height: '100vh' }} />;
 }
 
 export default VideoScreen;
