@@ -2,7 +2,7 @@
 export const validateEmail = {
     required: 'Email is required',
     pattern: {
-        value: /^[^\s@]+@[^\s@]+\.(com|net|edu|org|co\.il|gov|uk)$/,
+        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         message: 'Invalid email format'
     }
 };
