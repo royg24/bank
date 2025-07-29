@@ -639,7 +639,12 @@ export const landingPageBackgroundStyle = {
   justifyContent: 'flex-start',
   gap: '1em',
   px: 2,
-  boxSizing: 'border-box'
+  boxSizing: 'border-box',
+
+  '@media(min-width: 1700px)' : {
+    transform: 'scale(1.5)',
+    marginTop: '2em',
+  }
 }
 
 export const landingPageButtonSetStructure = {

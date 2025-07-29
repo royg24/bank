@@ -114,7 +114,7 @@ function validateEmail(email : string) {
     const normalizedEmail = normalizeEmail(email);
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.(com|net|edu|org|co\.il|gov|uk)$/;
-    if (!emailRegex.test(normalizedEmail) || normalizedEmail.length > 20 
+    if (!emailRegex.test(normalizedEmail) || normalizedEmail.length > 30 
       || normalizedEmail.length < 8) {
         return 'Invalid email format';
     }
