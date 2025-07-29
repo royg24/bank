@@ -89,7 +89,7 @@ function Dashboard() {
 
                     <Divider orientation="vertical" flexItem sx={dividerStyle} />
 
-                    <Info labelContent="Balance" infoContent={`${balance}$`} />
+                    <Info labelContent="Balance" infoContent={`${balance.toFixed(4)}$`} />
 
                 </Card>
 
