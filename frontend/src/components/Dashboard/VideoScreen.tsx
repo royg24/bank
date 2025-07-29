@@ -27,7 +27,7 @@ function VideoScreen() {
     loadJitsiScript()
       .then(() => {
         if (containerRef.current && (window as any).JitsiMeetExternalAPI) {
-          const domain = 'localhost:8000';
+          const domain = 'meet.jit.si';
           const options = {
             roomName: 'banker-call',
             parentNode: containerRef.current,
