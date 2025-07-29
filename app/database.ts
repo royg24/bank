@@ -277,5 +277,5 @@ async function setBalance(user: HydratedDocument<IUser>, amount : number, sessio
     const current = Number(user.balance);
     const updated = current + amount;
 
-    await user.updateOne({ $set: { balance: updated.toFixed(4) } }, { session });
+    await user.updateOne({ $set: { balance: updated.toString() } }, { session });
 }
