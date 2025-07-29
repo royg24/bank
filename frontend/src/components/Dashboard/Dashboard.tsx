@@ -29,6 +29,13 @@ function Dashboard() {
         }
     });
 
+    const formattedBalance = new Intl.NumberFormat('en-US', { 
+        style: 'currency', 
+        currency: 'USD',
+        minimumFractionDigits: 4,
+        maximumFractionDigits: 4
+    }).format(balance);
+
     useEffect(() => {
         document.title = 'Account';
         setEmail(localStorage.getItem('email') || '');
@@ -89,7 +96,7 @@ function Dashboard() {
 
                     <Divider orientation="vertical" flexItem sx={dividerStyle} />
 
-                    <Info labelContent="Balance" infoContent={`${balance.toFixed(4)}$`} />
+                    <Info labelContent="Balance" infoContent={`${formattedBalance}$`} />
 
                 </Card>
 

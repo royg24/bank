@@ -1,4 +1,5 @@
 import {Router} from 'express';
+import axios from 'axios';
 import dotenv from 'dotenv';
 import { Resend } from 'resend';
 import { client } from '../redis.js';
@@ -22,14 +23,24 @@ export default function sendCode() {
                 throw new NotFoundError(errorMessage);
             }
             
-            resend.emails.send({
-                from: process.env.RESEND_SENDER_MAIL,
-                to: email,
+            const payload = {
+                sender: {
+                    name: 'Gold Bank',
+                    email: 'roy@goldhar.net',
+                },
+                to: [{ email }],
                 subject: 'GoldBank verification code',
-                html: `<p>Welcome to GoldBank!<br> Your verification code is ${code}</p>`
+                htmlContent: `<p>Welcome to GoldBank!<br>Your verification code is <strong>${code}</strong>.</p>`,
+            };
+
+            const response = await axios.post('https://api.brevo.com/v3/smtp/email', payload, {
+                headers: {
+                    'api-key': process.env.BREVO_API_KEY,
+                    'Content-Type': 'application/json',
+                },
             });
 
-            if (resend) {
+            if (response.status >= 200 && response.status < 300) {
                 await client.setEx(email, 185, code);
 
                 console.log(`Verification code sent to ${email}`);
