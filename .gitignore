@@ -21,6 +21,10 @@ dist-ssr
 .idea
 .DS_Store
 
+# Ignore this project files
+TODO
+app/tests/
+
 # Do not ignore React files
 !*.jsx
 !*.tsx
