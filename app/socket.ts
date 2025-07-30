@@ -10,7 +10,7 @@ export function setup(io: Server) {
 
     socket.on('register', (accessToken: string) => {
       try {
-        const decoded = jwt.verify(accessToken, process.env.JWT_SECRET!) as { id: string };
+        const decoded = jwt.verify(accessToken, process.env.JWT_KEY!) as { id: string };
 
         const userId = decoded.id;
         connectedUsers.set(userId, socket.id);
