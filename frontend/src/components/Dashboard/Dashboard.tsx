@@ -32,7 +32,7 @@ function Dashboard() {
     const formattedBalance = new Intl.NumberFormat('en-US', { 
         style: 'currency', 
         currency: 'USD',
-        minimumFractionDigits: 4,
+        minimumFractionDigits: 0,
         maximumFractionDigits: 4
     }).format(balance);
 

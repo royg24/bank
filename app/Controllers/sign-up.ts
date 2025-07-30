@@ -28,7 +28,7 @@ export default function signUp() {
 
         setTimeout(async () => {
             await deleteUser(data.email);
-        }, 180000);
+        }, 60000);
 
         console.log(`user with email ${data.email} has signed up but not yet verified`)
         return res.status(201).json({message: queryResult.message});
