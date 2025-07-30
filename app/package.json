@@ -44,6 +44,6 @@
     "redis": "^4.6.7",
     "twilio": "^4.x.x",
     "ws": "^8.18.3",
-    "resend": "4.7.0"
+    "nodemailer": "^6.x.x"
   }
 }
