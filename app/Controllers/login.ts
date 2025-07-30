@@ -1,7 +1,7 @@
 import {Router} from 'express';
 import jwt from 'jsonwebtoken';
 import { randomUUID } from 'crypto';
-import { validateUser, responseFromDB } from '../database.js';
+import { validateUser } from '../database.js';
 import { validateLogin } from '../Validator/validations.js';
 import { hashPassword, normalizeEmail } from '../utils/utils.js';
 import { ValidationError } from '../errorHandler.js';

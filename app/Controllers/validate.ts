@@ -27,7 +27,7 @@ export default function validateCode() {
                 return res.status(200).json({message: 'Sign up was successful'});
             } else {
                 throw new AuthenticationError('Incorrect code, You can try sign up' + 
-                    ' again with the same email after 3 minutes'
+                    ' again with the same email after 1 minutes'
                 );
             }
 
