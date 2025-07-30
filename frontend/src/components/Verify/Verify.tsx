@@ -11,7 +11,7 @@ function Verify() {
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
   const [values, setValues] = useState(Array(6).fill(''));
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [expiryTimestamp] = useState(() => Date.now() + 3 * 60 * 1000);
+  const [expiryTimestamp] = useState(() => Date.now() + 1 * 60 * 1000);
   const isComplete = values.every((v) => v !== '');
   const navigate = useNavigate();
   const theme = useTheme();
@@ -41,7 +41,9 @@ function Verify() {
     const newValues = [...values];
     newValues[idx] = val;
     setValues(newValues);
-    if (val && idx < values.length - 1) setCurrentIndex(idx + 1);
+    if (val && idx < values.length - 1) {
+      setCurrentIndex(idx + 1)
+    };
   };
 
   const handleKeyDown = (idx: number, e: React.KeyboardEvent<HTMLInputElement>) => {
