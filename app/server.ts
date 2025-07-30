@@ -58,4 +58,4 @@ if (process.env.NODE_ENV !== 'test') {
   process.on('SIGTERM', shutdown);
 }
 
-export { app };
+export { app, io };

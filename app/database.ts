@@ -1,7 +1,9 @@
 import mongoose, {HydratedDocument, Model} from "mongoose";
 import { Response } from "express";
+import { io } from './server.js';
 import { NotFoundError, DataError, AuthenticationError } from "./errorHandler.js";
 import { normalizeEmail } from "./utils/utils.js";
+import { notifyUser } from './socket.js';
 
 const { Schema } = mongoose;
 
@@ -66,6 +68,7 @@ export async function addTransaction(id : string, amount : number, participantEm
         await session.commitTransaction();
 
         const updatedSender = await User.findOne({id: id});
+        notifyUser(io, receiver.id, {amount : amount});
 
         return {
             code: 200,
@@ -259,6 +262,11 @@ export async function testCleanUp() {
     await Transaction.deleteMany({participantEmail: { $regex: /^test/i }});
 
     await mongoose.connection.close();
+}
+
+export async function getIdFromEmail(email: string) : Promise<string | null> {
+    const user = await User.findOne({email: email});
+    return user ? user.id : null;
 }
 
 async function addUserTransaction(Transaction: typeof mongoose.Model, userId: string, 

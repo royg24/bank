@@ -1,3 +1,4 @@
--   Add web sockets with Socket.io to let server communicate with clients.
+-   Think about improving video call mechanic
 -   Change Database design to transactions array for each user.
--   Adjust frontend to multiple screen sizes.
+-   Fix timestamp of transactions (it is 3 hours behind, probably time zones issue).
+-   Check email verification in production for other devices.
