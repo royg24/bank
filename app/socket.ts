@@ -1,5 +1,6 @@
 import { Server, Socket } from 'socket.io';
 import jwt from 'jsonwebtoken';
+import { getIdFromEmail } from './database.js';
 import { AuthenticationError } from './errorHandler.js';
 
 const connectedUsers = new Map<string, string>();
@@ -42,6 +43,6 @@ export function notifyUser(io: Server, userId: string, data: any) {
     io.to(socketId).emit('new transaction', data);
     console.log(`Notification sent to user ${userId}`);
   } else {
-    console.warn(`User ${userId} not connected`);
+    console.log(`User ${userId} not connected`);
   }
 }

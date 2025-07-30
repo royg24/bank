@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { useSocket } from '../SocketProvider';
 import Info from '../General/Info';
 import PaginationBox, {type PaginationBoxRef} from './PaginationBox';
 import { fieldStructure, formContainerStyle, dashboardCardStrucutre, buttonStructure, 
@@ -21,6 +22,7 @@ function Dashboard() {
     const [balance, setBalance] = useState(0);
     const [email, setEmail] = useState('');
     const paginationRef = useRef<PaginationBoxRef>(null);
+    const { socket } = useSocket();
 
     const { control, handleSubmit, formState: { errors }, reset } = useForm<DashboardFormData>({
         defaultValues: {
@@ -29,12 +31,12 @@ function Dashboard() {
         }
     });
 
-    const formattedBalance = new Intl.NumberFormat('en-US', { 
-        style: 'currency', 
-        currency: 'USD',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 4
-    }).format(balance);
+    function getFormattedBalance(balance: number | bigint) {
+        return new Intl.NumberFormat('en-US', { 
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 4
+        }).format(balance);
+    }
 
     useEffect(() => {
         document.title = 'Account';
@@ -73,6 +75,26 @@ function Dashboard() {
         }
     };
 
+    // handle notification about transaction that transders money to this user
+    useEffect(() => {
+        if (!socket) {
+            return;
+        }
+
+        const handler = (data: any) => {
+            if (data && typeof data.amount === 'number') {
+                toast.info(`You have recieved ${getFormattedBalance(data.amount)}$ to your account`);
+                paginationRef.current?.onPageChanges(paginationRef.current?.page);
+            }
+        };
+
+        socket.on('new transaction',handler);
+
+        return () => {
+            socket.off('new transaction', handler);
+        }
+    }, [socket?.id]);
+
     function startVideo() {
         navigate('/video');
     }
@@ -96,7 +118,7 @@ function Dashboard() {
 
                     <Divider orientation="vertical" flexItem sx={dividerStyle} />
 
-                    <Info labelContent="Balance" infoContent={`${formattedBalance}$`} />
+                    <Info labelContent="Balance" infoContent={`${getFormattedBalance(balance)}$`} />
 
                 </Card>
 

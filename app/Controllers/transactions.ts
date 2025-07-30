@@ -23,6 +23,7 @@ export function makeTransaction() {
         const id = await verifyToken(token);
 
         const queryResult = await addTransaction(id, Number(body.amount), body.receiverEmail);
+        
         return res.status(200).json({
             message: queryResult.message,
             updatedBalance: queryResult.updatedBalance
