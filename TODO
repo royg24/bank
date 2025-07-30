@@ -1,4 +1,0 @@
--   Think about improving video call mechanic
--   Change Database design to transactions array for each user.
--   Fix timestamp of transactions (it is 3 hours behind, probably time zones issue).
--   Check email verification in production for other devices.
