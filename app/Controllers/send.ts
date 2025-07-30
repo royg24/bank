@@ -1,14 +1,12 @@
 import {Router} from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
-import { Resend } from 'resend';
 import { client } from '../redis.js';
 import { NotFoundError } from '../errorHandler.js';
 import { validateSend } from '../Validator/validations.js'
 import { normalizeEmail } from '../utils/utils.js';
 
 dotenv.config();
-const resend = new Resend(process.env.RESEND_APP_KEY);
 
 export default function sendCode() {
     const router = Router();
@@ -22,11 +20,11 @@ export default function sendCode() {
             if (errorMessage) {
                 throw new NotFoundError(errorMessage);
             }
-            
+
             const payload = {
                 sender: {
                     name: 'Gold Bank',
-                    email: 'roy@goldhar.net',
+                    email: 'noreply.goldbank@gmail.com',
                 },
                 to: [{ email }],
                 subject: 'GoldBank verification code',
@@ -41,7 +39,7 @@ export default function sendCode() {
             });
 
             if (response.status >= 200 && response.status < 300) {
-                await client.setEx(email, 185, code);
+                await client.setEx(email, 65, code);
 
                 console.log(`Verification code sent to ${email}`);
                 res.status(200).json({ message: 'Code sent successfully' });;

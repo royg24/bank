@@ -204,9 +204,9 @@ export async function validateUser(email : string, type: string, password? : str
     }
 }
 
-export async function isUserVerified(id: string): Promise<boolean> {
+export async function isUserVerified(email: string): Promise<boolean> {
     try {
-        const user = await User.findOne({id: id});
+        const user = await User.findOne({email: email});
         if (user) {
             return user.verified;
         } else {
