@@ -10,7 +10,8 @@ import { validateEmail, validatePassword, validatePhoneNumber, keepPhoneNumberFo
 import { access, sendCode } from '../BackendCalls.js'
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import GoogleButton from './GoogleButton.js' 
+import GoogleButton from './GoogleButton.js';
+import { useSocket } from '../SocketProvider.js'; 
 
 type FormData = {
     email: string;
@@ -26,6 +27,7 @@ function AccessForm() {
     const initialMode = typeof location.state?.mode === 'boolean' ? location.state.mode : true;
     const [mode, setMode] = useState<boolean>(initialMode);
     const pageText = mode ? 'Sign Up' : 'Login';
+    const { socket } = useSocket();
 
     const { control, handleSubmit, formState: { errors }, reset } = useForm<FormData>();
 
@@ -54,6 +56,7 @@ function AccessForm() {
 
         if (result.success) {
             if (!mode) {
+                registerToSocket(result.data.accessToken);
                 localStorage.setItem('accessToken', result.data.accessToken);
                 toast.success(result.data.message);
             } else {
@@ -77,6 +80,22 @@ function AccessForm() {
             return type === 'form' ? '/verify' : '/access';
         } else {
             return '/dashboard';
+        }
+    }
+
+    function registerToSocket(accessToken: string) {
+        if (!socket) {
+            return
+        }
+
+        if (socket.connected) {
+            socket.emit('register', accessToken);
+        } else {
+            const onConnect = () => {
+            socket.emit('register', accessToken);
+            socket.off('connect', onConnect);
+            };
+            socket.on('connect', onConnect);
         }
     }
 

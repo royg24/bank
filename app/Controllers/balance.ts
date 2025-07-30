@@ -1,8 +1,5 @@
 import {Router} from 'express';
 import { getUserBalance, responseFromDB, isUserVerified } from '../database.js';
-import jwt from 'jsonwebtoken';
-import { isTokenBlacklisted } from './logout.js';
-import { AuthenticationError } from '../errorHandler.js';
 import { verifyToken } from '../utils/utils.js';
 
 export default function getBalance() {
