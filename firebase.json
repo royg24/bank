@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "goldbank-73f4e",
     "public": "frontend/dist",
     "ignore": [
       "firebase.json",
