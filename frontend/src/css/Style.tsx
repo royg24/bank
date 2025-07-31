@@ -254,11 +254,27 @@ export const dialogStructure = {
       padding: 2,
       borderRadius: 2,
       width: '100%',
-      justifyContent: 'center',
       alignItems: 'center',
     }
   }
 }
+
+export const menuItemStyle = {
+  fontSize: '1.2rem',
+  borderRadius: '1rem',
+  margin: '0.5rem 1rem',
+  '&:hover': {
+    backgroundColor: buttonColor
+  },
+  '&.Mui-selected': {
+    backgroundColor: '#ab9414ff',
+    color: '#fff'
+  },
+  '&.Mui-selected:hover': {
+    backgroundColor: buttonHoverColor
+  }
+};
+
 
 export const buttonStructure : ButtonProps = {
   variant: 'contained',

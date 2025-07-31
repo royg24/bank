@@ -49,7 +49,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         return
       };
 
-      newSocket = io(import.meta.env.VITE_SOCKET_URI, {
+      newSocket = io(import.meta.env.VITE_BACKEND_URI, {
         auth: { token },
         transports: ['websocket'],     
         reconnectionAttempts: 3,          
