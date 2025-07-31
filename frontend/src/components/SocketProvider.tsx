@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { io, Socket } from 'socket.io-client';
 
 interface SocketContextType {
-  socket: Socket | null;
+  socket: any | null; 
 }
 
 const SocketContext = createContext<SocketContextType>({ socket: null });
@@ -11,7 +10,7 @@ export const useSocket = () => useContext(SocketContext);
 
 export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
-  const [socket, setSocket] = useState<Socket | null>(null);
+  const [socket, setSocket] = useState<any | null>(null);
 
   useEffect(() => {
     const savedToken = localStorage.getItem('accessToken');
@@ -24,8 +23,11 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setToken(e.newValue);
       }
     }
+
     window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
+    return (
+      () => window.removeEventListener('storage', handleStorage)
+    );
   }, []);
 
   useEffect(() => {
@@ -37,22 +39,39 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       return;
     }
 
-    const newSocket = io('http://localhost:3000', {
-      auth: { token },
-    });
+    let isMounted = true;
+    let newSocket: any;
 
-    setSocket(newSocket);
+    (async () => {
+      const { io } = await import('socket.io-client');
 
-    newSocket.on('connect', () => {
-      console.log('Socket connected:', newSocket.id);
-    });
+      if (!isMounted) {
+        return
+      };
 
-    newSocket.on('disconnect', () => {
-      console.log('Socket disconnected');
-    });
+      newSocket = io(import.meta.env.VITE_SOCKET_URI, {
+        auth: { token },
+        transports: ['websocket'],     
+        reconnectionAttempts: 3,          
+        timeout: 5000,                    
+      });
+
+      setSocket(newSocket);
+
+      newSocket.on('connect', () => {
+        console.log('Socket connected:', newSocket.id);
+      });
+
+      newSocket.on('disconnect', () => {
+        console.log('Socket disconnected');
+      });
+    })();
 
     return () => {
-      newSocket.disconnect();
+      isMounted = false;
+      if (newSocket) {
+        newSocket.disconnect();
+      }
       setSocket(null);
     };
   }, [token]);

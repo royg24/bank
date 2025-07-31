@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const SCRIPT_ID = 'jitsi-script';
 let scriptPromise: Promise<void> | null = null;
@@ -29,6 +30,7 @@ function VideoScreen() {
   const apiRef = useRef<any>(null);
   const navigate = useNavigate();
   const email = localStorage.getItem('email') || 'Guest';
+  const room = Cookies.get('room') || 'General';
 
   useEffect(() => {
     loadJitsi().then(() => {
@@ -37,7 +39,7 @@ function VideoScreen() {
       };
 
       const api = new (window as any).JitsiMeetExternalAPI('8x8.vc', {
-        roomName: 'vpaas-magic-cookie-e40425a2cbf64723ad178eb4aad8c75e/banker-call',
+        roomName: `vpaas-magic-cookie-e40425a2cbf64723ad178eb4aad8c75e/${room}`,
         parentNode: containerRef.current,
         userInfo: { displayName: email },
         configOverwrite: {
