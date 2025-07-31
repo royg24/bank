@@ -1,5 +1,6 @@
 import type { TextFieldProps, ButtonProps, ToggleButtonGroupProps, ToggleButtonProps } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
+import { alignContent, justifyContent } from '@mui/system';
 import type { CSSProperties } from 'react';
 
 const color = 'white';
@@ -246,6 +247,19 @@ export const verifyFieldStructure = {
     'aria-label': 'Verification digit',
   },
 };
+
+export const dialogStructure = {
+  PaperProps: {
+    sx: {
+      backgroundColor: 'rgba(77, 75, 75, 0.88)',
+      padding: 2,
+      borderRadius: 2,
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }
+  }
+}
 
 export const buttonStructure : ButtonProps = {
   variant: 'contained',

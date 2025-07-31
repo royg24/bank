@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-//const backendUri = import.meta.env.VITE_BACKEND_URI;
-const backendUri = 'http://localhost:3000/api';
+const backendUri = import.meta.env.VITE_BACKEND_URI;
 
 export const access = async (route: string, data: any, type: string) => {
     try {

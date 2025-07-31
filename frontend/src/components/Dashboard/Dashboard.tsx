@@ -10,6 +10,7 @@ import { fieldStructure, formContainerStyle, dashboardCardStrucutre, buttonStruc
     dividerStyle, logoutStyle } from '../../css/Style';
 import { validateEmail, validateAmount } from '../Validations';
 import { getBalance, transferMoney, logout } from '../BackendCalls';
+import ViedoDialog from './VideoDialog';
 
 type DashboardFormData = {
     email: string;
@@ -95,10 +96,6 @@ function Dashboard() {
         }
     }, [socket?.id]);
 
-    function startVideo() {
-        navigate('/video');
-    }
-
     return (
         <>
             <Box {...logoutStyle} onClick={() => {
@@ -158,7 +155,7 @@ function Dashboard() {
 
                 <Button type='submit' {...buttonStructure}>Transfer Money</Button>
                 
-                <Button onClick={startVideo} {...buttonStructure}>Video with banker</Button>
+                <ViedoDialog></ViedoDialog>
 
             </Box>
 
