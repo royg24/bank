@@ -4,6 +4,7 @@ import { client} from '../redis.js';
 import { validateValidate } from '../Validator/validations.js';
 import { ValidationError, AuthenticationError } from '../errorHandler.js';
 import { approveUser } from '../database.js';
+import { normalizeEmail } from '../utils/utils.js';
 
 dotenv.config();
 
@@ -14,16 +15,17 @@ export default function validateCode() {
     router.post('/', async (req, res, next) => {
         const body = req.body;
         const errorMessage = validateValidate(body);
+        const email = normalizeEmail(body.email);
 
         if(errorMessage) {
             throw new ValidationError(errorMessage);
         }
 
         try {
-            const actuallCode = await client.get(body.email);
-            if (actuallCode === body.code.toString()) {
+            const actuallCode = await client.get(email);
+            if (actuallCode === body.code.toString().trim()) {
                 console.log(`User with email ${body.email} has been approved`);
-                approveUser(body.email);
+                approveUser(email);
                 return res.status(200).json({message: 'Sign up was successful'});
             } else {
                 throw new AuthenticationError('Incorrect code, You can try sign up' + 
