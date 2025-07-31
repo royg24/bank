@@ -12,25 +12,27 @@ function TransactionCard({amount, participantEmail, timestamp}: Transaction) {
     const divider = <Divider orientation="vertical" flexItem sx={dividerStyle} />;
     const participantLabel = amount >= 0 ? 'From' : 'To';
     const date = new Date(timestamp).toLocaleDateString('en-GB');
+    const time = new Date(timestamp).toLocaleTimeString('en-GB', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+    });
     const color = amount >= 0 ? 'rgb(0, 88, 18)' : 'darkRed';
     const isSmallScreen = useMediaQuery('(max-width:800px)');
 
     return (
-        <>
-            <Card {...transactionCardStructure}>
-                <Info labelContent={participantLabel} infoContent={participantEmail}
-                isRow={isSmallScreen}></Info>
-                {divider}
-                <Info labelContent='Amount' infoContent={Math.abs(amount).
-                    toString() + '$' } color={color} isRow={isSmallScreen}></Info>
-                {divider}
-                <Info labelContent='Date' infoContent={date} isRow={isSmallScreen}></Info>
-                {divider}
-                <Info labelContent='Time' infoContent={timestamp.slice(11, 19)}
-                isRow={isSmallScreen}></Info>
-            </Card>
-        </>
+        <Card {...transactionCardStructure}>
+            <Info labelContent={participantLabel} infoContent={participantEmail} isRow={isSmallScreen} />
+            {divider}
+            <Info labelContent='Amount' infoContent={Math.abs(amount).toString() + '$'} color={color} isRow={isSmallScreen} />
+            {divider}
+            <Info labelContent='Date' infoContent={date} isRow={isSmallScreen} />
+            {divider}
+            <Info labelContent='Time' infoContent={time} isRow={isSmallScreen} />
+        </Card>
     );
 }
+
 
 export default TransactionCard;

@@ -1,6 +1,5 @@
 import type { TextFieldProps, ButtonProps, ToggleButtonGroupProps, ToggleButtonProps } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import { alignContent, justifyContent } from '@mui/system';
 import type { CSSProperties } from 'react';
 
 const color = 'white';
