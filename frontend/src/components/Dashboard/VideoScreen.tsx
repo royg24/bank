@@ -30,7 +30,7 @@ function VideoScreen() {
   const apiRef = useRef<any>(null);
   const navigate = useNavigate();
   const email = localStorage.getItem('email') || 'Guest';
-  const room = Cookies.get('room') || 'General';
+  const room = `Room ${Cookies.get('room')}`;
 
   useEffect(() => {
     loadJitsi().then(() => {
