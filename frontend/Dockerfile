@@ -7,11 +7,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 
-# Copy .env file if needed
-COPY .env ./
-
 # Copy all source files
-COPY vite.config.ts ./
+COPY vite.config.ts ./W
 COPY tsconfig.json ./
 COPY tsconfig.app.json ./
 COPY tsconfig.node.json ./

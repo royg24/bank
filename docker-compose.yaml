@@ -5,18 +5,8 @@ services:
     build: ./app
     ports:
       - "3000:3000"
-    environment:
-      - CONNECTION_STRING=mongodb+srv://royg24:abcd8899%23%2A@cluster0.1oihvio.mongodb.net/
-      - DATABASE_NAME=bank
-      - JWT_KEY=key
-      - PORT=3000
-      - REDIS_HOST=redis-16048.c321.us-east-1-2.ec2.redns.redis-cloud.com
-      - REDIS_PORT=16048
-      - REDIS_USERNAME=default
-      - REDIS_PASSWORD=ImRwIZY0MW5xk47q8dlfN46IfW066QRJ
-      - LOCAL_WEB_URL=http://localhost:5173
-      - WEB_URL=https://goldbank-73f4e.web.app
-      - GMAIL_APP_PASSWORD=ljtx xbnf dmhf wvna
+    env_file:
+      - app/.env
     depends_on:
       - mongo
 
@@ -28,10 +18,8 @@ services:
       - "5173:5173"
     volumes:
       - ./frontend:/app
-    environment:
-      - VITE_BACKEND_URI=https://bank-fmud.onrender.com/api
-      - VITE_GOOGLE_CLIENT_ID=813898046760-1mcg71n6b19l0tnd8u5gd1h3fqnn4nck.apps.googleusercontent.com  
-    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+    env_file:
+      - frontend/.env
     depends_on:
       - backend
 

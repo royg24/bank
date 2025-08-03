@@ -7,9 +7,6 @@ WORKDIR /usr/src/app
 # Copy package files
 COPY package*.json ./ tsconfig.json ./
 
-# Copy environment file if needed
-COPY .env ./
-
 # Install dependencies
 RUN npm install
 
