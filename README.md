@@ -34,7 +34,7 @@ Built with **Node.js**, **Express**, **MongoDB**, **WebSockets**, and Dockerized
 -  **Money transfer** between users  
 -  **Real-time transfer updates** across clients  
 -  **Real-time video chat** between users  
--  **Dockerized backend + MongoDB**
+-  **Dockerized environment** for easy local development and deployment using Docker Compose
 
 ---
 
