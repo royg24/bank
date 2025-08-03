@@ -1,103 +1,79 @@
 # 🏦 GoldBank
 
-A simple Node.js + Express banking backend API for managing user accounts, authentication, balances, and transactions — built with a clean modular structure, Dockerized, and testable with Jest.
+A simple **full-stack banking application** with:
+
+- 🔐 Secure authentication  
+- 💸 Balance tracking & transaction management  
+- 🎥 Real-time **video chat integration**
+
+Built with **Node.js**, **Express**, **MongoDB**, **WebSockets**, and Dockerized for easy deployment. Frontend hosted on **Firebase**, backend on **Render**.
+
+---
+
+### 🔗 Live Demo
+
+-  **Frontend**: [https://goldbank-73f4e.web.app](https://goldbank-73f4e.web.app)  
+-  **Backend API**: [https://bank-fmud.onrender.com/api](https://bank-fmud.onrender.com/api)
 
 ---
 
 ## 📚 Table of Contents
 
-- [Features](#features)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Running the Project](#running-the-project)
-- [API Endpoints](#api-endpoints)
-- [Environment Variables](#environment-variables)
-- [Running Tests](#running-tests)
-- [Docker Compose Setup](#docker-compose-setup)
-- [Contributing](#contributing)
-- [License](#license)
-- [Credits](#credits)
+- [✨ Features](#-features)
+- [🛠️ Technologies](#-technologies)
+- [📖 API Endpoints](#-api-endpoints)
+- [🙌 Credits](#-credits)
 
 ---
 
 ## ✨ Features
 
-<!-- List the key features your project provides -->
-
-- [ ] User registration with validation
-- [ ] JWT-based authentication
-- [ ] Show user's balance
-- [ ] Allow user to transfer money
-- [ ] Dockerized backend and database
-- [ ] Test coverage with Jest
-- [ ] Environment variable management via `.env`
+-  **User registration** with input validation  
+-  **JWT-based login authentication**  
+-  **Display balance** and transaction history  
+-  **Money transfer** between users  
+-  **Real-time transfer updates** across clients  
+-  **Real-time video chat** between users  
+-  **Dockerized environment** for easy local development and deployment using Docker Compose
 
 ---
 
-## 📂 Project Structure
+## 🛠️ Technologies
 
-<!-- Describe your project folder structure here -->
-
-
----
-
-## 🛠️ Installation
-
-<!-- Add installation instructions here -->
-
----
-
-## 🚀 Running the Project
-
-<!-- Explain how to run the project locally or via Docker here -->
+| Layer              | Stack                                      |
+|--------------------|---------------------------------------------|
+| **Backend**         | Node.js, Express, TypeScript               |
+| **Frontend**        | React, TypeScript, Vite                    |
+| **Database**        | MongoDB, Redis                             |
+| **Real-time**       | Socket.io                                  |
+| **Authentication**  | Google OAuth, JWT                          |
+| **DevOps**          | Docker, Docker Compose                     |
+| **Deployment**      | Firebase (frontend), Render (backend)      |
 
 ---
 
 ## 📖 API Endpoints
 
-<!-- List your API endpoints and what they do here -->
+> All routes are prefixed with `/api`
 
-| Method | Endpoint | Description |
-|:--------|:------------|:----------------|
-|        |              |                |
-|        |              |                |
+| Method | Endpoint                 | Description                       |
+|--------|--------------------------|-----------------------------------|
+| `POST` | `/auth/sign-up`          | Create a new user                 |
+| `POST` | `/auth/sign-up/send`     | Send 6-digit verification code    |
+| `POST` | `/auth/sign-up/validate` | Validate verification code        |
+| `POST` | `/auth/login`            | Log in user                       |
+| `POST` | `/logout`                | Log out user                      |
+| `GET`  | `/balance`               | Get current user balance 🔒       |
+| `GET`  | `/transactions`          | View transaction history 🔒       |
+| `POST` | `/transactions`          | Create a new transaction 🔒       |
+| `GET`  | `/verify-token`          | Validate access token             |
 
----
-
-## 🔐 Environment Variables
-
-<!-- List the environment variables needed for this project -->
-
-
----
-
-## 🧪 Running Tests
-
-<!-- Describe how to run tests -->
-
----
-
-## 🐳 Docker Compose Setup
-
-<!-- Instructions to build and run with Docker Compose -->
-
----
-
-## 🤝 Contributing
-
-<!-- Add contribution guidelines -->
-
----
-
-## 📜 License
-
-<!-- Add licensing details -->
+🔒 = Requires authentication using header:  
 
 ---
 
 ## 🙌 Credits
 
-<!-- List project contributors or acknowledgments -->
+- Developed by [**Roy Goldhar**](https://github.com/royg24)
 
-- Roy Goldhar
-
+---
