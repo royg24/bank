@@ -12,8 +12,8 @@ Built with **Node.js**, **Express**, **MongoDB**, **WebSockets**, and Dockerized
 
 ### 🔗 Live Demo
 
-- 🌐 **Frontend**: [https://goldbank-73f4e.web.app](https://goldbank-73f4e.web.app)  
-- 🚀 **Backend API**: [https://bank-fmud.onrender.com/api](https://bank-fmud.onrender.com/api)
+-  **Frontend**: [https://goldbank-73f4e.web.app](https://goldbank-73f4e.web.app)  
+-  **Backend API**: [https://bank-fmud.onrender.com/api](https://bank-fmud.onrender.com/api)
 
 ---
 
@@ -28,12 +28,13 @@ Built with **Node.js**, **Express**, **MongoDB**, **WebSockets**, and Dockerized
 
 ## ✨ Features
 
-- ✅ **User registration** with input validation
-- 🔐 **JWT-based login authentication**
-- 💰 **Display balance** and transaction history
-- 🔄 **Money transfer** between users
-- 📹 **Real-time video chat** between users
-- 🐳 **Dockerized backend + MongoDB**
+-  **User registration** with input validation  
+-  **JWT-based login authentication**  
+-  **Display balance** and transaction history  
+-  **Money transfer** between users  
+-  **Real-time transfer updates** across clients  
+-  **Real-time video chat** between users  
+-  **Dockerized backend + MongoDB**
 
 ---
 
@@ -69,11 +70,10 @@ Built with **Node.js**, **Express**, **MongoDB**, **WebSockets**, and Dockerized
 
 🔒 = Requires authentication using header:  
 
-
 ---
 
 ## 🙌 Credits
 
-- 👨‍💻 Developed by [**Roy Goldhar**](https://github.com/royg24)
+- Developed by [**Roy Goldhar**](https://github.com/royg24)
 
 ---
