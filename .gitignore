@@ -30,7 +30,6 @@ app/tests/
 frontend/.env
 app/.env
 
-
 # Do not ignore React files
 !*.jsx
 !*.tsx
