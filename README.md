@@ -68,7 +68,7 @@ Built with **Node.js**, **Express**, **MongoDB**, **WebSockets**, and Dockerized
 | `POST` | `/transactions`          | Create a new transaction 🔒       |
 | `GET`  | `/verify-token`          | Validate access token             |
 
-🔒 = Requires authentication using header:  
+🔒 = Requires authentication (send JWT token in `Authorization: Bearer <token>` header)
 
 ---
 
