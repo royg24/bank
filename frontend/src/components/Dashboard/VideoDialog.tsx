@@ -3,7 +3,8 @@ import { Dialog, DialogTitle, Button, MenuItem,Select,
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { buttonStructure, dialogStructure, menuItemStyle } from '../../css/Style';
+import { buttonStructure, dialogStructure, menuItemStyle, 
+    selectedItemStyle,  menuProps, dialogFormStructure } from '../../css/Style';
 
 export default function ViedoDialog() {
     const [open, setOpen] = useState(false);
@@ -25,19 +26,13 @@ export default function ViedoDialog() {
             <Dialog {...dialogStructure} open={open} onClose={() => setOpen(false)}>
                 <DialogTitle>Choose Room For Video</DialogTitle>
 
-               <FormControl sx={{ width: '30%' }}>
+               <FormControl {...dialogFormStructure}>
                     <Select
                         value={room}
                         onChange={(e) => setRoom(e.target.value)}
                         displayEmpty
-                        sx={{ fontSize: '1.5rem' }}
-                        MenuProps={{
-                            PaperProps: {
-                            sx: {
-                                fontSize: '1.5rem'
-                            }
-                            }
-                        }}
+                        {...selectedItemStyle}
+                        MenuProps={menuProps}
                     >
 
                         <MenuItem value="" disabled>

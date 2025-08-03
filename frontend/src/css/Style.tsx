@@ -254,8 +254,13 @@ export const dialogStructure = {
       padding: 2,
       borderRadius: 2,
       width: '100%',
+      marginBottom: '10em',
       alignItems: 'center',
-    }
+
+      '@media (max-width: 400px)': {
+        marginBottom: '16em',
+      },
+    },
   }
 }
 
@@ -263,6 +268,7 @@ export const menuItemStyle = {
   fontSize: '1.2rem',
   borderRadius: '1rem',
   margin: '0.5rem 1rem',
+
   '&:hover': {
     backgroundColor: buttonColor
   },
@@ -272,9 +278,55 @@ export const menuItemStyle = {
   },
   '&.Mui-selected:hover': {
     backgroundColor: buttonHoverColor
+  },
+
+  '@media (max-width: 800px)': {
+    paddingTop: 0,
+    paddingBottom: 0,
+    minHeight: '2.2rem',
+    lineHeight: '1.2',
+  },
+
+  '@media (max-width: 400px)': {
+    transform: 'scale(0.8)',
+    minHeight: '1.8rem',
   }
 };
 
+export const dialogFormStructure = {
+  sx: {
+    width: '30%',
+
+    '@media (max-width: 1200px)': {
+      width: '30%',
+    },
+    '@media (max-width: 800px)': {
+      width: '50%',
+    },
+  }
+}
+
+export const selectedItemStyle = {
+  sx: { 
+    fontSize: '1.5rem',
+
+    '@media (max-width: 800px)': {
+      fontSize: '1em',
+    }
+   },
+}
+
+export const menuProps = {
+  PaperProps: {
+    sx: {
+      fontSize: '1.5rem',
+
+      '@media (max-width: 400px)': {
+        width: '30%',
+      }
+    },
+  }
+}
 
 export const buttonStructure : ButtonProps = {
   variant: 'contained',
