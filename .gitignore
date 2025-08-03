@@ -25,6 +25,12 @@ dist-ssr
 TODO
 app/tests/
 
+# Ignore .env files
+.env
+frontend/.env
+app/.env
+
+
 # Do not ignore React files
 !*.jsx
 !*.tsx
