@@ -48,10 +48,9 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       if (!isMounted) {
         return
       };
-
       newSocket = io(import.meta.env.VITE_SOCKET_URI, {
         auth: { token },
-        transports: ['websocket'],     
+        transports: ['websocket', 'polling'],     
         reconnectionAttempts: 3,          
         timeout: 5000,                    
       });

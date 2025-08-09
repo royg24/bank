@@ -79,9 +79,9 @@ function Dashboard() {
     // handle notification about transaction that transders money to this user
     useEffect(() => {
         if (!socket) {
+            console.log('error with socket')
             return;
         }
-
         const handler = (data: any) => {
             if (data && typeof data.amount === 'number') {
                 toast.info(`You have recieved ${getFormattedBalance(data.amount)}$ to your account`);

@@ -257,6 +257,10 @@ export const dialogStructure = {
       marginBottom: '10em',
       alignItems: 'center',
 
+      '@media (max-width: 1200px)': {
+        marginBottom: '16em',
+      },
+
       '@media (max-width: 400px)': {
         marginBottom: '16em',
       },
@@ -280,11 +284,12 @@ export const menuItemStyle = {
     backgroundColor: buttonHoverColor
   },
 
-  '@media (max-width: 800px)': {
+  '@media (max-width: 1600px)': {
     paddingTop: 0,
     paddingBottom: 0,
     minHeight: '2.2rem',
     lineHeight: '1.2',
+    fontSize: '1rem',
   },
 
   '@media (max-width: 400px)': {
@@ -296,7 +301,6 @@ export const menuItemStyle = {
 export const dialogFormStructure = {
   sx: {
     width: '30%',
-    backgroundColor: 'red',
 
     '@media (max-width: 1200px)': {
       width: '30%',
@@ -320,14 +324,20 @@ export const selectedItemStyle = {
 export const menuProps = {
   PaperProps: {
     sx: {
-      fontSize: '1.5rem',
+      width: 'auto',
+      minWidth: 'unset', 
+      maxHeight: '60%', 
+      paddingY: 0.5,
 
+      '@media (max-width: 800px)': {
+        fontSize: '1.2rem',
+      },
       '@media (max-width: 400px)': {
-        width: '30%',
-      }
+        fontSize: '1rem',
+      },
     },
-  }
-}
+  },
+};
 
 export const buttonStructure : ButtonProps = {
   variant: 'contained',
@@ -455,13 +465,14 @@ export const infoStructure = {
   color: 'white',
 
   '@media (max-width:1200px)': {
-    fontSize: '0.9em',
+    fontSize: '1.2em',
   },
   '@media (max-width:800px)': {
-    fontSize: '1em',
+    fontSize: '1.1em',
+    marginTop: '0.2em',
   },
   '@media (max-width:400px)': {
-    fontSize: '0.85em'
+    fontSize: '0.95em'
   },
 };
 

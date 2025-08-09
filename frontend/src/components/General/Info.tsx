@@ -20,7 +20,7 @@ function Info({ labelContent, infoContent, color = 'white', isRow=false }: InfoP
       </Typography>
 
       <Typography variant="body1"sx={{ ...infoStructure, color: color }}>
-        {" " + infoContent}
+        &nbsp;{infoContent}
       </Typography>
       
     </Box>
