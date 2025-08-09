@@ -56,17 +56,17 @@ Built with **Node.js**, **Express**, **MongoDB**, **WebSockets**, and Dockerized
 
 > All routes are prefixed with `/api`
 
-| Method | Endpoint                 | Description                       |
-|--------|--------------------------|-----------------------------------|
-| `POST` | `/auth/sign-up`          | Create a new user                 |
-| `POST` | `/auth/sign-up/send`     | Send 6-digit verification code    |
-| `POST` | `/auth/sign-up/validate` | Validate verification code        |
-| `POST` | `/auth/login`            | Log in user                       |
-| `POST` | `/logout`                | Log out user                      |
-| `GET`  | `/balance`               | Get current user balance 🔒       |
-| `GET`  | `/transactions`          | View transaction history 🔒       |
-| `POST` | `/transactions`          | Create a new transaction 🔒       |
-| `GET`  | `/verify-token`          | Validate access token             |
+| Method | Endpoint                 | Description                               |
+|--------|--------------------------|-------------------------------------------|
+| `POST` | `/auth/sign-up`          | Create a new user                         |
+| `POST` | `/auth/sign-up/send`     | Send 6-digit verification code            |
+| `POST` | `/auth/sign-up/validate` | Validate verification code                |
+| `POST` | `/auth/login`            | Log in user                               |
+| `POST` | `/logout`                | Log out user                              |
+| `GET`  | `/balance`               | Get current user balance        🔒       |
+| `GET`  | `/transactions`          | View transaction history        🔒       |
+| `POST` | `/transactions`          | Create a new transaction        🔒       |
+| `GET`  | `/verify-token`          | Verify user's access token      🔒       |
 
 🔒 = Requires authentication (send JWT token in `Authorization: Bearer <token>` header)
 
