@@ -49,7 +49,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         return
       };
 
-      newSocket = io(import.meta.env.VITE_BACKEND_URI, {
+      newSocket = io(import.meta.env.VITE_SOCKET_URI, {
         auth: { token },
         transports: ['websocket'],     
         reconnectionAttempts: 3,          
@@ -60,6 +60,10 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
       newSocket.on('connect', () => {
         console.log('Socket connected:', newSocket.id);
+      });
+
+      newSocket.on('connect_error', (err: Error) => {
+        console.error('Socket connection error:', err);
       });
 
       newSocket.on('disconnect', () => {

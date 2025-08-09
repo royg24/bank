@@ -92,7 +92,6 @@ function AccessForm() {
         if (!socket) {
             return
         }
-
         if (socket.connected) {
             socket.emit('register', accessToken);
         } else {

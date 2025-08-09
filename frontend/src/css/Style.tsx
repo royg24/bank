@@ -296,6 +296,7 @@ export const menuItemStyle = {
 export const dialogFormStructure = {
   sx: {
     width: '30%',
+    backgroundColor: 'red',
 
     '@media (max-width: 1200px)': {
       width: '30%',
