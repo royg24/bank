@@ -2,6 +2,7 @@ import { Box, Button, Typography, Card } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Info from './Info';
+import { useMode } from '../../context/ModeProvider';
 import {
   landingPageBackgroundStyle,
   landingPageButtonStyle,
@@ -13,6 +14,7 @@ import {
 
 function LandingPage() {
   const navigate = useNavigate();
+  const { setMode } = useMode();
 
   useEffect(() => {
     document.title = 'Gold Bank';
@@ -110,14 +112,20 @@ function LandingPage() {
       >
         <Button
           {...landingPageButtonStyle}
-          onClick={() => navigate('/access', { state: { mode: true } })}
+          onClick={() => {
+            setMode(true);
+            navigate('/access')
+          }}
         >
           Sign Up
         </Button>
 
         <Button
           {...landingPageButtonStyle}
-          onClick={() => navigate('/access', { state: { mode: false } })}
+          onClick={() => {
+            setMode(false);
+            navigate('/access')
+          }}
         >
           Log In
         </Button>

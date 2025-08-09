@@ -11,7 +11,8 @@ import { access, sendCode } from '../BackendCalls.js'
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import GoogleButton from './GoogleButton.js';
-import { useSocket } from '../SocketProvider.js'; 
+import { useSocket } from '../../context/SocketProvider.js'; 
+import { useMode } from '../../context/ModeProvider.js';
 
 type FormData = {
     email: string;
@@ -24,8 +25,7 @@ function AccessForm() {
 
     const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
-    const initialMode = typeof location.state?.mode === 'boolean' ? location.state.mode : true;
-    const [mode, setMode] = useState<boolean>(initialMode);
+    const {mode, setMode} = useMode();
     const pageText = mode ? 'Sign Up' : 'Login';
     const { socket } = useSocket();
 
@@ -40,6 +40,12 @@ function AccessForm() {
     useEffect(() => {
         document.title = pageText;
     });
+
+    useEffect(() => {
+        if (typeof location.state?.mode === 'boolean') {
+            setMode(location.state.mode);
+        }
+    }, [location.state?.mode, setMode]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -76,7 +82,6 @@ function AccessForm() {
 
     function getNavigationRoute(mode: boolean, type: string) : string {
         if (mode) {
-            setMode(false);
             return type === 'form' ? '/verify' : '/access';
         } else {
             return '/dashboard';
@@ -129,7 +134,7 @@ function AccessForm() {
                      },
                 }}
                 >
-                <Toggle mode={mode} setMode={setMode} leftText="Sign Up" rightText="Login" />
+                <Toggle leftText="Sign Up" rightText="Login" />
             </Box>
 
             <Box
@@ -213,8 +218,7 @@ function AccessForm() {
                 >{pageText}</Button>
 
                 <GoogleButton 
-                onGoogleSubmit={(data) => onSubmit(data, 'google')} 
-                textContent={mode}></GoogleButton>
+                onGoogleSubmit={(data) => onSubmit(data, 'google')} ></GoogleButton>
             </Box>
         </>
     );

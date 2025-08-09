@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { useSocket } from '../SocketProvider';
+import { useSocket } from '../../context/SocketProvider';
 import Info from '../General/Info';
 import PaginationBox, {type PaginationBoxRef} from './PaginationBox';
 import { fieldStructure, formContainerStyle, dashboardCardStrucutre, buttonStructure, 

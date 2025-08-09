@@ -1,6 +1,5 @@
 import { Server, Socket } from 'socket.io';
 import jwt from 'jsonwebtoken';
-import { getIdFromEmail } from './database.js';
 import { AuthenticationError } from './errorHandler.js';
 
 const connectedUsers = new Map<string, string>();
