@@ -1,4 +1,4 @@
-# 🏦 GoldBank
+# 🏦 Gold Bank
 
 A simple **full-stack banking application** with:
 
